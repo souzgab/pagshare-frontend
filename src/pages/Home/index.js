@@ -1,13 +1,10 @@
 import React from 'react';
-import Button from '../../components/Button';
+
+import LogoUpper from '../../components/LogoUpper';
 
 class Home extends React.Component{
     render(){
-        return (
-            <div>
-                <Button text="Login" />
-            </div>
-        );
+        return <LogoUpper />;
     }
 }
 

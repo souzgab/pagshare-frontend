@@ -1,0 +1,9 @@
+import React from 'react';
+import './styles.css'
+export default class LogoUpper extends React.Component{
+    render(){
+        return (
+            <div className='oi'> PayShare</div>
+        );
+    }
+}
