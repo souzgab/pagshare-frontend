@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import LogoUpper from '../../components/LogoUpper';
-
-class Home extends React.Component{
-    render(){
-        return <LogoUpper />;
-    }
+export function Home() {
+  return <>I KRALGHO</>;
 }
 
 export default Home;
