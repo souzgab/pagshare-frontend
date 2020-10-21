@@ -8,16 +8,15 @@ import Cadastro from "./pages/Cadastro";
 import { NavigationBar } from "./components/NavigationBar";
 import { Layout } from "./components/Layout";
 
-
 class App extends Component {
   render() {
     return (
       <React.Fragment>
         <Router>
           <NavigationBar />
+          <Route exact path="/" component={Home} />
           <Layout>
             <Switch>
-              <Route exact path="/" component={Home} />
               <Route path="/login" component={Login} />
               <Route path="/cadastro" component={Cadastro} />
             </Switch>
