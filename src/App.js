@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 
 import { NavigationBar } from "./components/NavigationBar";
 import { Layout } from "./components/Layout";
-import { Footer } from "./components/Footer";
 
 class App extends Component {
   render() {
@@ -14,13 +13,12 @@ class App extends Component {
       <React.Fragment>
         <Router>
           <NavigationBar />
+          <Route exact path="/" component={Home} />
           <Layout>
             <Switch>
-              <Route exact path="/" component={Home} />
               <Route path="/login" component={Login} />
             </Switch>
           </Layout>
-          <Footer />
         </Router>
       </React.Fragment>
     );
