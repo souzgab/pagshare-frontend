@@ -53,7 +53,7 @@ const FormSignup = ({ submitForm }) => {
           {errors.password && <p>{errors.password}</p>}
         </div>
         <div className='form-inputs'>
-          <label className='form-label'>Confirm Password</label>
+          <label className='form-label'></label>
           <input
             className='form-input'
             type='password'
