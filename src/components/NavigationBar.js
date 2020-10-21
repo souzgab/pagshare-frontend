@@ -46,6 +46,11 @@ export const NavigationBar = () => (
               <Link to="/login">Acessar</Link>
             </Nav.Link>
           </Nav.Item>
+          <Nav.Item>
+            <Nav.Link>
+              <Link to="/cadastro">Cadastro</Link>
+            </Nav.Link>
+          </Nav.Item>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
