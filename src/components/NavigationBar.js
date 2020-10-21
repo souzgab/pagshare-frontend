@@ -50,7 +50,7 @@ export const NavigationBar = () => (
         <Nav className="ml-auto">
           <Nav.Item>
             <Nav.Link>
-              <Link to="/">
+              <Link to="/login">
               <Button className = 'btn-primary' sm='lg' variant="success"><img
                   src={profile}
                   width="20"
@@ -62,7 +62,7 @@ export const NavigationBar = () => (
           </Nav.Item>
           <Nav.Item>
             <Nav.Link>
-              <Link to="/login">
+              <Link to="/cadastro">
                 <Button className = 'btn-secondary'  sm='lg' variant="secondary">Criar conta</Button></Link>
             </Nav.Link>
           </Nav.Item>
