@@ -1,12 +1,28 @@
-import React from 'react';
-import Routes from './routes'
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-class App extends React.Component{
-    render(){
-        return (
-            <Routes />   
-        );
-    }
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+
+import { NavigationBar } from "./components/NavigationBar";
+import { Layout } from "./components/Layout";
+
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <Router>
+          <NavigationBar />
+          <Route exact path="/" component={Home} />
+          <Layout>
+            <Switch>
+              <Route path="/login" component={Login} />
+            </Switch>
+          </Layout>
+        </Router>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
