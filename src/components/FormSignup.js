@@ -17,18 +17,6 @@ const FormSignup = ({ submitForm }) => {
           information below.
         </h1>
         <div className='form-inputs'>
-          <label className='form-label'>Username</label>
-          <input
-            className='form-input'
-            type='text'
-            name='username'
-            placeholder='Enter your username'
-            value={values.username}
-            onChange={handleChange}
-          />
-          {errors.username && <p>{errors.username}</p>}
-        </div>
-        <div className='form-inputs'>
           <label className='form-label'>Email</label>
           <input
             className='form-input'
@@ -41,7 +29,7 @@ const FormSignup = ({ submitForm }) => {
           {errors.email && <p>{errors.email}</p>}
         </div>
         <div className='form-inputs'>
-          <label className='form-label'>Password</label>
+          <label className='form-label'>Senha</label>
           <input
             className='form-input'
             type='password'
@@ -65,10 +53,10 @@ const FormSignup = ({ submitForm }) => {
           {errors.password2 && <p>{errors.password2}</p>}
         </div>
         <button className='form-input-btn' type='submit'>
-          Sign up
+           Entrar
         </button>
         <span className='form-input-login'>
-          Already have an account? Login <a href='#'>here</a>
+          Já possui conta? Login <a href='#'>here</a>
         </span>
       </form>
     </div>
