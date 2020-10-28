@@ -7,24 +7,22 @@ import Cadastro from "./pages/Cadastro";
 
 import { NavigationBar } from "./components/NavigationBar";
 import { Layout } from "./components/Layout";
+import {Jumbotron, Button} from 'react-bootstrap'
 
-class App extends Component {
-  render() {
+const App = () => {
     return (
-      <React.Fragment>
-        <Router>
-          <NavigationBar />
-          <Route exact path="/" component={Home} />
-          <Layout>
-            <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/cadastro" component={Cadastro} />
-            </Switch>
-          </Layout>
-        </Router>
-      </React.Fragment>
+        <React.Fragment>
+          <Router>
+            <NavigationBar />
+            <Route exact path="/" component={Home} />
+            <Layout>
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/cadastro" component={Cadastro} />
+              </Switch>
+            </Layout>
+          </Router>
+        </React.Fragment>
     );
-  }
 }
-
 export default App;
