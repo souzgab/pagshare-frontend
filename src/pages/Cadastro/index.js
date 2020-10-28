@@ -58,14 +58,14 @@ submit: {
   margin: theme.spacing(3, 0, 2),
 },
 }));
+//    <div style={{backgroundColor:'#202020', height: '100%' , width: '100%'}}></div>
 
 export function Cadastro() {
   const classes = useStyles();
   return (
-    <Grid container component="main" className={classes.root} >
-          <div style={{backgroundColor:'#202020', height: '100%'}}></div>
-          
+    <div>
 
+        
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image}/>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{backgroundColor: '#202020'}}>
@@ -147,15 +147,11 @@ export function Cadastro() {
                   Cadastrar
                  </Button>
                  <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Esqueceu a senha?
-                </Link>
-              </Grid>
+            
             
               <Grid item>
-                <Link href="#" variant="body2">
-                  Ainda não tem conta?{"criar"}
+                <Link to="/login" variant="body2">
+                  JA possui cadastro?{"Acessar"}
                 </Link>
               </Grid>
             </Grid>
@@ -164,7 +160,7 @@ export function Cadastro() {
             </form>
         </div>
       </Grid>
-    </Grid>
+    </div>
   );
 };
 

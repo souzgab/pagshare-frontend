@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#6EDC1C',
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%', 
     marginTop: theme.spacing(1),
     backgroundColor: '#202020',
   },
@@ -83,7 +83,7 @@ export default function SignInSide() {
          
           </Avatar>
           <Typography component="h1" variant="h5">
-            Entrar
+            Login
           </Typography>
           <form className={classes.form} noValidate>
           <ThemeProvider theme={theme} >
@@ -132,7 +132,7 @@ export default function SignInSide() {
               </Grid>
             
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/cadastro" variant="body2">
                   Ainda não tem conta?{"criar"}
                 </Link>
               </Grid>
