@@ -7,7 +7,6 @@ import Cadastro from "./pages/Cadastro";
 
 import { NavigationBar } from "./components/NavigationBar";
 import { Layout } from "./components/Layout";
-import {Jumbotron, Button} from 'react-bootstrap'
 
 const App = () => {
     return (
