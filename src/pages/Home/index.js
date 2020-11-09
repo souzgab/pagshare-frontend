@@ -1,12 +1,9 @@
 import React from "react";
-import iphone from "../../assets/SVG/IphoneApp.svg";
+import Iphone from "../../assets/SVG/IphoneApp.svg";
 import styled from "styled-components";
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import { Container } from "react-bootstrap";
-import { Jumbotron, Button } from "react-bootstrap";
-import google from "../../assets/SVG/flat-ui_google.svg";
-import apple from "../../assets/SVG/bx_bxl-apple.svg"
+import { Jumbotron, Button, Col, Row, Container } from "react-bootstrap";
+import Google from "../../assets/SVG/flat-ui_google.svg";
+import Apple from "../../assets/SVG/bx_bxl-apple.svg"
 
 
 
@@ -47,7 +44,7 @@ export function Home() {
     <Container>
       <Row>
         <Col sm={4} className="mt-5"><img className='img-fluid'
-          src={iphone}
+          src={Iphone}
           width="380"
           height="575"
           alt="React Bootstrap logo"
@@ -61,13 +58,13 @@ export function Home() {
           </p>
             <p className="mt-5">
               <Button className="btn-secondary" variant="secondary"><img
-                src={google}
+                src={Google}
                 width="30"
                 height="30"
                 alt="React Bootstrap logo"
               /> Google Play</Button>
               <Button className="btn-secondary ml-3" variant="secondary"><img
-                src={apple}
+                src={Apple}
                 width="30"
                 height="30"
                 alt="React Bootstrap logo"
