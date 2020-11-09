@@ -3,8 +3,8 @@ import Iphone from "../../assets/SVG/IphoneApp.svg";
 import styled from "styled-components";
 import { Jumbotron, Button, Col, Row, Container } from "react-bootstrap";
 import Google from "../../assets/SVG/flat-ui_google.svg";
-import Apple from "../../assets/SVG/bx_bxl-apple.svg"
-
+import Apple from "../../assets/SVG/bx_bxl-apple.svg";
+import { NavigationBar } from '../../components/NavigationBar';
 
 
 const Styles = styled.div`
@@ -41,6 +41,7 @@ const Styles = styled.div`
 `;
 export function Home() {
   return <Styles>
+    <NavigationBar />
     <Container>
       <Row>
         <Col sm={4} className="mt-5"><img className='img-fluid'

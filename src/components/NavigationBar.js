@@ -34,7 +34,7 @@ const Styles = styled.div`
 `;
 export const NavigationBar = () => (
   <Styles>
-    <Navbar expand="lg">
+    <Navbar expand="lg" className="justify-content-between" bg="dark" variant="dark">
       <Nav.Link>
         <Link to="/">
           <img
