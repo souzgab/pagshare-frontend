@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Container } from "react-bootstrap";
+import {NavigationBar} from "../../components/NavigationBar"
 import { Jumbotron, Button } from "react-bootstrap";
 import google from "../../assets/flat-ui_google.svg";
 import apple from "../../assets/bx_bxl-apple.svg"
@@ -41,6 +42,7 @@ const Styles = styled.div`
 `;
 export function Home() {
   return <Styles>
+    <NavigationBar />
     <Container>
       <Row>
         <Col sm={4} className="mt-5"><img className='img-fluid'

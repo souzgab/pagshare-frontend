@@ -13,7 +13,7 @@ const App = () => {
     return (
         <React.Fragment>
           <Router>
-            <NavigationBar />
+           
             <Route exact path="/" component={Home} />
             <Layout>
               <Switch>

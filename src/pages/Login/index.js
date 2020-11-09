@@ -9,11 +9,33 @@ import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
-import Background from "../../assets/login.jpg";
+import Background from "../../assets/cad3.png";
 import { green } from '@material-ui/core/colors';
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import logoSvg from "../../assets/lblLogo.svg";
+import Typography from '@material-ui/core/Typography';
 
+
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+  },
+  typography: {
+    fontSize: 22,
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
 
 function Copyright() {
   return (
@@ -28,27 +50,18 @@ function Copyright() {
   );
 }
 
-const theme = createMuiTheme({
-    palette: {
-      primary: green,
-    },
-  });
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '40vh',
-
-    
+    height: '100vh',
   },
   image: {
     backgroundImage: `url(${Background})`,
     backgroundRepeat: 'no-repeat',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
-    backgroundPosition: '0vh',
-    
+    backgroundPosition: 'center',
   },
- 
   paper: {
     margin: theme.spacing(8, 4),
     display: 'flex',
@@ -60,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#6EDC1C',
   },
   form: {
-    width: '100%', 
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
     backgroundColor: '#202020',
   },
@@ -73,16 +86,16 @@ export default function SignInSide() {
   const classes = useStyles();
 
   return (
-   
-    <Grid container component="main" className={classes.root} >
+    <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} resizeMode="contain"/>
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{backgroundColor: '#202020'}}>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+     
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: '#202020' }}>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-         
+
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" style={{ color: '#fff' }}>
             Login
           </Typography>
           <form className={classes.form} noValidate>
@@ -110,7 +123,7 @@ export default function SignInSide() {
               autoComplete="current-password"
             />
             </ThemeProvider>
-            <FormControlLabel
+            <FormControlLabel  style={{color: '#fff'}}
               control={<Checkbox value="remember" color="primary" />}
               label="Lembre me"
             />
@@ -132,7 +145,7 @@ export default function SignInSide() {
               </Grid>
             
               <Grid item>
-                <Link to="/cadastro" variant="body2">
+                <Link href="/login" variant="body2">
                   Ainda não tem conta?{"criar"}
                 </Link>
               </Grid>
