@@ -4,8 +4,8 @@ import { Nav, Navbar } from "react-bootstrap";
 import Button from 'react-bootstrap/Button'
 import styled from "styled-components";
 
-import logoSvg from "../assets/lblLogo.svg";
-import profile from "../assets/gg_profile.svg"
+import logoSvg from "../assets/SVG/lblLogo.svg";
+import profile from "../assets/SVG/gg_profile.svg"
 
 const Styles = styled.div`
   .navbar {

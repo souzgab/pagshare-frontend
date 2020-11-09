@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -8,7 +8,7 @@ import Cadastro from "./pages/Cadastro";
 import { NavigationBar } from "./components/NavigationBar";
 import { Layout } from "./components/Layout";
 
-const App = () => {
+export function App(){
     return (
         <React.Fragment>
           <Router>
@@ -24,4 +24,5 @@ const App = () => {
         </React.Fragment>
     );
 }
+
 export default App;

@@ -1,12 +1,15 @@
 import React from "react";
-import iphone from "../../assets/IphoneApp.svg";
+import iphone from "../../assets/SVG/IphoneApp.svg";
 import styled from "styled-components";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Container } from "react-bootstrap";
 import { Jumbotron, Button } from "react-bootstrap";
-import google from "../../assets/flat-ui_google.svg";
-import apple from "../../assets/bx_bxl-apple.svg"
+import google from "../../assets/SVG/flat-ui_google.svg";
+import apple from "../../assets/SVG/bx_bxl-apple.svg"
+
+
+
 const Styles = styled.div`
   .jumbotron{
     background: transparent;
