@@ -80,13 +80,13 @@ const useStyles = makeStyles((theme) => ({
 export function SignInSide() {
   return <Styles>
     <NavigationBar/>
-      <Container>
+      <Container fluid>
           <Row> 
-            <Col className="mt-5"> Coluna da imagem
+            <Col xs={6}> Coluna da imagem
             
             </Col>
 
-            <Col> Coluna do Form
+            <Col xs={6}> Coluna do Form
             
             </Col>
           </Row>
