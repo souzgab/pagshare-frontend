@@ -37,6 +37,7 @@ const Styles = styled.div`
     border-radius: 5px;
     border-style : none;;
   }
+  height: 100vh;
   background-color: #2D2D2D;
 `;
 export function Home() {
