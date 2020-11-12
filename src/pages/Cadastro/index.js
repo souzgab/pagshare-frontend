@@ -73,6 +73,8 @@ export default function SignInSide() {
   const classes = useStyles();
 
   return (
-    
+    <div>
+      <h1>Ola</h1>
+    </div>
   );
 }
