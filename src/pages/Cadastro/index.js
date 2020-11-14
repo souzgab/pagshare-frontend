@@ -17,6 +17,27 @@ import { green } from '@material-ui/core/colors';
 // import LeftSvg from "../../assets/images/cad2.png";
 // import logoSvg from "../../assets/SVG/lblLogo.svg";
 
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+  },
+  typography: {
+    fontSize: 22,
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
+
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -49,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing(1),
+    backgroundColor: '#202020',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -65,18 +87,20 @@ export function Cadastro() {
           <Container maxWidth="xg" component="main" style={{backgroundColor: "darkgray", height: "100vh", width: "100vw"}} className={classes.heroContent}>
           <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: '#202020' }}>
               <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
-                  Cadastro
+                <Typography component="h1" variant="h5" style={{color: '#fff'}}>
+                  Bem vindo, realize seu cadastro
                 </Typography>
                 <form className={classes.form} noValidate>
+                <ThemeProvider theme={theme} >
                   <TextField
                     variant="outlined"
                     margin="normal"
+                    color="#ffff"
                     required
                     fullWidth
                     id="name"
@@ -90,11 +114,11 @@ export function Cadastro() {
                     margin="normal"
                     required
                     fullWidth
-                    name="cpfDocument"
+                    name="cpf"
                     label="CPF"
-                    type="text"
-                    id="cpfDocument"
-                    autoComplete="cpfDocument"
+                    type="cpf"
+                    id="cpf"
+                    autoComplete="cpf"
                   />
                   <TextField
                     variant="outlined"
@@ -129,10 +153,7 @@ export function Cadastro() {
                     id="confirmPassword"
                     autoComplete="confirm-password"
                   />
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Lembrar Email"
-                  />
+                  
                   <Button
                     type="submit"
                     fullWidth
@@ -148,6 +169,7 @@ export function Cadastro() {
                       </Link>
                     </Grid>
                   </Grid>
+                  </ThemeProvider>
                 </form>
               </div>
             </Grid>
