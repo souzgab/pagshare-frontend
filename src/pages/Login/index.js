@@ -1,6 +1,6 @@
 import React from 'react';
 import NavigationBar from '../../components/NavigationBar';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme, ThemeProvider  } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import * as mu from "@material-ui/core";
@@ -15,7 +15,31 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import LeftSvg from "../../assets/SVG/Blobs.svg";
+import { green } from '@material-ui/core/colors';
 
+
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+  },
+  typography: {
+    fontSize: 22,
+    color: '#fff',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -26,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: `url(${LeftSvg})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.mode === 'light'
@@ -48,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing(1),
+    backgroundColor: '#202020',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -60,19 +85,20 @@ export function Login() {
   return (
     <React.Fragment>
     <CssBaseline />
-        <NavigationBar title="Payshare" link="Cadastre-se" to="/cadastro"/>
+        <NavigationBar title="Pasyshare" link="Cadastre-se" to="/cadastro"/>
           <Container maxWidth="xg" component="main" style={{backgroundColor: "darkgray", height: "100vh", width: "100vw"}} className={classes.heroContent}>
           <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: '#202020' }}>
               <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography component="h1" variant="h5" style={{color: '#fff'}}>
                   Bem vindo, realize seu login
                 </Typography>
                 <form className={classes.form} noValidate>
+                <ThemeProvider theme={theme} >
                   <TextField
                     variant="outlined"
                     margin="normal"
@@ -95,7 +121,7 @@ export function Login() {
                     id="password"
                     autoComplete="current-password"
                   />
-                  <FormControlLabel
+                  <FormControlLabel style={{color: '#fff'}}
                     control={<Checkbox value="remember" color="primary" />}
                     label="Lembrar Login"
                   />
@@ -109,7 +135,7 @@ export function Login() {
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Link href="#" variant="body2">
+                      <Link href="/senha" variant="body2">
                         Esqueceu sua Senha?
                       </Link>
                     </Grid>
@@ -117,8 +143,10 @@ export function Login() {
                       <Link href="/cadastro" variant="body2">
                         {"Não tem uma conta ainda? cadastre-se"}
                       </Link>
+
                     </Grid>
                   </Grid>
+                  </ThemeProvider>
                 </form>
               </div>
             </Grid>

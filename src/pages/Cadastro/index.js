@@ -14,20 +14,40 @@ import Container from '@material-ui/core/Container';
 import NavigationBar from '../../components/NavigationBar';
 import { makeStyles, createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-// import LeftSvg from "../../assets/images/cad2.png";
-// import logoSvg from "../../assets/SVG/lblLogo.svg";
+import LeftSvg from "../../assets/SVG/Frame2.svg";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+  },
+  typography: {
+    fontSize: 22,
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
 
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
-    backgroundColor: theme.palette.primary
+    backgroundColor: '#414141',
   },
   root: {
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: `url(${LeftSvg})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.mode === 'light'
@@ -49,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing(1),
+    backgroundColor: '#202020',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -65,18 +86,20 @@ export function Cadastro() {
           <Container maxWidth="xg" component="main" style={{backgroundColor: "darkgray", height: "100vh", width: "100vw"}} className={classes.heroContent}>
           <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: '#202020' }}>
               <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
-                  Cadastro
+                <Typography component="h1" variant="h5" style={{color: '#fff'}}>
+                  Bem vindo, realize seu cadastro
                 </Typography>
                 <form className={classes.form} noValidate>
+                <ThemeProvider theme={theme} >
                   <TextField
                     variant="outlined"
                     margin="normal"
+                    color="#ffff"
                     required
                     fullWidth
                     id="name"
@@ -90,11 +113,11 @@ export function Cadastro() {
                     margin="normal"
                     required
                     fullWidth
-                    name="cpfDocument"
+                    name="cpf"
                     label="CPF"
-                    type="text"
-                    id="cpfDocument"
-                    autoComplete="cpfDocument"
+                    type="cpf"
+                    id="cpf"
+                    autoComplete="cpf"
                   />
                   <TextField
                     variant="outlined"
@@ -129,10 +152,7 @@ export function Cadastro() {
                     id="confirmPassword"
                     autoComplete="confirm-password"
                   />
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Lembrar Email"
-                  />
+                  
                   <Button
                     type="submit"
                     fullWidth
@@ -148,6 +168,7 @@ export function Cadastro() {
                       </Link>
                     </Grid>
                   </Grid>
+                  </ThemeProvider>
                 </form>
               </div>
             </Grid>
