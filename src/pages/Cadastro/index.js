@@ -14,8 +14,7 @@ import Container from '@material-ui/core/Container';
 import NavigationBar from '../../components/NavigationBar';
 import { makeStyles, createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-// import LeftSvg from "../../assets/images/cad2.png";
-// import logoSvg from "../../assets/SVG/lblLogo.svg";
+import LeftSvg from "../../assets/SVG/Frame2.svg";
 
 const theme = createMuiTheme({
   palette: {
@@ -42,13 +41,13 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
-    backgroundColor: theme.palette.primary
+    backgroundColor: '#414141',
   },
   root: {
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: `url(${LeftSvg})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.mode === 'light'
