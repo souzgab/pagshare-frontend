@@ -46,7 +46,7 @@ function NavigationBar(props) {
                   variant="contained"
                   color="secondary"
                   size="large"
-                  style={{ textJustify: "auto", WebkitTextSizeAdjust: "auto" }}
+                  style={{ textJustify: "22", WebkitTextSize: "22" }}
                   className={classes.button}
                   startIcon={<LoginIcon />}
                 >
