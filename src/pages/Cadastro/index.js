@@ -22,6 +22,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontSize: 22,
+    Backgroundcolor:'#fff',
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -113,11 +114,11 @@ export function Cadastro() {
                     margin="normal"
                     required
                     fullWidth
-                    name="cpf"
-                    label="CPF"
-                    type="cpf"
                     id="cpf"
+                    label="CPF"
+                    name="cpf"
                     autoComplete="cpf"
+                    autoFocus
                   />
                   <TextField
                     variant="outlined"
@@ -159,7 +160,7 @@ export function Cadastro() {
                     variant="contained"
                     className={classes.submit}
                   >
-                    Entrar
+                    Cadastrar
                   </Button>
                   <Grid container>
                     <Grid item>
