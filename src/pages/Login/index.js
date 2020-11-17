@@ -119,7 +119,9 @@ export function Login() {
                     label="Senha"
                     type="password"
                     id="password"
+                    helperText="Digite sua senha"
                     autoComplete="current-password"
+
                   />
                   <FormControlLabel style={{color: '#fff'}}
                     control={<Checkbox value="remember" color="primary" />}
