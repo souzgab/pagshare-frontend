@@ -1,10 +1,8 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import NavigationBar from '../../components/NavigationBar';
 import { makeStyles, createMuiTheme, ThemeProvider  } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import * as mu from "@material-ui/core";
-import Blobs from '../../assets/SVG/Blobs.svg'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -17,8 +15,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import LeftSvg from "../../assets/SVG/Blobs.svg";
 import { green } from '@material-ui/core/colors';
-
-
+import {useHistory} from 'react-router-dom';
+import StoreContext from '../../components/Storage/Context'
 const theme = createMuiTheme({
   palette: {
     primary: green,
@@ -40,6 +38,10 @@ const theme = createMuiTheme({
     ].join(','),
   },
 });
+
+const initialState = () =>{
+  return {email: '', password: ''};
+}
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -79,9 +81,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const logar = ({email, password}) => {
+  if(email === "admin@admin.com" && password === "1234"){
+    return {token: '1234'}
+  }
+  return {error: "Cannot Logon, Invalid Credentials"}
+}
+
 export function Login() {
   const classes = useStyles();
-  
+  const [values, setValues] = useState(initialState);
+  const history = useHistory();
+  const [error, setError] = useState(null);
+  const { setToken } = useContext(StoreContext);
+  const onChange = (evento) => {
+    const {value, name} = evento.target;
+    setValues({
+      ...values,
+      [name]: value,
+      
+    })
+  }
+
+  const onSubmit = (evento) => {
+    evento.preventDefault();
+    alert('entrei')
+    const {token} = logar(values);
+    if (token) {
+      setToken(token);
+      return history.push('/');
+    }
+
+    setError(error);
+    setValues(initialState);
+  }
+ 
   return (
     <React.Fragment>
     <CssBaseline />
@@ -97,7 +131,7 @@ export function Login() {
                 <Typography component="h1" variant="h5" style={{color: '#fff'}}>
                   Bem vindo, realize seu login
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={onSubmit}>
                 <ThemeProvider theme={theme} >
                   <TextField
                     variant="outlined"
@@ -109,6 +143,8 @@ export function Login() {
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    onChange={onChange}
+                    value={values.email}
                   />
                   <TextField
                     variant="outlined"
@@ -120,6 +156,8 @@ export function Login() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    onChange={onChange}
+                    value={values.password}
                   />
                   <FormControlLabel style={{color: '#fff'}}
                     control={<Checkbox value="remember" color="primary" />}
