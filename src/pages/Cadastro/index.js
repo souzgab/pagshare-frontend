@@ -106,6 +106,9 @@ export function Cadastro() {
                     name="name"
                     autoComplete="name"
                     autoFocus
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   <TextField
                     variant="outlined"
@@ -117,6 +120,9 @@ export function Cadastro() {
                     name="cpf"
                     autoComplete="cpf"
                     autoFocus
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   <TextField
                     variant="outlined"
@@ -128,6 +134,9 @@ export function Cadastro() {
                     type="text"
                     id="cpfDocument"
                     autoComplete="cpfDocument"
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   <TextField
                     variant="outlined"
@@ -139,6 +148,9 @@ export function Cadastro() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   <TextField
                     variant="outlined"
@@ -150,6 +162,9 @@ export function Cadastro() {
                     type="password"
                     id="confirmPassword"
                     autoComplete="confirm-password"
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   
                   <Button
@@ -157,14 +172,25 @@ export function Cadastro() {
                     fullWidth
                     variant="contained"
                     className={classes.submit}
+                    color="primary"
+                    style={{
+                      color:"white",
+                      fontWeight:'lighter'
+                    }}
                   >
                     Cadastrar
                   </Button>
                   <Grid container>
                     <Grid item>
-                      <Link href="/cadastro" variant="body2">
+                      <Typography href="/cadastro" variant="body2" 
+                      style={{
+                        color:"white",
+                        fontWeight:'lighter',
+                        textDecoration:"none"
+                      }}
+                      >
                         {"Ao continuar você concorda com os termos de uso do Payshare."}
-                      </Link>
+                      </Typography>
                     </Grid>
                   </Grid>
                   </ThemeProvider>

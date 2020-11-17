@@ -145,6 +145,9 @@ export function Login() {
                     autoFocus
                     onChange={onChange}
                     value={values.email}
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   <TextField
                     variant="outlined"
@@ -159,6 +162,9 @@ export function Login() {
                     autoComplete="current-password"
                     onChange={onChange}
                     value={values.password}
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   <FormControlLabel style={{color: '#fff'}}
                     control={<Checkbox value="remember" color="primary" />}
@@ -169,20 +175,36 @@ export function Login() {
                     fullWidth
                     variant="contained"
                     className={classes.submit}
+                    color="primary"
+                    style={{
+                      color:"white",
+                      fontWeight:'lighter'
+                    }}
                   >
                     Entrar
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Link href="/senha" variant="body2">
+                      <Link href="/senha" variant="body2"
+                        style={{
+                          color:"white",
+                          fontWeight:'lighter',
+                          textDecoration:"none"
+                        }}
+                      >
                         Esqueceu sua Senha?
                       </Link>
                     </Grid>
                     <Grid item>
-                      <Link href="/cadastro" variant="body2">
+                      <Link href="/cadastro" variant="body2"
+                        style={{
+                          color:"white",
+                          fontWeight:'lighter',
+                          textDecoration:"none"
+                        }}
+                      >
                         {"Não tem uma conta ainda? cadastre-se"}
                       </Link>
-
                     </Grid>
                   </Grid>
                   </ThemeProvider>

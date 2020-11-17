@@ -104,6 +104,9 @@ export function RecuperarSenha() {
                     name="cpf"
                     autoComplete="cpf"
                     autoFocus
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   <TextField
                     variant="outlined"
@@ -115,12 +118,20 @@ export function RecuperarSenha() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    InputLabelProps={{
+                      style: { color: '#fff' },
+                    }}
                   />
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     className={classes.submit}
+                    color="primary"
+                    style={{
+                      color:"white",
+                      fontWeight:'lighter'
+                    }}
                   >
                     Recuperar
                   </Button>
