@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { Redirect, BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { Redirect, Route} from 'react-router-dom';
 import StoreContext from '../../Storage/Context'
 
 

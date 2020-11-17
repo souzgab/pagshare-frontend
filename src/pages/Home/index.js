@@ -4,15 +4,13 @@ import { Jumbotron, Button } from "react-bootstrap";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import NavigationBar from '../../components/NavigationBar';
-import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import * as mu from "@material-ui/core";
 import FundoSVG from "../../assets/SVG/fundo.svg";
 import iphone from "../../assets/SVG/IphoneApp.svg";
 import google from "../../assets/SVG/flat-ui_google.svg";
 import apple from "../../assets/SVG/bx_bxl-apple.svg";
-import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -26,28 +24,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center',
   },
 }));
-
-const theme = createMuiTheme({
-  palette: {
-    primary: grey,
-  },
-  typography: {
-    fontSize: 22,
-    color: '#fff',
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
-});
 
 export function Home() {
   const classes = useStyles();

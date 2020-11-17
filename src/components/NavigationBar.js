@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logoSvg from "../assets/SVG/lblLogo.svg";
-import profile from "../assets/SVG/gg_profile.svg"
-import { Paper, Typography, Toolbar, AppBar, Grid, makeStyles, Container, Button } from "@material-ui/core";
+import { Toolbar, AppBar, Grid, makeStyles, Button } from "@material-ui/core";
 import LoginIcon from '@material-ui/icons/AccountBox';
 
 const useStyles = makeStyles((theme) => ({
