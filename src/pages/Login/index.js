@@ -155,6 +155,7 @@ export function Login() {
                     label="Senha"
                     type="password"
                     id="password"
+                    helperText="Digite sua senha"
                     autoComplete="current-password"
                     onChange={onChange}
                     value={values.password}

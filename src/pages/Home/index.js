@@ -1,7 +1,8 @@
 import React from "react";
-
-import Grid from '@material-ui/core/Grid';
-
+import "../../assets/styles/form.css";
+import { Jumbotron, Button } from "react-bootstrap";
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import NavigationBar from '../../components/NavigationBar';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -57,16 +58,38 @@ export function Home() {
        <NavigationBar title="Payshare" link="Login" to="/login" /> 
       <Container maxWidth="xg" component="main" style={{ backgroundColor: "darkgray", height: "100vh", width: "100vw" }} className={classes.heroContent}>
      
-        <Grid sm={4} className="mt-5"><img className='img-fluid'
+      <Row>
+        <Col sm={4} className="mt-5"><img className='img-fluid'
           src={iphone}
           width="380"
-          height="575"
+          height="5"
           alt="React Bootstrap logo"
-        /></Grid>
-        <Grid className="mt-5">
-          
-        </Grid>
-     
+        /></Col>
+        <Col className="mt-5">
+          <Jumbotron className="jumbotron mt-5">
+            <h1 className="h1Text">Compartilhe seus pagamentos</h1>
+            <p className="textBody">
+              Crie sua lobby, convide seus amigos.<br />
+              É fácil, rápido e seguro.
+          </p>
+            <p className="mt-5">
+              <Button className="btn-secondary" variant="secondary"><img
+                src={google}
+                width="30"
+                height="30"
+                alt="React Bootstrap logo"
+              /> Google Play</Button>
+              <Button className="btn-secondary ml-3" variant="secondary"><img
+                src={apple}
+                width="30"
+                height="30"
+                alt="React Bootstrap logo"
+              /> Apple Store</Button>
+            </p>
+          </Jumbotron>
+        </Col>
+      </Row>
+        
       </Container>
     </React.Fragment>
   );
