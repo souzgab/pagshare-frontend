@@ -34,7 +34,7 @@ export function Home() {
        <NavigationBar title="Payshare" link="Login" to="/login" /> 
       <Container maxWidth="xg" component="main" style={{ backgroundColor: "darkgray", height: "100vh", width: "100vw" }} className={classes.heroContent}>
      
-      <Row>
+      <Row  style={{ backgroundColor: "darkgray", height: "100vh", width: "100vw" }}>
         <Col sm={4} className="mt-5"><img className='img-fluid'
           src={iphone}
           width="380"
