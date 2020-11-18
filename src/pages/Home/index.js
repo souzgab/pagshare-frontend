@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
+  margin: {
+    marginTop: "15vh"
+  },
 }));
 
 export function Home() {
@@ -31,41 +34,43 @@ export function Home() {
   return (
     <React.Fragment>
       <CssBaseline />
-       <NavigationBar title="Payshare" link="Login" to="/login" /> 
-      <Container maxWidth="xg" component="main" style={{ backgroundColor: "darkgray", height: "100vh", width: "100vw" }} className={classes.heroContent}>
-     
-      <Row>
-        <Col sm={4} className="mt-5"><img className='img-fluid'
-          src={iphone}
-          width="380"
-          height="5"
-          alt="React Bootstrap logo"
-        /></Col>
-        <Col className="mt-5">
-          <Jumbotron className="jumbotron mt-5">
-            <h1 className="h1Text">Compartilhe seus pagamentos</h1>
-            <p className="textBody">
-              Crie sua lobby, convide seus amigos.<br />
-              É fácil, rápido e seguro.
+      <NavigationBar title="Payshare" link="Login" to="/login" />
+      <Container maxWidth="xg" component="main" style={{ height: "100vh", width: "100vw" }} className={classes.heroContent}>
+        <Container style={{ backgroundColor: "transparent", height: "100vh", width: "100vw", fontFamily:"Roboto"}}>
+          <Row style={{ backgroundColor: "transparent" }}>
+            <Col xs={4} style={{ backgroundColor: "transparent" }}>
+              <img className={classes.margin}
+                src={iphone}
+                width="500px"
+                height="500px"
+                alt="React Bootstrap logo"
+              />
+            </Col>
+            <Col xs={6} style={{ backgroundColor: "transparent" }}>
+              <Jumbotron className="jumbotron" style={{ marginTop: "110px" }}>
+                <h1 className="h1Text" style={{ color: "#1CDC6E" }}>Compartilhe seus pagamentos</h1>
+                <p className="textBody">
+                  Crie sua lobby, convide seus amigos.<br/>
+              É facil é rapido e seguro.
           </p>
-            <p className="mt-5">
-              <Button className="btn-secondary" variant="secondary"><img
-                src={google}
-                width="30"
-                height="30"
-                alt="React Bootstrap logo"
-              /> Google Play</Button>
-              <Button className="btn-secondary ml-3" variant="secondary"><img
-                src={apple}
-                width="30"
-                height="30"
-                alt="React Bootstrap logo"
-              /> Apple Store</Button>
-            </p>
-          </Jumbotron>
-        </Col>
-      </Row>
-        
+                <p className="mt5">
+                  <Button className="btn-secondary" variant="secondary" style={{ fontFamily: "Roboto" }}><img
+                    src={google}
+                    width="30"
+                    height="30"
+                    alt="React Bootstrap logo"
+                  /> Google Play</Button>
+                  <Button className="btn-secondary ml-3" variant="secondary" style={{ fontFamily: "Roboto" }}><img
+                    src={apple}
+                    width="30"
+                    height="30"
+                    alt="React Bootstrap logo"
+                  /> Apple Store</Button>
+                </p>
+              </Jumbotron>
+            </Col>
+          </Row>
+        </Container>
       </Container>
     </React.Fragment>
   );
