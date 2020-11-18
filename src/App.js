@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import RecuperarSenha from "./pages/RecuperarSenha";
-import Lobby from './components/Routes/Lobby/Lobby'
+import LobbyPage from './pages/LobbyPage/index'
 import RoutesLobby from './components/Routes/Lobby/Lobby'; // Telas internas devem ser circuladas por este component
 import StoreProvider from './components/Storage/Provider';
 
@@ -19,7 +19,7 @@ export function App(){
                         <Route path="/login" component={Login} />
                         <Route path="/cadastro" component={Cadastro} />
                         <Route path="/senha" component={RecuperarSenha} />
-                        <RoutesLobby path="/lobby" component={Lobby} />
+                        <RoutesLobby path="/lobby" component={LobbyPage} />
                     </Switch>
                 </StoreProvider>
             </Router>

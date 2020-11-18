@@ -109,7 +109,7 @@ export function Login() {
     const {token} = logar(values);
     if (token) {
       setToken(token);
-      return history.push('/');
+      return history.push('/lobby');
     }
 
     setError(error);
