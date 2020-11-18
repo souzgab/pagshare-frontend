@@ -34,27 +34,6 @@ export function Home() {
   return (
     <React.Fragment>
       <CssBaseline />
-       <NavigationBar title="Payshare" link="Login" to="/login" /> 
-      <Container maxWidth="xg" component="main" style={{ backgroundColor: "darkgray", height: "100vh", width: "100vw" }} className={classes.heroContent}>
-     
-      <Row  style={{ backgroundColor: "darkgray", height: "100vh", width: "100vw" }}>
-        <Col sm={4} className="mt-5"><img className='img-fluid'
-          src={iphone}
-          width="380"
-          height="5"
-          alt="React Bootstrap logo"
-        /></Col>
-        <Col className="mt-5">
-          <Jumbotron className="jumbotron mt-5">
-            <h1 className="h1Text">Compartilhe seus pagamentos</h1>
-            <p className="textBody">
-              Crie sua lobby, convide seus amigos.<br />
-              É fácil, rápido e seguro.
-            <p className="mt-5">
-              <Button className="btn-secondary" variant="secondary"><img
-                src={google}
-                width="30"
-                height="30"
       <NavigationBar title="Payshare" link="Login" to="/login" />
       <Container maxWidth="xg" component="main" style={{ height: "100vh", width: "100vw" }} className={classes.heroContent}>
         <Container style={{ backgroundColor: "transparent", height: "100vh", width: "100vw", fontFamily:"Roboto"}}>
@@ -72,8 +51,8 @@ export function Home() {
                 <h1 className="h1Text" style={{ color: "#1CDC6E" }}>Compartilhe seus pagamentos</h1>
                 <p className="textBody">
                   Crie sua lobby, convide seus amigos.<br/>
-                  É facil é rapido e seguro.
-                </p>
+              É facil é rapido e seguro.
+          </p>
                 <p className="mt5">
                   <Button className="btn-secondary" variant="secondary" style={{ fontFamily: "Roboto" }}><img
                     src={google}
