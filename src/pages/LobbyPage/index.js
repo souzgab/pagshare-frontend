@@ -18,19 +18,22 @@ const useStyles = makeStyles((theme) => ({
           : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundColor: "darkgray",
+      backgroundColor: "#20202033",
       height: "100vh",
       display: "flex",
       width: "100vw",
       justifyContent:"flex-start",
       alignItems:"center",
       direction: "row"
+
+      // Alterar o background color acima para #202020 quando terminar a tela
     },
     mainPaper: {
       padding: theme.spacing(2),
       margin: 'auto',
       height: "85vh",
-      width: "100%"
+      width: "100%",
+      backgroundColor: "#202020"
     },
     image: {
       width: 128,
@@ -73,8 +76,8 @@ const LobbyPage = () => {
                       <Grid item xs={6} sm={3}>
                         <Paper className={classes.paper}>xs=6 sm=3</Paper>
                       </Grid>
-                      <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                      <Grid item xs={6} sm={3} style={{height: "100%", backgroundColor: "darkgray", height: "30vh"}}> 
+                        <Paper className={classes.paper} style={{height: "100%", backgroundColor: "#45464D", height: "100%"}}>xs=6 sm=3</Paper>
                       </Grid>
                       <Grid item xs={6} sm={3}>
                         <Paper className={classes.paper}>xs=6 sm=3</Paper>
