@@ -16,7 +16,15 @@ import Typography from '@material-ui/core/Typography';
 import LeftSvg from "../../assets/SVG/Blobs.svg";
 import { green } from '@material-ui/core/colors';
 import {useHistory} from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import StoreContext from '../../components/Storage/Context'
+import Axios from 'axios'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const theme = createMuiTheme({
   palette: {
     primary: green,
@@ -81,14 +89,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const logar = ({email, password}) => {
-  if(email === "admin@admin.com" && password === "1234"){
-    return {token: '1234'}
+async function logar({email, password}){
+  if(email && password){
+    const data = await Axios.post("https://paysharedev.herokuapp.com/v1/payshare/auth/login", {email, password})
+    .then((response) => {
+      return response.data;
+    })
+    .catch(e => console.log(e));
+    // const data = {token: "2333", name: "Payshare", email: "admin@admin.com", id: 4}
+    return data;
   }
   return {error: "Cannot Logon, Invalid Credentials"}
 }
 
+
+
 export function Login() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const classes = useStyles();
   const [values, setValues] = useState(initialState);
   const history = useHistory();
@@ -99,19 +129,24 @@ export function Login() {
     setValues({
       ...values,
       [name]: value,
-      
     })
   }
 
-  const onSubmit = (evento) => {
+  async function onSubmit(evento){
     evento.preventDefault();
-    alert('entrei')
-    const {token} = logar(values);
-    if (token) {
-      setToken(token);
-      return history.push('/lobby');
+    const data = await logar(values);
+    if(data.token){
+      handleClick()
+      setTimeout(
+      () => {
+          setToken(data.token);
+          localStorage.setItem("id", data.id);
+          localStorage.setItem("email", data.email);
+          localStorage.setItem("name", data.name);
+          return history.push('/lobby');
+      }  
+      , 2000)
     }
-
     setError(error);
     setValues(initialState);
   }
@@ -212,6 +247,11 @@ export function Login() {
               </div>
             </Grid>
           </Grid>
+          <Snackbar message="Sucesso!" open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+              Logado com Sucesso!
+            </Alert>
+          </Snackbar>
         </Container>
   </React.Fragment>
   );
