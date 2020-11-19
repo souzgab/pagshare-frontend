@@ -5,7 +5,7 @@ import StoreContext from '../../Storage/Context'
 
 const RoutesLobby = ({component: Component, ...rest}) => {
     const {token} = useContext(StoreContext);
-
+    
     return (
         <Route
         {...rest}
