@@ -19,7 +19,8 @@ export function App(){
                         <Route path="/login" component={Login} />
                         <Route path="/cadastro" component={Cadastro} />
                         <Route path="/senha" component={RecuperarSenha} />
-                        <RoutesLobby path="/lobby" component={LobbyPage} />
+                        {/* TODO: MUDAR AQUI PARA ROUTESLOBBY */}
+                        <Route path="/lobby" component={LobbyPage} />
                     </Switch>
                 </StoreProvider>
             </Router>
