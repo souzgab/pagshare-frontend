@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Modal from './components/Modal'
 
 const useStyles = makeStyles((theme) => ({
     heroContent: {
@@ -31,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 
     mainPaper: {
       padding: theme.spacing(2),
-      margin: 'auto',
       height: "100vh",
       width: "100%",
       backgroundColor: "#202020"
@@ -47,9 +47,12 @@ const useStyles = makeStyles((theme) => ({
       maxHeight: '100%',
     },
     paper: {
-      padding: theme.spacing(2),
+      width: '100%',
+
+      padding: '10px',
       textAlign: 'center',
-      backgroundColor: "primary"
+      backgroundColor: "#2D2D2D"
+
     }
   })
 )
@@ -63,27 +66,9 @@ const LobbyPage = () => {
               <LobbyBar/>
                 <Grid xs={12}>
                   <Paper className={classes.mainPaper} square>
-                    <Grid container spacing={3}>
-                      <Grid item xs={12}>
-                        <Paper className={classes.paper}>xs=12</Paper>
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>xs=12 sm=6</Paper>
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper} >xs=12 sm=6</Paper>
-                      </Grid>
-                      <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                      </Grid>
-                      <Grid item xs={6} sm={3} style={{height: "100%", backgroundColor: "darkgray", height: "30vh"}}> 
-                        <Paper className={classes.paper} style={{height: "100%", backgroundColor: "#45464D", height: "100%"}}>xs=6 sm=3</Paper>
-                      </Grid>
-                      <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                      </Grid>
-                      <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    <Grid container spacing={3} style={{paddingTop: '5vh'}}>
+                      <Grid item xs={6} sm={6}> 
+                        <Modal/>
                       </Grid>
                     </Grid>
                   </Paper>

@@ -9,21 +9,26 @@ import RoutesLobby from './components/Routes/Lobby/Lobby'; // Telas internas dev
 import StoreProvider from './components/Storage/Provider';
 
 
-export function App(){
+
+
+
+export function App() {
     return (
         <React.Fragment>
-            <Router>
-                <StoreProvider>
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/cadastro" component={Cadastro} />
-                        <Route path="/senha" component={RecuperarSenha} />
-                        {/* TODO: MUDAR AQUI PARA ROUTESLOBBY */}
-                        <Route path="/lobby" component={LobbyPage} />
-                    </Switch>
-                </StoreProvider>
-            </Router>
+            
+                <Router>
+                    <StoreProvider>
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <Route path="/login" component={Login} />
+                            <Route path="/cadastro" component={Cadastro} />
+                            <Route path="/senha" component={RecuperarSenha} />
+                            {/* TODO: MUDAR AQUI PARA ROUTESLOBBY */}
+                            <Route path="/lobby" component={LobbyPage} />
+                        </Switch>
+                    </StoreProvider>
+                </Router>
+         
         </React.Fragment>
     );
 }

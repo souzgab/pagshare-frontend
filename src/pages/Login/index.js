@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import NavigationBar from '../../components/NavigationBar';
-import { makeStyles, createMuiTheme, ThemeProvider  } from '@material-ui/core/styles';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
@@ -14,38 +14,18 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import LeftSvg from "../../assets/SVG/Blobs.svg";
-import { green } from '@material-ui/core/colors';
 import {useHistory} from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import StoreContext from '../../components/Storage/Context'
 import Axios from 'axios'
+import { makeStyles, ThemeProvider  } from '@material-ui/core/styles';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const theme = createMuiTheme({
-  palette: {
-    primary: green,
-  },
-  typography: {
-    fontSize: 22,
-    color: '#fff',
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
-});
+
 
 const initialState = () =>{
   return {email: '', password: ''};
@@ -163,11 +143,11 @@ export function Login() {
                 <Avatar className={classes.avatar}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5" style={{color: '#fff'}}>
+                <Typography style={{color: '#fff'}}>
                   Bem vindo, realize seu login
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={onSubmit}>
-                <ThemeProvider theme={theme} >
+                
                   <TextField
                     variant="outlined"
                     margin="normal"
@@ -183,6 +163,7 @@ export function Login() {
                     InputLabelProps={{
                       style: { color: '#fff' },
                     }}
+                    InputProps={{style: {color: '#fff'}}}
                   />
                   <TextField
                     variant="outlined"
@@ -200,6 +181,7 @@ export function Login() {
                     InputLabelProps={{
                       style: { color: '#fff' },
                     }}
+                    InputProps={{style: {color: '#fff'}}}
                   />
                   <FormControlLabel style={{color: '#fff'}}
                     control={<Checkbox value="remember" color="primary" />}
@@ -210,10 +192,9 @@ export function Login() {
                     fullWidth
                     variant="contained"
                     className={classes.submit}
-                    color="primary"
+                    color="secondary"
                     style={{
-                      color:"white",
-                      fontWeight:'lighter'
+                      color:"white"
                     }}
                   >
                     Entrar
@@ -223,7 +204,6 @@ export function Login() {
                       <Link href="/senha" variant="body2"
                         style={{
                           color:"white",
-                          fontWeight:'lighter',
                           textDecoration:"none"
                         }}
                       >
@@ -234,7 +214,6 @@ export function Login() {
                       <Link href="/cadastro" variant="body2"
                         style={{
                           color:"white",
-                          fontWeight:'lighter',
                           textDecoration:"none"
                         }}
                       >
@@ -242,7 +221,6 @@ export function Login() {
                       </Link>
                     </Grid>
                   </Grid>
-                  </ThemeProvider>
                 </form>
               </div>
             </Grid>
