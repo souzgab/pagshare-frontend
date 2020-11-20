@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Modal from './components/Modal';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -201,7 +202,7 @@ const LobbyPage = () => {
                 <Col className="mt-4" xs={12} style={{ backgroundColor: "transparent" }}>
                   <Card className="" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', fontFamily: 'roboto', width: '95%' }}>
                     <Card.Body className="text-center">
-                      <Button style={{ backgroundColor: 'transparent', color: '#1CDC6E', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>Crie sua lobby agora mesmo</Button>
+                      <Modal />
                     </Card.Body>
                   </Card>
                 </Col>
