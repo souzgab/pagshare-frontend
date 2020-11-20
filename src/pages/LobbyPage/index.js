@@ -28,10 +28,11 @@ const useStyles = makeStyles((theme) => ({
 
       // Alterar o background color acima para #202020 quando terminar a tela
     },
+
     mainPaper: {
       padding: theme.spacing(2),
       margin: 'auto',
-      height: "85vh",
+      height: "100vh",
       width: "100%",
       backgroundColor: "#202020"
     },
@@ -59,10 +60,9 @@ const LobbyPage = () => {
     return(
         <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="xg" component="main" className={classes.heroContent}>
               <LobbyBar/>
                 <Grid xs={12}>
-                  <Paper className={classes.mainPaper}>
+                  <Paper className={classes.mainPaper} square>
                     <Grid container spacing={3}>
                       <Grid item xs={12}>
                         <Paper className={classes.paper}>xs=12</Paper>
@@ -88,7 +88,6 @@ const LobbyPage = () => {
                     </Grid>
                   </Paper>
                 </Grid>
-            </Container>
         </React.Fragment>
     )
 }
