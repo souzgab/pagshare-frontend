@@ -139,7 +139,7 @@ export function Login() {
       handleClick()
       setTimeout(
       () => {
-          setToken(data.token);
+          setToken(`Bearer ${data.token}`);
           localStorage.setItem("id", data.id);
           localStorage.setItem("email", data.email);
           localStorage.setItem("name", data.name);
@@ -179,6 +179,7 @@ export function Login() {
                     autoComplete="email"
                     autoFocus
                     onChange={onChange}
+                    InputProps={{ style: { color: '#fff' } }}
                     value={values.email}
                     InputLabelProps={{
                       style: { color: '#fff' },
@@ -193,8 +194,8 @@ export function Login() {
                     label="Senha"
                     type="password"
                     id="password"
-                    helperText="Digite sua senha"
                     autoComplete="current-password"
+                    InputProps={{ style: { color: '#fff' } }}
                     onChange={onChange}
                     value={values.password}
                     InputLabelProps={{
@@ -202,7 +203,7 @@ export function Login() {
                     }}
                   />
                   <FormControlLabel style={{color: '#fff'}}
-                    control={<Checkbox value="remember" color="primary" />}
+                    control={<Checkbox className="text-white" value="remember" color="primary" />}
                     label="Lembrar Login"
                   />
                   <Button

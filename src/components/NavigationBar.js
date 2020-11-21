@@ -39,17 +39,29 @@ function NavigationBar(props) {
 
               </Link>
             </Grid>
-            <Grid item xs={2}>
-              <Link to={props.to}>
+            <Grid className="text-right" item xs={4}>
+              <Link to="/login">
                 <Button
                   variant="contained"
                   color="secondary"
                   size="large"
                   style={{ textJustify: "22", WebkitTextSize: "22" }}
                   className={classes.button}
-                  startIcon={<LoginIcon />}
                 >
-                  {props.link}
+                  Acessar conta
+                </Button>
+                
+              </Link>
+              <Link className="ml-2" to="/cadastro">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  style={{ textJustify: "22", WebkitTextSize: "22" }}
+                  className={classes.button}
+                  
+                >Registrar-se
+                  
                 </Button>
               </Link>
             </Grid>

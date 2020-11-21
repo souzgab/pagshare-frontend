@@ -13,7 +13,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import logoSvg from "../../../assets/images/Logo-pequeno.png";
-
+import dash from "../../../assets/images/iconBar/dash.svg";
+import wallet from "../../../assets/images/iconBar/Vector.svg"
+import Room from "../../../assets/images/iconBar/cil_room.svg"
+import Card from "../../../assets/images/iconBar/card.svg"
+import history from "../../../assets/images/iconBar/codicon_history.svg"
+import settings from "../../../assets/images/iconBar/settings.svg"
+import ButtomMessage from "../../../assets/images/iconBar/buttonMessage.svg"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center'
   },
   toolbar2: {
-    
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start'
@@ -128,17 +134,35 @@ const LobbyBar = () => {
           }),
         }}
       ><List >
-        <div className={classes.toolbar}>
-          <img src={logoSvg} onClick={handleOpenClose} />
-        </div>
-          <ListItem button>
-            <ListItemIcon style={{ justifyItems: 'center' }}><img src={logoSvg} /></ListItemIcon>
-            <ListItemText primary='FODASSE CCCANSEI DISSO' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon style={{ justifyItems: 'center' }}><img src={logoSvg} /></ListItemIcon>
-            <ListItemText primary='FODASSE CCCANSEI DISSO' />
-          </ListItem>
+          <div className={classes.toolbar}>
+            <img src={logoSvg} onClick={handleOpenClose} />
+          </div>
+          <div className="text-white text-center">
+            <ListItem className="ml-2 mb-3" button style={{ marginTop: '60px' }}>
+              <ListItemIcon><img src={dash} /></ListItemIcon>
+              <ListItemText primary='ÍNICIO' />
+            </ListItem>
+            <ListItem className="ml-2 mb-3" button>
+              <ListItemIcon><img src={wallet} /></ListItemIcon>
+              <ListItemText primary='MINHA CARTEIRA' />
+            </ListItem>
+            <ListItem className="ml-2 mb-3" button>
+              <ListItemIcon><img src={Room} /></ListItemIcon>
+              <ListItemText primary='SALA DA LOBBY' />
+            </ListItem>
+            <ListItem className="ml-2 mb-3" button>
+              <ListItemIcon><img src={Card} /></ListItemIcon>
+              <ListItemText primary="MEUS CARTÕES" />
+            </ListItem>
+            <ListItem className="ml-2 mb-3" button>
+              <ListItemIcon><img src={history} /></ListItemIcon>
+              <ListItemText primary='HISTÓRICO DE PAG' />
+            </ListItem>
+            <ListItem className="ml-2" button>
+              <ListItemIcon><img src={settings} /></ListItemIcon>
+              <ListItemText primary='CONFIGURAÇÕES' />
+            </ListItem>
+          </div>
         </List>
       </Drawer>
     </div>
