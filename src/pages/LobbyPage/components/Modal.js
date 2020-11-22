@@ -99,7 +99,7 @@ export default function TransitionsModal(props) {
     <div>
       {/* TODO: COLOCAR AQUI O COMPONENTE DO LOBBY PAGE QUE PUXA O MODAL */}
       <Button onClick={handleOpen} style={{ backgroundColor: 'transparent', color: '#1CDC6E', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>
-        Você não possuí nenhuma lobby ativa clique para criar -></Button>
+        Você não possuí nenhuma lobby ativa clique para criar</Button>
 
       <Modal
         className={classes.modal}
@@ -153,7 +153,6 @@ export default function TransitionsModal(props) {
                 name="amount"
                 label="Valor da lobby"
                 onChange={onChange}
-                id="order_amount"
                 // onChange={onChange}
                 InputProps={{ style: { color: '#fff' } }}
                 InputLabelProps={{
