@@ -66,15 +66,9 @@ const useStyles = makeStyles((theme) => ({
 
 const LobbyPage = () => {
 
-  const [number, setNumber] = useState()
   const classes = useStyles();
-  let rows = []
 
   const Name = localStorage.getItem('name')
-
-  function somar() {
-    return setNumber(number + 1)
-  }
 
   return (
     <React.Fragment>
