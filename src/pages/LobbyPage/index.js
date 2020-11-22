@@ -70,6 +70,8 @@ const LobbyPage = () => {
   const classes = useStyles();
   let rows = []
 
+  const Name = localStorage.getItem('name')
+
   function somar() {
     return setNumber(number + 1)
   }
@@ -110,7 +112,7 @@ const LobbyPage = () => {
                   <Dropdown.Toggle variant="success" style={{
                     fontFamily: 'roboto'
                   }} id="dropdown-basic">
-                    Bem vindo(a) Vinicius Alves
+                    Bem vindo(a) {Name}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item href="#">Minha conta</Dropdown.Item>
