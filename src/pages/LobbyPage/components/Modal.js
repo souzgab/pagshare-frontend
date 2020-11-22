@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
-import Axios from 'axios';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,48 +25,67 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "primary"
   }
 }));
-// TODO: FAZER A REQUISIÇÂO PARA CRIIAR LOBBY (COMO PEGAR O TOKEN DO LOCALSTORAGE)
-// async function createLobby(lobbyDesc, orderDesc, orderAmount) {
-
-//   const url = "https://paysharedev.herokuapp.com/v1/payshare/lobby/saveLobby"
-
- 
-//   let config = {
-//     headers: {
-//       Authorization: 'Bearer ' + localStorage.getItem('token')
-//     }
-//   }
-
-//   const amountTotal = 0
-
-//   if(lobbyDesc && orderDesc && orderAmount && amountTotal) {
-//     const data = await Axios.post(url, {lobbyDesc, orderDesc, orderAmount, amountTotal}, config)
-//     .then(console.log(data))
-//     .catch(console.log("erro"))
-//   }
-// }
-
-// const onChange = (evento) => {
-//   const {value, name} = evento.target;
-//   setValues({
-//     ...values,
-//     [name]: value,
-//   })
-// }
-
-// async function onSubmit(evento) {
-//   evento.preventDefault();
-
-//   await createLobby(values)
-
-// }
 
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   // const [values, setValues] = useState(initialState);
+
+  //inicializa o formData com os valores default
+  const [formData, setFormData] = useState(initialState);
+
+  var initialState = () =>{
+    return {
+      lobbyDescription:'',
+      orderDescription:'',
+      amount:'',
+    };
+  }
+
+  // ele vai pegar a ultimo evento dos inputs e seta para o formDate assim alterando o estado dele
+  const onChange = (evento) => {
+    const { value, name } = evento.target;
+    console.log(value)
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+
+    console.log("aqui caralho" , JSON.stringify(formData))
+  }
+
+  //handleSubmit é responsável pela chamada do endpoint criação de lobby
+  async function handleSubmit(event) {
+    event.preventDefault();
   
+    const { lobbyDescription, orderDescription, amountTotal } = formData
+    const URL = `https://paysharedev.herokuapp.com/v1/payshare/lobby/saveLobby/${localStorage.getItem('id')}`
+    const amount = parseFloat(formData.amount)
+    const data = {
+      lobbyDescription,
+      orderDescription,
+      amount,
+      amountTotal:0
+    };
+
+    //setando auth bearer
+    const config = {
+      headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
+    };
+  
+    try {
+      console.log(data)
+      await axios.post(URL, data, config).then((result) => {
+        console.log(result)
+      }).catch((err) => {
+        console.log(err)
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -80,7 +98,8 @@ export default function TransitionsModal(props) {
   return (
     <div>
       {/* TODO: COLOCAR AQUI O COMPONENTE DO LOBBY PAGE QUE PUXA O MODAL */}
-      <Button onClick={handleOpen} style={{ backgroundColor: 'transparent', color: '#1CDC6E', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>Crie sua lobby agora mesmo</Button>
+      <Button onClick={handleOpen} style={{ backgroundColor: 'transparent', color: '#1CDC6E', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>
+        Você não possuí nenhuma lobby ativa clique para criar -></Button>
 
       <Modal
         className={classes.modal}
@@ -95,13 +114,14 @@ export default function TransitionsModal(props) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 style={{ color: '#fff', textAlign: "center" }}>Criação Lobby</h2>
-            <form className={classes.root} noValidate>
+            <form className={classes.root} noValidate onSubmit={handleSubmit} >
               <TextField
-              style={{margin: '10px'}}
+                style={{ margin: '10px' }}
                 variant='outlined'
                 required
                 fullWidth
-                name="lobby_desc"
+                name="lobbyDescription"
+                onChange={onChange}
                 label="Descrição"
                 id="lobby_desc"
                 // onChange={onChange}
@@ -111,12 +131,13 @@ export default function TransitionsModal(props) {
                 }}
               />
               <TextField
-              variant='outlined'
-              style={{margin: '10px'}}
+                variant='outlined'
+                style={{ margin: '10px' }}
                 required
                 fullWidth
-                name="order_desc"
-                label="Descrição do Pedido"
+                name="orderDescription"
+                label="Descrição do pedido"
+                onChange={onChange}
                 id="order_desc"
                 // onChange={onChange}
                 InputProps={{ style: { color: '#fff' } }}
@@ -124,14 +145,14 @@ export default function TransitionsModal(props) {
                   style: { shrink: true, color: '#fff' },
                 }}
               />
-              <label id="dateNow" hidden>{new Date().toJSON().slice(0, 10).replace(/-/g, '/')}</label>
               <TextField
-              variant='outlined'
-              style={{margin: '10px'}}
+                variant='outlined'
+                style={{ margin: '10px' }}
                 required
                 fullWidth
-                name="order_amount"
-                label="Valor do Pedido"
+                name="amount"
+                label="Valor da lobby"
+                onChange={onChange}
                 id="order_amount"
                 // onChange={onChange}
                 InputProps={{ style: { color: '#fff' } }}
