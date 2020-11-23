@@ -219,7 +219,8 @@ export function Login() {
                     color="primary"
                     style={{
                       color: "white",
-                      fontWeight: 'lighter'
+                      fontWeight: 'lighter',
+                      fontSize: '17px',
                     }}
                   >
                     Entrar

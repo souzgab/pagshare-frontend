@@ -92,7 +92,7 @@ const LobbyPage = () => {
                   <Button
                     variant="success"
                     style={{
-                      fontFamily: 'roboto',
+                      fontFamily: 'roboto',   fontSize: '18px',
                     }}>Suporte
                   </Button>
                 </Card.Text>
@@ -104,7 +104,7 @@ const LobbyPage = () => {
               <Card.Body style={{ height: '' }}>
                 <Dropdown>
                   <Dropdown.Toggle variant="success" style={{
-                    fontFamily: 'roboto'
+                    fontFamily: 'roboto', fontSize: '18px'
                   }} id="dropdown-basic">
                     Bem vindo(a) {Name}
                   </Dropdown.Toggle>
@@ -185,15 +185,15 @@ const LobbyPage = () => {
 
                       <Card.Body style={{ height: '165px' }}>
                         <Card.Title>Convide seus amigos e ganhe bônus 5%</Card.Title>
-                        <Card.Text>
-                          Cada amigo que se registrar na plataforma e fizer um pagamento ou adicionar dinheiro a carteira
-                          você ganha 5% de desconto no proximo pagamento
+                        <Card.Text style={{fontSize: '12px'}}>
+                        Cada amigo que fizer um pagamento ou adicionar dinheiro a carteira
+                        você ganha desconto no proximo pagamento.
                           <div className="text-center mt-4">
                           <Button
                           size="sm"
                             variant="success"
                             style={{
-                              fontFamily: 'roboto',
+                              fontFamily: 'roboto', fontSize: '12px'
                             }}>Compartilhar
                          </Button>
                          </div>

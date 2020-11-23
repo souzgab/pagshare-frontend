@@ -243,7 +243,8 @@ export function Cadastro() {
                     color="primary"
                     style={{
                       color: "white",
-                      fontWeight: 'lighter'
+                      fontWeight: 'lighter',
+                      fontSize: '17px'
                     }}
                   >
                     Cadastrar

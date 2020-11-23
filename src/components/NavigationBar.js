@@ -45,7 +45,7 @@ function NavigationBar(props) {
                   variant="contained"
                   color="secondary"
                   size="large"
-                  style={{ textJustify: "22", WebkitTextSize: "22" }}
+                  style={{ textJustify: "22", WebkitTextSize: "22",   fontSize: '11px' }}
                   className={classes.button}
                 >
                   Acessar conta
@@ -57,7 +57,7 @@ function NavigationBar(props) {
                   variant="contained"
                   color="secondary"
                   size="large"
-                  style={{ textJustify: "22", WebkitTextSize: "22" }}
+                  style={{ textJustify: "22", WebkitTextSize: "22" ,   fontSize: '11px'}}
                   className={classes.button}
                   
                 >Registrar-se
