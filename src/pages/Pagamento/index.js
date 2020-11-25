@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import LobbyBar from './components/LobbyBar'
+import LobbyBar from '../LobbyPage/components/LobbyBar'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Row from 'react-bootstrap/Row'
@@ -8,12 +8,6 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
-import Modal from './components/Modal';
-import Table from 'react-bootstrap/Table'
-import axios from 'axios';
-import history from "../../../src/assets/images/iconBar/codicon_history.svg"
-import Room from "../../../src/assets/images/iconBar/cil_room.svg"
-import mercadoPago from "../../assets/images/mercado-pago-logo-4.png"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 

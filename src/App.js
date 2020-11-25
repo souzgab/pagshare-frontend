@@ -21,8 +21,8 @@ export function App(){
                         <Route path="/cadastro" component={Cadastro} />
                         <Route path="/senha" component={RecuperarSenha} />
                         {/* TODO: MUDAR AQUI PARA ROUTESLOBBY */}
-                        <Route path="/lobby" component={LobbyPage} />
-                        <Route path="/pagamento" component={Pagamento} />
+                        <RoutesLobby path="/lobby" component={LobbyPage} />
+                        <RoutesLobby path="/pagamento" component={Pagamento} />
                     </Switch>
                 </StoreProvider>
             </Router>
