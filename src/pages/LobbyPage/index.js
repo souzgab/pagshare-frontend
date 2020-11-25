@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
 import LobbyBar from './components/LobbyBar'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -9,6 +8,11 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
 import ModalWallet from './components/ModalWallet';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Input from '@material-ui/core/Input';
 import Modal from './components/Modal';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'
@@ -19,103 +23,86 @@ import Room from "../../../src/assets/images/iconBar/cil_room.svg"
 
 
 
-const useStyles = makeStyles((theme) => ({
-  heroContent: {
-    //   backgroundImage: `url(${FundoSVG})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.mode === 'light'
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundColor: "#20202033",
-    height: "100vh",
-    display: "flex",
-    width: "100vw",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    direction: "row"
-
-    // Alterar o background color acima para #202020 quando terminar a tela
-  },
-
-  mainPaper: {
-    padding: theme.spacing(2),
-    margin: 'auto',
-    height: "100vh",
-    width: "100%",
-    backgroundColor: "#202020"
-  },
-
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    backgroundColor: "primary"
-  }
-})
-)
-
-async function loadData() {
-  const URL = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
-
-  //setando auth bearer
-  const config = {
-    headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
-  };
-
-  try {
-    const data = await axios.get(URL, config).then((result) => {
-      if (result.status == 200) {
-        return result.data
-      }
-    }).catch((err) => {
-      console.log(err)
-    })
-    return data;
-  } catch (e) {
-    console.log(e)
-  }
-
-}
-
-
-
 const LobbyPage = () => {
 
-  const [dinheiro, setDinheiro] = useState("0,00")
 
   const hist = useHistory();
 
   function logout() {
     localStorage.clear();
-    return hist.push("/")
+    hist.push("/login")
   }
 
-  const [transactionWallets, setTransactionWallets] = useState(new Array)
-  const [transaction, setTransaction] = useState(new Array)
+  useEffect(() => {
+    let totalTransactionLobby = 0.00;
+    let totalTransactionWallet = 0.00;
+    try {
+      const URL = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
+      //setando auth bearer
+      const config = {
+        headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
+      };
+      try {
+        axios.get(URL, config).then((result) => {
+          console.log(result.data)
+          if (result.status === 200) {
+            setTransactionLength(result.data.transactionWallets.length + result.data.transactions.length)
+            result.data.transactions.map(transaction => {
+              if (transaction.status === "approved") {
+                totalTransactionLobby += transaction.amount
+              }
+            })
+            result.data.transactionWallets.map(transactionWallet => {
+              if (transactionWallet.status === "approved") {
+                totalTransactionWallet += transactionWallet.amount
+              }
+            })
+            setHistoryTransaction(parseFloat(totalTransactionLobby))
+            setHistoryTransactionWallets(parseFloat(totalTransactionWallet))
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }, []);
 
-  const classes = useStyles();
+  const [dinheiro, setDinheiro] = useState("0,00")
+
+  const [historyTransactionWallet, setHistoryTransactionWallets] = useState(0)
+  const [historyTransaction, setHistoryTransaction] = useState(0)
+
+  const [transactionWallets, setTransactionWallets] = useState([])
+  const [transaction, setTransaction] = useState([])
 
   const Name = localStorage.getItem('name')
 
-  async function loadDatas(){
-    const data = await loadData();
-    setDinheiro(data.userAmount);
-    setTransaction(data.transaction);
-    setTransactionWallets(data.transactionWallets);
+  async function loadDatas() {
+    //const data = await loadData();
+    //setDinheiro(data.userAmount);
   }
 
+  const [transactionLength, setTransactionLength] = React.useState(0)
+
+  const [money, setMoney] = React.useState({
+    password: '',
+    showPassword: false,
+  });
+
+  const handleChange = (prop) => (event) => {
+    setMoney({ ...money, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    if (!money.showPassword) {
+      loadDatas();
+    }
+    setMoney({ ...money, showPassword: !money.showPassword });
+  }
 
   return (
     <React.Fragment>
@@ -173,18 +160,37 @@ const LobbyPage = () => {
                 <Col xs={4} style={{ backgroundColor: "transparent" }}>
                   <Card className="shadow p" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px' }}>
                     <Card.Body style={{ height: '280px' }}>
-                      <Card.Title style={{ color: '#45464D' }}>Overview</Card.Title>
+                      <Card.Title className="mb-3" style={{ color: '#45464D', fontSize: '15px' }}>Carteira</Card.Title>
                       <Card.Text style={{ color: '#45464D', fontSize: '15px', fontFamily: 'Roboto' }}>
                         <div className="text-white" style={{ marginTop: '10%', color: '#1CDC6E' }}>
                           <label className="ml-2" htmlFor="transaction" style={{ color: '#1CDC6E' }}>Saldo em conta</label>
                           <div><h3 className='ml-2 mt-4' style={{ color: '#1CDC6E' }}>
-                            <ModalWallet dinheiro={dinheiro} />
+                            <Input
+                              disabled
+                              style={{ backgroundColor: 'transparent', color: '#ffff', fontSize: '20px', fontFamily: 'roboto', border: 'none' }}
+                              id="standard-adornment-password"
+                              type={money.showPassword ? 'text' : 'password'}
+                              value={`R$ ${dinheiro}`}
+                              onChange={handleChange('password')}
+                              endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    style={{ color: '#ffff' }}
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                  >
+                                    {money.showPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                            />
                           </h3>
                           </div>
                         </div>
                         <div className="mt-5">
-                          <label className="mt-4" htmlFor="transaction">Transações</label>
-                          <h4 id='transaction' className='text-left text-white mt-2'>120</h4>
+                          <div className="text-center mt-4">
+                            <ModalWallet texto="Adicionar dinheiro" />
+                          </div>
                         </div>
                       </Card.Text>
                     </Card.Body>
@@ -196,13 +202,13 @@ const LobbyPage = () => {
                       <Card.Body style={{ height: '102px' }}>
                         <Card.Title><img src={Room} /> Histórico de lobby</Card.Title>
                         <Card.Text className="text-left" style={{ fontSize: '15px' }}>
-                          R$870.60
-                    </Card.Text>
+                          R$ {historyTransaction}
+                        </Card.Text>
                       </Card.Body>
                     </Card>
                     <Card className="text-white shadow p mt-3" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px' }}>
                       <Card.Body style={{ height: '165px' }}>
-                        <Card.Title>Faça seus pagamentos com segurança</Card.Title>
+                        <Card.Title>Faça seus pagamentos com seu saldo da carteira</Card.Title>
                         <Card.Text>
 
                         </Card.Text>
@@ -212,12 +218,12 @@ const LobbyPage = () => {
                 </Col>
                 <Col className="ml-4" xs={4} style={{ backgroundColor: "transparent" }}>
                   <Row style={{ backgroundColor: "transparent" }}>
-                    <Card className="shadow p" style={{ width: '240px', backgroundColor: '#1CDC6E', borderRadius: '10px' }}>
+                    <Card className="shadow p" style={{ width: '280px', backgroundColor: '#1CDC6E', borderRadius: '10px' }}>
                       <Card.Body style={{ height: '102px' }}>
                         <Card.Title><img src={history} /> Histórico de adição</Card.Title>
                         <Card.Text className="text-left" style={{ fontSize: '15px' }}>
-                          R$460.78
-                    </Card.Text>
+                          R$ {historyTransactionWallet}
+                        </Card.Text>
                       </Card.Body>
                     </Card>
                     <Card className=" text-white mt-3 shadow p" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px' }}>
@@ -260,9 +266,7 @@ const LobbyPage = () => {
                 <Card.Body>
                   <Card.Text style={{ color: '#1CDC6E', fontSize: '15px' }}>
                     <div>
-                      {transactionWallets.map(trans => (
-                        <div className="station" key={trans.amount}>{trans.amount}</div>
-                      ))}
+
                     </div>
                   </Card.Text>
                 </Card.Body>
