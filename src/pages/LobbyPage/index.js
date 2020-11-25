@@ -66,51 +66,57 @@ const useStyles = makeStyles((theme) => ({
 })
 )
 
+async function loadData() {
+  const URL = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
+
+  //setando auth bearer
+  const config = {
+    headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
+  };
+
+  try {
+    const data = await axios.get(URL, config).then((result) => {
+      if (result.status == 200) {
+        return result.data
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+    return data;
+  } catch (e) {
+    console.log(e)
+  }
+
+}
 
 
-  
 
 const LobbyPage = () => {
 
   const [dinheiro, setDinheiro] = useState("0,00")
 
-  const hist = useHistory();  
+  const hist = useHistory();
 
-function logout() {
-  localStorage.clear();
-  return hist.push("/")
-}
+  function logout() {
+    localStorage.clear();
+    return hist.push("/")
+  }
 
-  
+  const [transactionWallets, setTransactionWallets] = useState(new Array)
+  const [transaction, setTransaction] = useState(new Array)
 
   const classes = useStyles();
 
   const Name = localStorage.getItem('name')
 
-  async function loadData() {
-    const URL = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
-      
-    //setando auth bearer
-    const config = {
-      headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
-    };
-  
-    try {
-        await axios.get(URL, config).then((result) => {
-        if (result.status == 200) {
-          console.log(result.data)
-          setDinheiro(result.data.userAmount)
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
-    } catch (e) {
-      console.log(e)
-    }
+  async function loadDatas(){
+    const data = await loadData();
+    setDinheiro(data.userAmount);
+    setTransaction(data.transaction);
+    setTransactionWallets(data.transactionWallets);
   }
 
-  loadData();
-  
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -133,7 +139,7 @@ function logout() {
                   <Button
                     variant="success"
                     style={{
-                      fontFamily: 'roboto',   fontSize: '18px',
+                      fontFamily: 'roboto', fontSize: '18px',
                     }}>Suporte
                   </Button>
                 </Card.Text>
@@ -151,7 +157,7 @@ function logout() {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item href="#">Minha conta</Dropdown.Item>
-                <Dropdown.Item onClick={logout} >Sair</Dropdown.Item>
+                    <Dropdown.Item onClick={logout} >Sair</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 <Card.Text style={{ color: '#1CDC6E', fontSize: '15px', fontFamily: 'Roboto' }}>
@@ -198,8 +204,8 @@ function logout() {
                       <Card.Body style={{ height: '165px' }}>
                         <Card.Title>Faça seus pagamentos com segurança</Card.Title>
                         <Card.Text>
-                         
-                    </Card.Text>
+
+                        </Card.Text>
                       </Card.Body>
                     </Card>
                   </Row>
@@ -218,18 +224,18 @@ function logout() {
 
                       <Card.Body style={{ height: '165px' }}>
                         <Card.Title>Convide seus amigos e ganhe bônus 5%</Card.Title>
-                        <Card.Text style={{fontSize: '12px'}}>
-                        Cada amigo que fizer um pagamento ou adicionar dinheiro a carteira
-                        você ganha desconto no proximo pagamento.
+                        <Card.Text style={{ fontSize: '12px' }}>
+                          Cada amigo que fizer um pagamento ou adicionar dinheiro a carteira
+                          você ganha desconto no proximo pagamento.
                           <div className="text-center mt-4">
-                          <Button
-                          size="sm"
-                            variant="success"
-                            style={{
-                              fontFamily: 'roboto', fontSize: '12px'
-                            }}>Compartilhar
+                            <Button
+                              size="sm"
+                              variant="success"
+                              style={{
+                                fontFamily: 'roboto', fontSize: '12px'
+                              }}>Compartilhar
                          </Button>
-                         </div>
+                          </div>
                         </Card.Text>
                       </Card.Body>
                     </Card>
@@ -253,9 +259,12 @@ function logout() {
                 </Card.Title>
                 <Card.Body>
                   <Card.Text style={{ color: '#1CDC6E', fontSize: '15px' }}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius itaque voluptates vero repellat autem maiores porro illo maxime cumque sit,
-                    soluta in saepe eveniet minus cupiditate praesentium doloremque natus ullam?
-                    </Card.Text>
+                    <div>
+                      {transactionWallets.map(trans => (
+                        <div className="station" key={trans.amount}>{trans.amount}</div>
+                      ))}
+                    </div>
+                  </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
