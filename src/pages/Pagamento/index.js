@@ -49,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
   },
   headerPay:{
     width: '100%',
-    display: "grid",
-    flexDirection: 'column',
-    justifyContent: "flex-end",
+    display: "flex",
+    flexDirection: 'row',
+    justifyContent: "space-between",
     alignItems: 'center',
     backgroundColor: "red"
   },
@@ -151,17 +151,17 @@ const LobbyPage = () => {
           <Row style={{ backgroundColor: "yellow", height: '100%' }}>
             <Col xs={8} style={{ backgroundColor: "green",display: 'grid', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
               <Card className="shadow p" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', width: '100%' }}>
-                <Card.Body style={{ height: '450px' }}>
+                <Card.Body>
                   
                   <Grid className={classes.headerPay}>
-                    <Card.Title style={{ color: 'white', fontSize: '20px' }}>Sala de pagamento</Card.Title>
-                      <div className="text-white" style={{ color: '#1CDC6E'}}>
+                    <Card.Title style={{ color: 'white', fontSize: '20px',width: '40%' }}>Sala de pagamento</Card.Title>
+                      <div className="text-white" style={{ color: '#1CDC6E', width: '40%', backgroundColor: 'blue'}}>
                         <div className="ml-2" htmlFor="transaction" style={{ color: 'white' }}>Total a pagar: </div>
                         <div className="ml-2" htmlFor="transaction" style={{ color: 'yellow', fontSize: "20px", fontFamily: 'roboto' }}>R$ 200.00</div>
                       </div>
                   </Grid>
 
-                  <Card.Text style={{ color: '#45464D', fontSize: '15px', fontFamily: 'Roboto' }}>
+                  <Card.Text style={{ backgroundColor: 'white', fontSize: '15px', fontFamily: 'Roboto' }}>
                     
                     {/* Aqui repete usuário */}
                     <div>
@@ -175,6 +175,39 @@ const LobbyPage = () => {
                           <hr style={{ marginTop: '1%', width: '90%' }} />
                         </div>
                       ))}
+                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
+                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
+                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>x</label>
+                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
+                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
+                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>x</label>
+                          <hr style={{ marginTop: '1%', width: '90%' }} />
+                        </div>
+                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
+                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
+                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>x</label>
+                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
+                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
+                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>x</label>
+                          <hr style={{ marginTop: '1%', width: '90%' }} />
+                        </div>
+                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
+                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
+                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>x</label>
+                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
+                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
+                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>x</label>
+                          <hr style={{ marginTop: '1%', width: '90%' }} />
+                        </div>
+                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
+                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
+                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>x</label>
+                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
+                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
+                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>x</label>
+                          <hr style={{ marginTop: '1%', width: '90%' }} />
+                        </div>
+
                     </div>
 
                     <Button
