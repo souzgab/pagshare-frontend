@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TransitionsModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  // const [values, setValues] = useState(initialState);
+  const [urlPayment, setUrlPayment] = useState("");
 
   //inicializa o formData com os valores default
   const [formData, setFormData] = useState(initialState);
@@ -58,25 +58,21 @@ export default function TransitionsModal(props) {
   async function handleSubmit(event) {
     event.preventDefault();
   
-    const { lobbyDescription, orderDescription, amountTotal } = formData
-    const URL = `https://paysharedev.herokuapp.com/v1/payshare/lobby/saveLobby/${localStorage.getItem('id')}`
-    const amount = parseFloat(formData.amount)
-    const data = {
-      lobbyDescription,
-      orderDescription,
-      amount,
-      amountTotal:0
-    };
-
+    const { userAmount } = formData
+    const amount = parseFloat(userAmount)
+    const URL = `https://paysharedev.herokuapp.com/v1/payshare/transaction/wallet/${localStorage.getItem('id')}/${amount}`
+    
+    var data = {}
     //setando auth bearer
     const config = {
       headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
     };
   
     try {
-      console.log(data)
       await axios.post(URL, data, config).then((result) => {
-        console.log(result)
+        if (result.status == 200) {
+          setUrlPayment(result.data.body.initPoint)
+        }
       }).catch((err) => {
         console.log(err)
       })
@@ -85,6 +81,14 @@ export default function TransitionsModal(props) {
     }
   }
 
+  const onResultPayment = (urlPayment) => {
+    if (urlPayment == "") {
+      return true
+    }
+    return false
+  }
+
+  
 
   const handleOpen = () => {
     setOpen(true);
@@ -97,8 +101,8 @@ export default function TransitionsModal(props) {
   return (
     <div>
       {/* TODO: COLOCAR AQUI O COMPONENTE DO LOBBY PAGE QUE PUXA O MODAL */}
-      <Button onClick={handleOpen} style={{ backgroundColor: 'transparent', color: '#1CDC6E', fontSize: '14px', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>
-        Você não possuí nenhuma lobby ativa clique para criar
+      <Button onClick={handleOpen} style={{ backgroundColor: 'transparent', color: '#1CDC6E', fontSize:'20px', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>
+        R${props.dinheiro}
       </Button>
 
       <Modal
@@ -113,17 +117,17 @@ export default function TransitionsModal(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 style={{ color: '#fff', textAlign: "center" }}>Criação Lobby</h2>
+            <h2 style={{ color: '#fff', textAlign: "center" }}>Colocando dinheiro na Wallet</h2>
             <form className={classes.root} noValidate onSubmit={handleSubmit} >
               <TextField
                 style={{ margin: '10px' }}
                 variant='outlined'
                 required
                 fullWidth
-                name="lobbyDescription"
+                name="userAmount"
                 onChange={onChange}
-                label="Descrição"
-                id="lobby_desc"
+                label="Valor"
+                id="user_amount"
                 // onChange={onChange}
                 InputProps={{ style: { color: '#fff' } }}
                 InputLabelProps={{
@@ -131,32 +135,17 @@ export default function TransitionsModal(props) {
                 }}
               />
               <TextField
-                variant='outlined'
                 style={{ margin: '10px' }}
+                variant='outlined'
                 required
+                hidden={onResultPayment(urlPayment)}
                 fullWidth
-                name="orderDescription"
-                label="Descrição do pedido"
-                onChange={onChange}
-                id="order_desc"
-                // onChange={onChange}
+                label='Site para pagamento'
+                value={urlPayment}
+                disabled
                 InputProps={{ style: { color: '#fff' } }}
                 InputLabelProps={{
                   style: { shrink: true, color: '#fff' },
-                }}
-              />
-              <TextField
-                variant='outlined'
-                style={{ margin: '10px' }}
-                required
-                fullWidth
-                name="amount"
-                label="Valor da lobby"
-                onChange={onChange}
-                // onChange={onChange}
-                InputProps={{ style: { color: '#fff' } }}
-                InputLabelProps={{
-                  style: { color: '#fff' },
                 }}
               />
               <Button
@@ -170,8 +159,9 @@ export default function TransitionsModal(props) {
                   margin: '10px'
                 }}
               >
-                Criar
+                Inserir
                   </Button>
+              
             </form>
           </div>
         </Fade>

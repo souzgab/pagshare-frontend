@@ -8,12 +8,16 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
+import ModalWallet from './components/ModalWallet';
 import Modal from './components/Modal';
-import Table from 'react-bootstrap/Table'
 import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 import history from "../../../src/assets/images/iconBar/codicon_history.svg"
 import Room from "../../../src/assets/images/iconBar/cil_room.svg"
-import mercadoPago from "../../assets/images/mercado-pago-logo-4.png"
+
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -62,13 +66,56 @@ const useStyles = makeStyles((theme) => ({
 })
 )
 
+async function loadData() {
+  const URL = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
+
+  //setando auth bearer
+  const config = {
+    headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
+  };
+
+  try {
+    const data = await axios.get(URL, config).then((result) => {
+      if (result.status == 200) {
+        return result.data
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+    return data;
+  } catch (e) {
+    console.log(e)
+  }
+
+}
+
 
 
 const LobbyPage = () => {
 
+  const [dinheiro, setDinheiro] = useState("0,00")
+
+  const hist = useHistory();
+
+  function logout() {
+    localStorage.clear();
+    return hist.push("/")
+  }
+
+  const [transactionWallets, setTransactionWallets] = useState(new Array)
+  const [transaction, setTransaction] = useState(new Array)
+
   const classes = useStyles();
 
   const Name = localStorage.getItem('name')
+
+  async function loadDatas(){
+    const data = await loadData();
+    setDinheiro(data.userAmount);
+    setTransaction(data.transaction);
+    setTransactionWallets(data.transactionWallets);
+  }
+
 
   return (
     <React.Fragment>
@@ -92,7 +139,7 @@ const LobbyPage = () => {
                   <Button
                     variant="success"
                     style={{
-                      fontFamily: 'roboto',   fontSize: '18px',
+                      fontFamily: 'roboto', fontSize: '18px',
                     }}>Suporte
                   </Button>
                 </Card.Text>
@@ -110,7 +157,7 @@ const LobbyPage = () => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item href="#">Minha conta</Dropdown.Item>
-                    <Dropdown.Item href="/login">Sair</Dropdown.Item>
+                    <Dropdown.Item onClick={logout} >Sair</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 <Card.Text style={{ color: '#1CDC6E', fontSize: '15px', fontFamily: 'Roboto' }}>
@@ -131,15 +178,7 @@ const LobbyPage = () => {
                         <div className="text-white" style={{ marginTop: '10%', color: '#1CDC6E' }}>
                           <label className="ml-2" htmlFor="transaction" style={{ color: '#1CDC6E' }}>Saldo em conta</label>
                           <div><h3 className='ml-2 mt-4' style={{ color: '#1CDC6E' }}>
-                            <Button
-                              style={{
-                                backgroundColor: 'transparent', color: '#1CDC6E',
-                                fontFamily: 'roboto',
-                                fontSize: "25px",
-                                border: '2px dashed #1CDC6E',
-                                boxSizing: 'border-box'
-                              }}>R$ 1600.00
-                              </Button>
+                            <ModalWallet dinheiro={dinheiro} />
                           </h3>
                           </div>
                         </div>
@@ -165,8 +204,8 @@ const LobbyPage = () => {
                       <Card.Body style={{ height: '165px' }}>
                         <Card.Title>Faça seus pagamentos com segurança</Card.Title>
                         <Card.Text>
-                         
-                    </Card.Text>
+
+                        </Card.Text>
                       </Card.Body>
                     </Card>
                   </Row>
@@ -185,18 +224,18 @@ const LobbyPage = () => {
 
                       <Card.Body style={{ height: '165px' }}>
                         <Card.Title>Convide seus amigos e ganhe bônus 5%</Card.Title>
-                        <Card.Text style={{fontSize: '12px'}}>
-                        Cada amigo que fizer um pagamento ou adicionar dinheiro a carteira
-                        você ganha desconto no proximo pagamento.
+                        <Card.Text style={{ fontSize: '12px' }}>
+                          Cada amigo que fizer um pagamento ou adicionar dinheiro a carteira
+                          você ganha desconto no proximo pagamento.
                           <div className="text-center mt-4">
-                          <Button
-                          size="sm"
-                            variant="success"
-                            style={{
-                              fontFamily: 'roboto', fontSize: '12px'
-                            }}>Compartilhar
+                            <Button
+                              size="sm"
+                              variant="success"
+                              style={{
+                                fontFamily: 'roboto', fontSize: '12px'
+                              }}>Compartilhar
                          </Button>
-                         </div>
+                          </div>
                         </Card.Text>
                       </Card.Body>
                     </Card>
@@ -220,9 +259,12 @@ const LobbyPage = () => {
                 </Card.Title>
                 <Card.Body>
                   <Card.Text style={{ color: '#1CDC6E', fontSize: '15px' }}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius itaque voluptates vero repellat autem maiores porro illo maxime cumque sit,
-                    soluta in saepe eveniet minus cupiditate praesentium doloremque natus ullam?
-                    </Card.Text>
+                    <div>
+                      {transactionWallets.map(trans => (
+                        <div className="station" key={trans.amount}>{trans.amount}</div>
+                      ))}
+                    </div>
+                  </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
