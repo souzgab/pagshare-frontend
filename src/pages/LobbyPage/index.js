@@ -18,13 +18,32 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom'
 import history from "../../../src/assets/images/iconBar/codicon_history.svg"
 import Room from "../../../src/assets/images/iconBar/cil_room.svg"
+import moment from "moment"
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
-
-
+async function findByUser() {
+  const URL = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
+  //setando auth bearer
+  const config = {
+    headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
+  };
+  try {
+    const data = await axios.get(URL, config).then((result) => {
+      if (result.status === 200) {
+        return result.data
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+    return data
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 const LobbyPage = () => {
-
 
   const hist = useHistory();
 
@@ -46,6 +65,7 @@ const LobbyPage = () => {
         axios.get(URL, config).then((result) => {
           console.log(result.data)
           if (result.status === 200) {
+            // aqui mostra o total de transações
             setTransactionLength(result.data.transactionWallets.length + result.data.transactions.length)
             result.data.transactions.map(transaction => {
               if (transaction.status === "approved") {
@@ -57,8 +77,12 @@ const LobbyPage = () => {
                 totalTransactionWallet += transactionWallet.amount
               }
             })
-            setHistoryTransaction(parseFloat(totalTransactionLobby))
-            setHistoryTransactionWallets(parseFloat(totalTransactionWallet))
+            setHistoryTransaction(parseFloat(totalTransactionLobby).toFixed(2))
+            setHistoryTransactionWallets(parseFloat(totalTransactionWallet).toFixed(2))
+
+            setTransactionWallets(result.data.transactionWallets)
+            setTransaction(result.data.transactions)
+
           }
         }).catch((err) => {
           console.log(err)
@@ -81,9 +105,12 @@ const LobbyPage = () => {
 
   const Name = localStorage.getItem('name')
 
+  moment.locale('pt-BR')
+
   async function loadDatas() {
-    //const data = await loadData();
-    //setDinheiro(data.userAmount);
+    const data = await findByUser();
+    console.log("dataaaa", data)
+    setDinheiro(data.userAmount);
   }
 
   const [transactionLength, setTransactionLength] = React.useState(0)
@@ -105,10 +132,10 @@ const LobbyPage = () => {
   }
 
   return (
-    <React.Fragment>
+    <React.Fragment >
       <CssBaseline />
       <LobbyBar />
-      <Container maxWidth="xg" style={{ backgroundColor: "#202020", height: '120vh', width: '100vw' }}>
+      <Container maxWidth="xg" style={{ backgroundColor: "#202020", height: '120vh', width: '100vw'}}>
         <Row style={{ marginTop: '6%' }}>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
             <Card className=" mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
@@ -261,15 +288,53 @@ const LobbyPage = () => {
             <Col xs={4} style={{ backgroundColor: "" }}>
               <Card className="shadow p mt-1" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', height: '80vh' }}>
                 <Card.Title className="text-white ml-4">
-                  Transações
+                  <h4 className="text-left">Históricos</h4>
                 </Card.Title>
-                <Card.Body>
-                  <Card.Text style={{ color: '#1CDC6E', fontSize: '15px' }}>
-                    <div>
+                <Card className="shadow p mt-1" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', height: '40vh', maxHeight: '40vh', overflow: 'auto', margin: '10px' }}>
+                  <Card.Title className="text-white ml-4">
+                    <h5 className="text-left">Transações da carteira</h5>
+                  </Card.Title>
+                  <Card.Body>
+                    {transactionWallets.map(transactionWallet => (
+                      <Card className="text-white shadow p mt-2" style={{ backgroundColor: '#2D2D2D', fontSize: '15px', margin: '10px', borderRadius: '10px' }}>
+                        <Card.Body>
+                          <Row>
+                            <Col xs={6}>
+                              <div className="" key={transactionWallet.createdAt}>{moment(transactionWallet.createdAt).format('ll')}</div>
+                            </Col>
+                            <Col xs={6}>
+                              <div className="text-right" key={transactionWallet.amount}><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} /> R$ {transactionWallet.amount}</div>
+                            </Col>
+                          </Row>
+                          <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transactionWallet.description}>{transactionWallet.description}</div>
+                        </Card.Body>
+                      </Card>
+                    ))}
+                  </Card.Body>
+                </Card>
+                <Card className="shadow p mt-1" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', height: '40vh', maxHeight: '40vh', overflow: 'auto', margin: '10px' }}>
+                  <Card.Title className="text-white ml-4">
+                    <h5 className="text-left">Transações lobby</h5>
+                  </Card.Title>
+                  <Card.Body>
+                    {transaction.map(transaction => (
+                      <Card className="text-white shadow p mt-2" style={{ backgroundColor: '#2D2D2D', fontSize: '15px', margin: '10px', borderRadius: '10px' }}>
+                        <Card.Body>
+                          <Row>
+                            <Col xs={6}>
+                              <div className="" key={transaction.createdAt}>{moment(transaction.createdAt).format('ll')}</div>
+                            </Col>
+                            <Col xs={6}>
+                              <div className="text-right" key={transaction.amount}><ArrowBackIcon style={{ fontSize: 'large', color: '#E74C3C' }} /> R$ {transaction.amount}</div>
+                            </Col>
+                          </Row>
+                          <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transaction.description}>{transaction.description}</div>
+                        </Card.Body>
+                      </Card>
+                    ))}
+                  </Card.Body>
+                </Card>
 
-                    </div>
-                  </Card.Text>
-                </Card.Body>
               </Card>
             </Col>
           </Row>
