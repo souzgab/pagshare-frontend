@@ -3,9 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import Button from 'react-bootstrap/Button'
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -31,15 +32,15 @@ export default function TransitionsModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [urlPayment, setUrlPayment] = useState("");
-
+  const [result, setResult] = useState(false)
+  const [disable, setDisable] = useState(false)
   //inicializa o formData com os valores default
   const [formData, setFormData] = useState(initialState);
 
-  var initialState = () =>{
+  var initialState = () => {
     return {
-      lobbyDescription:'',
-      orderDescription:'',
-      amount:'',
+      amount: '',
+      paymentUrl: ''
     };
   }
 
@@ -57,20 +58,22 @@ export default function TransitionsModal(props) {
   //handleSubmit é responsável pela chamada do endpoint criação de lobby
   async function handleSubmit(event) {
     event.preventDefault();
-  
+    setResult(true)
     const { userAmount } = formData
     const amount = parseFloat(userAmount)
     const URL = `https://paysharedev.herokuapp.com/v1/payshare/transaction/wallet/${localStorage.getItem('id')}/${amount}`
-    
+
     var data = {}
     //setando auth bearer
     const config = {
       headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
     };
-  
+
     try {
       await axios.post(URL, data, config).then((result) => {
         if (result.status == 200) {
+          setResult(false)
+          setDisable(true)
           setUrlPayment(result.data.body.initPoint)
         }
       }).catch((err) => {
@@ -88,21 +91,29 @@ export default function TransitionsModal(props) {
     return false
   }
 
-  
-
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    setUrlPayment("")
     setOpen(false);
+    setDisable(false)
   };
+
 
   return (
     <div>
       {/* TODO: COLOCAR AQUI O COMPONENTE DO LOBBY PAGE QUE PUXA O MODAL */}
-      <Button onClick={handleOpen} style={{ backgroundColor: 'transparent', color: '#1CDC6E', fontSize:'20px', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>
-        R${props.dinheiro}
+      <Button onClick={handleOpen}
+        className = "text-center mt-4"
+        size="sm"
+        variant="success"
+        style={{
+          fontFamily: 'roboto', 
+          fontSize: '12px'
+        }}>
+        {props.texto}
       </Button>
 
       <Modal
@@ -115,6 +126,7 @@ export default function TransitionsModal(props) {
           timeout: 500,
         }}
       >
+        
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 style={{ color: '#fff', textAlign: "center" }}>Colocando dinheiro na Wallet</h2>
@@ -135,11 +147,13 @@ export default function TransitionsModal(props) {
                 }}
               />
               <TextField
-                style={{ margin: '10px' }}
+                style={{ margin: '10px' , fontSize:'15px' }}
                 variant='outlined'
                 required
                 hidden={onResultPayment(urlPayment)}
                 fullWidth
+                name="paymentUrl"
+                onChange = {onChange}
                 label='Site para pagamento'
                 value={urlPayment}
                 disabled
@@ -149,19 +163,20 @@ export default function TransitionsModal(props) {
                 }}
               />
               <Button
+                hidden = {disable ? true : false}
                 type="submit"
-                fullWidth
-                variant="contained"
+                variant="success"
                 color="secondary"
                 style={{
                   color: "white",
                   padding: '10px',
-                  margin: '10px'
+                  fontFamily: "Roboto",
+                  margin: '10px',
+                  width : '100%'
                 }}
               >
-                Inserir
+                {result ? <CircularProgress/> : 'Inserir'}
                   </Button>
-              
             </form>
           </div>
         </Fade>
