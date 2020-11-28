@@ -13,6 +13,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import axios from 'axios';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import moment from "moment"
 import Form from 'react-bootstrap/Form'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router-dom'
@@ -81,19 +82,86 @@ const useStyles = makeStyles((theme) => ({
 
 const PagamentoPage = () => {
   const urlDadosLobby = `https://paysharedev.herokuapp.com/v1/payshare/lobby/lobbyUser/${localStorage.getItem('id')}`;
+  const urlDadosUser = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
   const config = {
     headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
   };
 
-
+  const hist = useHistory();
+  // esta pegando  a lista de usuarios que tem na lobby
   const [userPfList, setUserPfList] = useState([]);
+  // valor a ser pago na lobby
+  const [lobbyAmount, setLobbyAmount] = useState();
+  // valor total ja recebido
+  const [lobbyAmountTotal, setAmountTotal] = useState();
+
+  const [lobbyDescription, setLobbyDescription] = useState();
+
+  const [lobbyCreatedAt, setLobbyCreatedAt] = useState()
+
+  const [transactionLobby, setTransactionLobby] = useState([]);
+
+  const [userAmountLobby, setUserAmountLobby] = useState();
+
+  //handleSubmit é responsável pela chamada do endpoint criação de lobby
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const amount = parseFloat(userAmountLobby)
+    const URL = `https://paysharedev.herokuapp.com/v1/payshare/transaction/wallet/${localStorage.getItem('id')}/${amount}`
+
+    var data = {}
+    //setando auth bearer
+    const config = {
+      headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
+    };
+
+    /*try {
+      if ( === 1 ||  === "1") {
+        alert("cai aqui primeiro")
+        await axios.post(URL, data, config).then((result) => {
+          if (result.status == 200) {
+            window.open(result.data.initPoint)
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      } else {
+        alert("cai aqui segundo")
+        await axios.post(URL, data, config).then((result) => {
+          if (result.status == 200) {
+            alert("pagamento efetuado com sucesso")
+            hist.push('/pagamento')
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
+
+    } catch (e) {
+      console.log(e)
+    }*/
+  }
+
 
   useEffect(() => {
     try {
+
+      axios.get(urlDadosUser, config).then((result) => {
+        if (result.status === 200) {
+          setUserAmountLobby(result.data.userAmountLobby)
+        }
+      })
+
       axios.get(urlDadosLobby, config).then((result) => {
         if (result.status === 200) {
           console.log(result.data)
+          setLobbyAmount(result.data.amount)
+          setAmountTotal(result.data.amountTotal)
+          setLobbyDescription(result.data.orderDescription)
+          setLobbyCreatedAt(result.data.creationDate)
           setUserPfList(result.data.userPfList);
+          setTransactionLobby(result.data.transactions)
         }
       });
     } catch (Error) {
@@ -111,7 +179,7 @@ const PagamentoPage = () => {
     <React.Fragment>
       <CssBaseline />
       <LobbyBar />
-      <Container maxWidth="xg" style={{ backgroundColor: "#202020", height: '120vh', width: '100vw'}}>
+      <Container maxWidth="xg" style={{ backgroundColor: "#202020", height: '120vh', width: '100vw' }}>
         <Row style={{ marginTop: '6%' }}>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
             <Card className=" mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
@@ -173,7 +241,7 @@ const PagamentoPage = () => {
                             <div className="ml-2 mt-3" htmlFor="transaction" style={{ color: 'white', fontSize: '20px', fontFamily: 'roboto' }}>Total a pagar: </div>
                           </Col>
                           <Col xs={4}>
-                            <div className="ml-2 mt-3 text-left" htmlFor="transaction" style={{ color: '#F7D147', fontSize: "20px", fontFamily: 'roboto' }}>R$1300</div>
+                            <div className="ml-2 mt-3 text-left" htmlFor="transaction" style={{ color: '#F7D147', fontSize: "20px", fontFamily: 'roboto' }}>R$ {lobbyAmount}</div>
                           </Col>
                         </Row>
                       </Col>
@@ -194,7 +262,7 @@ const PagamentoPage = () => {
                               </Col>
                               <Col xs={4} style={{ backgroundColor: '' }}>
                                 <label className="mt-4 mr-5" style={{ color: 'white', fontSize: '15px' }}>Valor a pagar:</label>
-                                <label className="mt-4" style={{ color: '#F7D147', fontSize: '15px' }}>R$ {user.userAmountLobby}</label>
+                                {user.userAmountLobby === 0.00 ? <label className="mt-4" style={{ color: '#1CDC6E', fontSize: '15px' }}>Pago</label> : <label className="mt-4" style={{ color: '#F7D147', fontSize: '15px' }}>R$ {user.userAmountLobby.toFixed(2)}</label>}
                               </Col>
                               <Col xs={12}><hr style={{ width: '100%' }} /></Col>
                             </Row>
@@ -218,11 +286,11 @@ const PagamentoPage = () => {
                       <Col xs={6} className="text-right" style={{ fontSize: '15px' }}>
                         <div className="mt-5" style={{ backgroundColor: 'transparent' }}>
                           <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '15%' }}>Valor recebido:</label>
-                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '5%', fontSize: '20px' }}>R$ 133,20</label>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '5%', fontSize: '20px' }}>R$ {lobbyAmountTotal}</label>
                         </div>
                         <div className="mt-6" style={{ backgroundColor: 'transparent' }}>
-                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '15%', fontSize: '12px' }}>Recebinte:</label>
-                          <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '5%', fontSize: '12px' }}>Pizza Data: 12/11/2020 21:30</label>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '15%', fontSize: '12px' }}>Descrição: {lobbyDescription}</label>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '5%', fontSize: '12px' }}>Data de criação: {moment(lobbyCreatedAt).format('ll')}</label>
                         </div>
                       </Col>
                     </Row>
@@ -241,45 +309,52 @@ const PagamentoPage = () => {
                       <h5 className="text-left">Transações da lobby</h5>
                     </Card.Title>
                     <Card.Body>
-                      <Card className="text-white shadow p mt-2" style={{ backgroundColor: '#2D2D2D', fontSize: '15px', margin: '10px', borderRadius: '10px' }}>
-                        <Card.Body>
-                          <Row>
-                            <Col xs={6}>
-                              <div className="">dwadawd</div>
-                            </Col>
-                            <Col xs={6}>
-                              <div className="text-right"><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} />dawdaw</div>
-                            </Col>
-                          </Row>
-                          <div className="text-left mt-2" style={{ color: '#1CDC6E' }}>dawd</div>
-                        </Card.Body>
-                      </Card>
+                      {transactionLobby.map(transaction => (
+                        <Card className="text-white shadow p mt-2" style={{ backgroundColor: '#2D2D2D', fontSize: '15px', margin: '10px', borderRadius: '10px' }}>
+                          <Card.Body>
+                            <Row>
+                              <Col xs={6}>
+                                <div className="" key={transaction.createdAt}>{moment(transaction.createdAt).format('ll')}</div>
+                              </Col>
+                              <Col xs={6}>
+                                <div className="text-right" key={transaction.amount.toFixed(2)}><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} /> R$ {transaction.amount.toFixed(2)}</div>
+                              </Col>
+                            </Row>
+                            <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transaction.description}>{transaction.description}</div>
+                            <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transaction.cupomUser}>{transaction.cupomUser}</div>
+                          </Card.Body>
+                        </Card>
+                      ))}
                     </Card.Body>
                   </Card>
                   <Container>
-                  <Row style={{ backgroundColor: '' }}>
-                    <Col xs={12} className="mb-5">
-                      <Form.Group controlId="exampleForm.ControlSelect1" style={{backgroundColor:""}}>
-                        <Form.Label className="text-white mt-5" style={{fontSize:'15px'}}>Forma de pagamento</Form.Label>
-                        <Form.Control as="select" style={{border:'solid 1px #1CDC6E' , backgroundColor:"transparent" , color:'white'}}>
-                          <option className="text-dark">Mercado Pago</option>
-                          <option className="text-dark">Wallet</option>
-                        </Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row className="" style={{ backgroundColor: '' }}>
-                    <Col xs={12} className="text-center">
-                      <Button
-                        variant="success"
-                        style={{
-                          fontFamily: 'Roboto', fontSize: '20px', backgroundColor: '#1CDC6E', color: '#ffff',
-                          height: '100%',
-                          width: '100%',
-                        }}>Pagar
+                    <form onSubmit={handleSubmit}>
+                      <Row style={{ backgroundColor: '' }}>
+                        <Col xs={12} className="mb-5">
+                          <Form.Group controlId="exampleForm.ControlSelect1" style={{ backgroundColor: "" }}>
+                            <Form.Label className="text-white mt-5" style={{ fontSize: '15px' }}>Forma de pagamento</Form.Label>
+                            <Form.Control name="select" as="select" style={{ border: 'solid 1px #1CDC6E', backgroundColor: "transparent", color: 'white' }}>
+                              <option value="select">Selecione uma opção</option>
+                              <option value="Mercado">Mercado</option>
+                              <option value="Wallet">Wallet</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Row className="" style={{ backgroundColor: '' }}>
+                        <Col xs={12} className="text-center">
+                          <Button
+                            type="submit"
+                            variant="success"
+                            style={{
+                              fontFamily: 'Roboto', fontSize: '20px', backgroundColor: '#1CDC6E', color: '#ffff',
+                              height: '100%',
+                              width: '100%',
+                            }}>Pagar
                          </Button>
-                    </Col>
-                  </Row>
+                        </Col>
+                      </Row>
+                    </form>
                   </Container>
                 </Card.Body>
               </Card>
