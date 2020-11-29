@@ -63,8 +63,8 @@ export default function TransitionsModal(props) {
     if (navigator.share !== undefined) {
       navigator.share({
         title: 'Payshare, Compartilhe!',
-        text: 'Você foi convidado para fazer parte do futuro em pagamentos compartilhados',
-        url: 'https://www.google.com/',
+        text: 'www',
+        url: 'https://api.whatsapp.com/send?text=',
       })
       .then(() => console.log('Successful share'))
       .catch((error) => console.log('Error sharing', error));
@@ -95,7 +95,6 @@ export default function TransitionsModal(props) {
           timeout: 500,
         }}
       >
-        
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 style={{ color: '#fff', textAlign: "center" }}>Compartilhe com seu amigos</h2>
