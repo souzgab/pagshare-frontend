@@ -161,7 +161,7 @@ export function Login() {
           <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: '#202020' }}>
             <div className={classes.paper}>
               <Snackbar message="Sucesso!" open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success">
+                <Alert onClose={handleClose} severity="success" style={{ fontSize: '14px'}}>
                   Logado com Sucesso!
                 </Alert>
               </Snackbar>

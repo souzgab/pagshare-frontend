@@ -131,7 +131,7 @@ const LobbyPage = ({obj}) => {
 
   async function loadDatas() {
     const data = await findByUser();
-    setDinheiro(data.userAmount);
+    setDinheiro(data.userAmount.toFixed(2));
   }
 
   const [transactionLength, setTransactionLength] = React.useState(0)
@@ -320,7 +320,7 @@ const LobbyPage = ({obj}) => {
                               <div className="" key={transactionWallet.createdAt}>{moment(transactionWallet.createdAt).format('ll')}</div>
                             </Col>
                             <Col xs={6}>
-                              <div className="text-right" key={transactionWallet.amount}><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} /> R$ {transactionWallet.amount}</div>
+                              <div className="text-right" key={transactionWallet.amount.toFixed(2)}><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} /> R$ {transactionWallet.amount.toFixed(2)}</div>
                             </Col>
                           </Row>
                           <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transactionWallet.description}>{transactionWallet.description}</div>
@@ -342,7 +342,7 @@ const LobbyPage = ({obj}) => {
                               <div className="" key={transaction.createdAt}>{moment(transaction.createdAt).format('ll')}</div>
                             </Col>
                             <Col xs={6}>
-                              <div className="text-right" key={transaction.amount}><ArrowBackIcon style={{ fontSize: 'large', color: '#E74C3C' }} /> R$ {transaction.amount}</div>
+                              <div className="text-right" key={transaction.amount.toFixed(2)}><ArrowBackIcon style={{ fontSize: 'large', color: '#E74C3C' }} /> R$ {transaction.amount.toFixed(2)}</div>
                             </Col>
                           </Row>
                           <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transaction.description}>{transaction.description}</div>

@@ -11,7 +11,11 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import moment from "moment"
+import Form from 'react-bootstrap/Form'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -47,13 +51,19 @@ const useStyles = makeStyles((theme) => ({
     width: 128,
     height: 128,
   },
-  headerPay:{
+  headerPay: {
     width: '100%',
     display: "flex",
     flexDirection: 'row',
     justifyContent: "space-between",
     alignItems: 'center',
-    backgroundColor: "red"
+  },
+  footerPay: {
+    width: '100%',
+    display: "flex",
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    alignItems: 'center',
   },
   img: {
     margin: 'auto',
@@ -70,24 +80,91 @@ const useStyles = makeStyles((theme) => ({
 )
 
 
-const LobbyPage = () => {
+const PagamentoPage = () => {
   const urlDadosLobby = `https://paysharedev.herokuapp.com/v1/payshare/lobby/lobbyUser/${localStorage.getItem('id')}`;
+  const urlDadosUser = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
   const config = {
     headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
   };
 
-  
+  const hist = useHistory();
+  // esta pegando  a lista de usuarios que tem na lobby
   const [userPfList, setUserPfList] = useState([]);
+  // valor a ser pago na lobby
+  const [lobbyAmount, setLobbyAmount] = useState();
+  // valor total ja recebido
+  const [lobbyAmountTotal, setAmountTotal] = useState();
+
+  const [lobbyDescription, setLobbyDescription] = useState();
+
+  const [lobbyCreatedAt, setLobbyCreatedAt] = useState()
+
+  const [transactionLobby, setTransactionLobby] = useState([]);
+
+  const [userAmountLobby, setUserAmountLobby] = useState();
+
+  //handleSubmit é responsável pela chamada do endpoint criação de lobby
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const amount = parseFloat(userAmountLobby)
+    const URL = `https://paysharedev.herokuapp.com/v1/payshare/transaction/wallet/${localStorage.getItem('id')}/${amount}`
+
+    var data = {}
+    //setando auth bearer
+    const config = {
+      headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
+    };
+
+    /*try {
+      if ( === 1 ||  === "1") {
+        alert("cai aqui primeiro")
+        await axios.post(URL, data, config).then((result) => {
+          if (result.status == 200) {
+            window.open(result.data.initPoint)
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      } else {
+        alert("cai aqui segundo")
+        await axios.post(URL, data, config).then((result) => {
+          if (result.status == 200) {
+            alert("pagamento efetuado com sucesso")
+            hist.push('/pagamento')
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
+
+    } catch (e) {
+      console.log(e)
+    }*/
+  }
+
 
   useEffect(() => {
-    try{
+    try {
+
+      axios.get(urlDadosUser, config).then((result) => {
+        if (result.status === 200) {
+          setUserAmountLobby(result.data.userAmountLobby)
+        }
+      })
+
       axios.get(urlDadosLobby, config).then((result) => {
-        if(result.status === 200){
+        if (result.status === 200) {
           console.log(result.data)
+          setLobbyAmount(result.data.amount)
+          setAmountTotal(result.data.amountTotal)
+          setLobbyDescription(result.data.orderDescription)
+          setLobbyCreatedAt(result.data.creationDate)
           setUserPfList(result.data.userPfList);
+          setTransactionLobby(result.data.transactions)
         }
       });
-    }catch(Error){
+    } catch (Error) {
       throw new Error();
     }
   }, []);
@@ -147,96 +224,147 @@ const LobbyPage = () => {
             </Card>
           </Col>
         </Row>
-        <Container maxWidth="xg" style={{ backgroundColor: 'blue', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-          <Row style={{ backgroundColor: "yellow", height: '100%' }}>
-            <Col xs={8} style={{ backgroundColor: "green",display: 'grid', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+        {/*Estrutura da lobby*/}
+        <Container maxWidth="xg" style={{ backgroundColor: '', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+          <Row style={{ backgroundColor: "", height: '100%' }}>
+            <Col xs={8} style={{ backgroundColor: "" }}>
               <Card className="shadow p" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', width: '100%' }}>
-                <Card.Body>
-                  
-                  <Grid className={classes.headerPay}>
-                    <Card.Title style={{ color: 'white', fontSize: '20px',width: '40%' }}>Sala de pagamento</Card.Title>
-                      <div className="text-white" style={{ color: '#1CDC6E', width: '40%', backgroundColor: 'blue'}}>
-                        <div className="ml-2" htmlFor="transaction" style={{ color: 'white' }}>Total a pagar: </div>
-                        <div className="ml-2" htmlFor="transaction" style={{ color: 'yellow', fontSize: "20px", fontFamily: 'roboto' }}>R$ 200.00</div>
-                      </div>
-                  </Grid>
+                <Container>
+                  <Card.Body>
+                    <Row style={{ backgroundColor: '' }}>
+                      <Col xs={6}>
+                        <Card.Title style={{ color: 'white', fontSize: '25px', fontFamily: 'roboto' }}>Sala de pagamento</Card.Title>
+                      </Col>
+                      <Col xs={6} className="text-right">
+                        <Row>
+                          <Col xs={8}>
+                            <div className="ml-2 mt-3" htmlFor="transaction" style={{ color: 'white', fontSize: '20px', fontFamily: 'roboto' }}>Total a pagar: </div>
+                          </Col>
+                          <Col xs={4}>
+                            <div className="ml-2 mt-3 text-left" htmlFor="transaction" style={{ color: '#F7D147', fontSize: "20px", fontFamily: 'roboto' }}>R$ {lobbyAmount}</div>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
 
-                  <Card.Text style={{ backgroundColor: 'white', fontSize: '15px', fontFamily: 'Roboto' }}>
-                    
-                    {/* Aqui repete usuário */}
-                    <div>
-                      {userPfList.map(user => (
-                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
-                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>{user.name}</label>
-                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
-                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>{user.userAmountLobby}</label>
-                          <hr style={{ marginTop: '1%', width: '90%' }} />
+                    <Card className="mt-5" style={{ backgroundColor: 'transparent', border: 'none', maxHeight: '50vh', overflow: 'auto', overflowX: 'hidden' }}>
+                      <Card.Body>
+                        {/* Aqui repete usuário */}
+                        <div>
+                          {userPfList.map(user => (
+                            <Row className="mb-2" style={{ backgroundColor: '' }}>
+                              <Col xs={6} style={{ backgroundColor: '', fontFamily: 'Roboto' }}>
+                                <AccountCircleIcon style={{ fontSize: '50px', color: '#C4C4C4' }}>Icon </AccountCircleIcon>
+                                <label className="mt-4 ml-5 text-white" style={{ fontSize: '15px' }}>{user.name}</label>
+                              </Col>
+                              <Col xs={2}>
+                                <ShoppingCartIcon className="mt-3" style={{ fontSize: '25px', color: '#C4C4C4' }}>Icon </ShoppingCartIcon>
+                              </Col>
+                              <Col xs={4} style={{ backgroundColor: '' }}>
+                                <label className="mt-4 mr-5" style={{ color: 'white', fontSize: '15px' }}>Valor a pagar:</label>
+                                {user.userAmountLobby === 0.00 ? <label className="mt-4" style={{ color: '#1CDC6E', fontSize: '15px' }}>Pago</label> : <label className="mt-4" style={{ color: '#F7D147', fontSize: '15px' }}>R$ {user.userAmountLobby.toFixed(2)}</label>}
+                              </Col>
+                              <Col xs={12}><hr style={{ width: '100%' }} /></Col>
+                            </Row>
+                          ))}
                         </div>
-                      ))}
-                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
-                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>x</label>
-                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
-                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>x</label>
-                          <hr style={{ marginTop: '1%', width: '90%' }} />
-                        </div>
-                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
-                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>x</label>
-                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
-                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>x</label>
-                          <hr style={{ marginTop: '1%', width: '90%' }} />
-                        </div>
-                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
-                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>x</label>
-                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
-                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>x</label>
-                          <hr style={{ marginTop: '1%', width: '90%' }} />
-                        </div>
-                        <div className="mt-5" style={{ backgroundColor: 'transparent', height: '10vh', width: '65vw' }}>
-                          <AccountCircleIcon style={{ fontSize: 40, color: '#C4C4C4' }}>Icon </AccountCircleIcon>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>x</label>
-                              <ShoppingCartIcon style={{ fontSize: 20, color: '#C4C4C4', marginLeft:'20%' }}>Icon </ShoppingCartIcon>
-                              <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '10%' }}>Valor a pagar:</label>
-                            <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '10%' }}>x</label>
-                          <hr style={{ marginTop: '1%', width: '90%' }} />
-                        </div>
+                      </Card.Body>
+                    </Card>
 
-                    </div>
-
-                    <Button
-                      variant="success"
-                      style={{
-                        fontFamily: 'roboto', fontSize: '12px', backgroundColor: 'transparent', color: '#1CDC6E', marginTop: '5%', marginLeft: '4%'
-                      }}>Compartilhar
-                  </Button>
-                    <div className="mt-6" style={{ backgroundColor: 'transparent', height: '10vh', width: '30vw', marginLeft: '65%', marginTop: '-7%' }}>
-                      <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '15%' }}>Valor recebido:</label>
-                      <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '5%' }}>R$ 133,20</label>
-                    </div>
-                    <div className="mt-6" style={{ backgroundColor: 'transparent', height: '10vh', width: '30vw', marginLeft: '60%', marginTop: '-3%', }}>
-                      <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '15%', fontSize: '12px' }}>Recebinte:</label>
-                      <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '5%', fontSize: '12px' }}>Pizza Data: 12/11/2020 21:30</label>
-                    </div>
-                  </Card.Text>
-                </Card.Body>
+                    <Row style={{ backgroundColor: '' }}>
+                      <Col xs={6}>
+                        <AttachFileIcon style={{ fontSize: '15px', color: '#ffff', marginTop: '10%' }} />
+                        <Button
+                          variant="success"
+                          style={{
+                            border: 'none',
+                            fontFamily: 'roboto', fontSize: '15px', backgroundColor: 'transparent', color: '#1CDC6E',
+                            marginTop: '10%'
+                          }}>Compartilhar
+                         </Button>
+                      </Col>
+                      <Col xs={6} className="text-right" style={{ fontSize: '15px' }}>
+                        <div className="mt-5" style={{ backgroundColor: 'transparent' }}>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '15%' }}>Valor recebido:</label>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '5%', fontSize: '20px' }}>R$ {lobbyAmountTotal}</label>
+                        </div>
+                        <div className="mt-6" style={{ backgroundColor: 'transparent' }}>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '15%', fontSize: '12px' }}>Descrição: {lobbyDescription}</label>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '5%', fontSize: '12px' }}>Data de criação: {moment(lobbyCreatedAt).format('ll')}</label>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Container>
               </Card>
             </Col>
-            <Col xs={4} style={{ backgroundColor: "red" }}>
-
+            <Col xs={4} style={{ backgroundColor: "" }}>
+              <Card className="shadow p mt-1" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', height: '80vh' }}>
+                <Card.Title className="text-white ml-4">
+                  <h3 className="text-left">Detalhes do pagamento</h3>
+                </Card.Title>
+                <Card.Body>
+                  <Card className="shadow p mt-1" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', height: '40vh', maxHeight: '40vh', overflow: 'auto', margin: '10px' }}>
+                    <Card.Title className="text-white ml-4">
+                      <h5 className="text-left">Transações da lobby</h5>
+                    </Card.Title>
+                    <Card.Body>
+                      {transactionLobby.map(transaction => (
+                        <Card className="text-white shadow p mt-2" style={{ backgroundColor: '#2D2D2D', fontSize: '15px', margin: '10px', borderRadius: '10px' }}>
+                          <Card.Body>
+                            <Row>
+                              <Col xs={6}>
+                                <div className="" key={transaction.createdAt}>{moment(transaction.createdAt).format('ll')}</div>
+                              </Col>
+                              <Col xs={6}>
+                                <div className="text-right" key={transaction.amount.toFixed(2)}><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} /> R$ {transaction.amount.toFixed(2)}</div>
+                              </Col>
+                            </Row>
+                            <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transaction.description}>{transaction.description}</div>
+                            <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transaction.cupomUser}>{transaction.cupomUser}</div>
+                          </Card.Body>
+                        </Card>
+                      ))}
+                    </Card.Body>
+                  </Card>
+                  <Container>
+                    <form onSubmit={handleSubmit}>
+                      <Row style={{ backgroundColor: '' }}>
+                        <Col xs={12} className="mb-5">
+                          <Form.Group controlId="exampleForm.ControlSelect1" style={{ backgroundColor: "" }}>
+                            <Form.Label className="text-white mt-5" style={{ fontSize: '15px' }}>Forma de pagamento</Form.Label>
+                            <Form.Control name="select" as="select" style={{ border: 'solid 1px #1CDC6E', backgroundColor: "transparent", color: 'white' }}>
+                              <option value="select">Selecione uma opção</option>
+                              <option value="Mercado">Mercado</option>
+                              <option value="Wallet">Wallet</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Row className="" style={{ backgroundColor: '' }}>
+                        <Col xs={12} className="text-center">
+                          <Button
+                            type="submit"
+                            variant="success"
+                            style={{
+                              fontFamily: 'Roboto', fontSize: '20px', backgroundColor: '#1CDC6E', color: '#ffff',
+                              height: '100%',
+                              width: '100%',
+                            }}>Pagar
+                         </Button>
+                        </Col>
+                      </Row>
+                    </form>
+                  </Container>
+                </Card.Body>
+              </Card>
             </Col>
           </Row>
         </Container>
       </Container>
-    </React.Fragment>
+    </React.Fragment >
   )
 }
 
-export default LobbyPage;
+export default PagamentoPage;
 

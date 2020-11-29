@@ -20,6 +20,7 @@ import Card from "../../../assets/images/iconBar/card.svg"
 import history from "../../../assets/images/iconBar/codicon_history.svg"
 import settings from "../../../assets/images/iconBar/settings.svg"
 import ButtomMessage from "../../../assets/images/iconBar/buttonMessage.svg"
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -119,7 +120,7 @@ const LobbyBar = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Drawer
+      <Drawer 
         variant='permanent'
         className={
           clsx(classes.drawer, {
@@ -142,14 +143,18 @@ const LobbyBar = () => {
               <ListItemIcon><img src={dash} /></ListItemIcon>
               <ListItemText primary='ÍNICIO' />
             </ListItem>
+            <Link to="/lobby" className="text-white">
             <ListItem className="ml-2 mb-3" button>
               <ListItemIcon><img src={wallet} /></ListItemIcon>
               <ListItemText primary='MINHA CARTEIRA' />
             </ListItem>
+            </Link>
+            <Link to="/pagamento" className="text-white">
             <ListItem className="ml-2 mb-3" button>
               <ListItemIcon><img src={Room} /></ListItemIcon>
-              <ListItemText primary='SALA DA LOBBY' />
+              <ListItemText primary='SALA DA LOBBY' /> 
             </ListItem>
+            </Link>
             <ListItem className="ml-2 mb-3" button>
               <ListItemIcon><img src={Card} /></ListItemIcon>
               <ListItemText primary="MEUS CARTÕES" />
