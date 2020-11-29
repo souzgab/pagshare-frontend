@@ -32,15 +32,11 @@ export default function TransitionsModal(props) {
   const [urlShare, setUrlShare] = useState("");
   const [result, setResult] = useState(false)
   const [disable, setDisable] = useState(false)
-  //inicializa o formData com os valores default
 
-
-  //handleSubmit é responsável pela chamada do endpoint criação de lobby
   async function handleSubmit(event) {
     event.preventDefault();
     setResult(true)
     setUrlShare(props.idLobby)
-    const buttonCopy = document.getElementById("buttonCopy")
     const res = handleObj();
     copy(`Message: ${res.message}, ID: ${props.obj.id}`)
   }
@@ -62,6 +58,19 @@ export default function TransitionsModal(props) {
     }
     return message;
   }
+
+  function share(){
+    if (navigator.share !== undefined) {
+      navigator.share({
+        title: 'Payshare, Compartilhe!',
+        text: 'Você foi convidado para fazer parte do futuro em pagamentos compartilhados',
+        url: 'https://www.google.com/',
+      })
+      .then(() => console.log('Successful share'))
+      .catch((error) => console.log('Error sharing', error));
+    }
+  }
+  
 
   return (
     <div>
@@ -97,10 +106,10 @@ export default function TransitionsModal(props) {
                 required
                 fullWidth
                 name="lobbyshare"
-                label="Url para compartilhamento"
+                label="Id Para acesso da Lobby"
                 id="lobbyshare"
                 disabled
-                value={props.idLobby}
+                value="Clique no botão abaixo para copiar o texto de compartilhamento"
                 InputProps={{ style: { color: '#fff' } }}
                 InputLabelProps={{
                   style: { shrink: true, color: '#fff' },
@@ -112,6 +121,7 @@ export default function TransitionsModal(props) {
                 variant="success"
                 id="buttonCopy"
                 color="secondary"
+                onClick={share}
                 style={{
                   color: "white",
                   padding: '10px',
