@@ -18,7 +18,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import { Image } from "react-bootstrap";
-import Group from '@material-ui/icons/Group';
+import ModalShare from '../../src/pages/LobbyPage/components/ModalShare';
+
 const useStyles = makeStyles((theme) => ({
     heroContent: {
       padding: theme.spacing(8, 0, 6),
@@ -117,7 +118,7 @@ const LobbyInstance = (props) => {
                             variant="h6"
                             style={{textAlign: 'justify', padding: '2%'}}
                           >
-                            O importante é dividir e compartilhar, esta lobby está ativa e ja recebeu R$ {dados.amountTotal} reais.
+                            O importante é dividir e compartilhar, sua lobby está ativa e ja recebeu R$ {dados.amountTotal} reais.
                           </Typography>
                         </li>
                         <li>
@@ -134,13 +135,7 @@ const LobbyInstance = (props) => {
                         <Divider component="li" variant="inset" />
                       </List>
                       <CardActions style={{display: "flex", flexDirection: 'row', justifyContent: 'space-around'}}>
-                        <Button size="sm"
-                        variant="success"
-                        style={{
-                          fontFamily: 'roboto', fontSize: '12px'
-                        }} >
-                          Compartilhar Lobby
-                        </Button>
+                        <ModalShare texto="Compartilhar Lobby" idLobby={dados.id} obj={dados}/>
                         <Link to="/pagamento">
                                 <Button
                                   size="sm"
@@ -149,7 +144,7 @@ const LobbyInstance = (props) => {
                                     fontFamily: 'roboto', fontSize: '12px'
                                   }}>Detalhar Lobby
                                 </Button>
-                              </Link>
+                        </Link>
                     </CardActions>
                     </Col>
                   </Row>
