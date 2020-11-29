@@ -297,9 +297,7 @@ const LobbyPage = ({obj}) => {
               <Row>
                 <Col className="mt-4" xs={12} style={{ backgroundColor: "", height: '50vh' }}>
                   <Card className="" id='lobby' style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', fontFamily: 'roboto', width: '95%', height: '' }}>
-                    <Card.Body id="modalCreateLobby" className="text-center">
-                      {userLobby.amount >= userLobby.amountTotal ? <LobbyInstance obj={userLobby}/> : <Modal/>}
-                    </Card.Body>
+                    {userLobby.amount >= userLobby.amountTotal ? <LobbyInstance obj={userLobby}/> : <Modal/>}
                   </Card>
                 </Col>
               </Row>

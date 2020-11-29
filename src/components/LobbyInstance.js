@@ -6,39 +6,52 @@ import { makeStyles} from '@material-ui/core/styles';
 import moment from "moment";
 import Button from 'react-bootstrap/Button'
 import { Link } from "react-router-dom";
-import logoSvg from "../assets/SVG/lblLogo.svg";
+import logoSvg from "../assets/images/Logo-pequeno.png";
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
+import { Image } from "react-bootstrap";
+import Group from '@material-ui/icons/Group';
 const useStyles = makeStyles((theme) => ({
     heroContent: {
       padding: theme.spacing(8, 0, 6),
       backgroundColor: theme.palette.primary
     },
     root: {
-      height: '100vh',
+      height: '90%',
+      width: '100%',
+      fontFamily: 'Roboto'
     },
     image: {
-      backgroundImage: 'url(https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1351&q=80)',
+      backgroundImage: sortImage,
       backgroundRepeat: 'no-repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
-      backgroundPosition: 'center',
+    },
+    dividerFullWidth: {
+      margin: `5px 0 0 ${theme.spacing(2)}px`,
+    },
+    dividerInset: {
+      margin: `5px 0 0 ${theme.spacing(9)}px`,
     },
     font: {
-      fontFamily: 'Roboto'
+      fontFamily: 'Roboto',
+      fontSize: '1.3rem',
+      color: 'whitesmoke'
     }
   }));
   let users = [];
 
   function sortImage(){
-    return 'url(https://source.unsplash.com/random)';
+    return 'url(https://images.unsplash.com/photo-1592151450086-0eb3e435c48e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80)';
   }
   
 const LobbyInstance = (props) => {
@@ -51,7 +64,10 @@ const LobbyInstance = (props) => {
             backgroundColor: '#2d2d2d',
             fontSize: '15px',
             borderRadius: '10px',
-            height: '95%',
+            height: '100%',
+            justifyContent: 'center',
+            alignContent: 'center',
+            textAlign: 'center'
         }}>
           <Row style={{height: '98%'}}>
             <Col style={{backgroundColor: ''}}>
@@ -62,59 +78,82 @@ const LobbyInstance = (props) => {
               className={classes.image}
               title="Payshare"
               style={{
-                backgroundColor: '#2d2d2d',
+                backgroundColor: '',
                 backgroundSize: 'center',
-                backgroundAttachment: 'fixed',
+                backgroundAttachment: 'scroll',
                 borderBottomLeftRadius: '10px',
                 borderTopLeftRadius: '10px',
-                margin: '1%'
+                margin: '1%',
+                filter: 'grayscale(100%)'
               }}
             />
             </Col>
-            <Col style={{backgroundColor: '', alignContent: 'center',}}>
-              <CardActionArea style={{
-                width: '98%',
-                backgroundColor: 'purple',
-                height: '90%'
+            <Col style={{backgroundColor: 'transparent',height: '100%',width: '100%', alignContent: 'center', alignItems: 'center', justifyContent: 'center'}}>
+              <Card elevation={0} style={{
+                width: '100%',
+                backgroundColor: '#2d2d2d',
+                height: '80%',alignContent: 'center', alignItems: 'center',justifyContent: 'center'
               }}>
-                <CardContent>
-                  <Row>
-                    <Col style={{backgroundColor: "red",
-                    alignContent: 'center', justifyContent: 'center',
-                    alignContent: 'center',
-                    textAlign: 'center', fontFamily: 'Roboto'}}>
-                      <h3>Parece que você esta participando de uma Lobby... {dados.lobbyDescription} que foi criada no dia, {moment(dados.creationDate).format('ll')}</h3>
-                    </Col>
-                    <Col sm={12} className={classes.font}
-                    style={{backgroundColor: "red",
-                    alignContent: 'center', justifyContent: 'center',
-                    alignContent: 'center',
-                    textAlign: 'center', fontFamily: 'Roboto'}}
-                    >sua lobby ativa está com {dados.userPfList.length} pessoas, confira aqui!</Col>
-                    <Col sm={12} style={{display: 'flex', justifyContent: 'space-between', width: '90%'}}>
-                        Valor: {dados.amount === 0  ? <span>PAGO</span> : `R$ ${parseFloat(dados.amount).toFixed(2)}`}
+                  <Row style={{backgroundColor: 'transparent',height: '100%',width: '100%',alignContent: 'center', alignItems: 'center',justifyContent: 'center'}}>
+                    <Col style={{display: "flex", flexDirection: 'column', justifyContent: 'space-around'}}>
+                      <List className={classes.root}>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <Image src={logoSvg}/>
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText style={{color: 'white'}} primary={<Typography variant="h6" style={{ color: '#1CDC6E' }}>{dados.lobbyDescription}</Typography>} secondary={<Typography variant="h6" style={{ color: '#1CDC6E' }}>{moment(dados.creationDate).format('ll')}</Typography>}/>
+                      </ListItem>
+                        <ListItem style={{fontSize: '220px', color:'white'}}>
+                          <ListItemText   />
+                        </ListItem>
+                        <Divider component="li" />
+                        <li>
+                          <Typography
+                            className={classes.dividerFullWidth, classes.font}
+                            color="textSecondary"
+                            display="block"
+                            variant="h6"
+                            style={{textAlign: 'justify', padding: '2%'}}
+                          >
+                            O importante é dividir e compartilhar, esta lobby está ativa e ja recebeu R$ {dados.amountTotal} reais.
+                          </Typography>
+                        </li>
+                        <li>
+                          <Typography
+                            className={classes.dividerFullWidth, classes.font}
+                            color="textSecondary"
+                            display="block"
+                            variant="h6"
+                            style={{textAlign: 'justify', padding: '2%'}}
+                          >
+                            Existem {dados.userPfList.length} pessoas na lobby {dados.lobbyDescription}
+                          </Typography>
+                        </li>
+                        <Divider component="li" variant="inset" />
+                      </List>
+                      <CardActions style={{display: "flex", flexDirection: 'row', justifyContent: 'space-around'}}>
+                        <Button size="sm"
+                        variant="success"
+                        style={{
+                          fontFamily: 'roboto', fontSize: '12px'
+                        }} >
+                          Compartilhar Lobby
+                        </Button>
+                        <Link to="/pagamento">
+                                <Button
+                                  size="sm"
+                                  variant="success"
+                                  style={{
+                                    fontFamily: 'roboto', fontSize: '12px'
+                                  }}>Detalhar Lobby
+                                </Button>
+                              </Link>
+                    </CardActions>
                     </Col>
                   </Row>
-                </CardContent>
-              </CardActionArea>
-              <CardActions style={{display: "flex", flexDirection: 'row-reverse', justifyContent: 'space-around'}}>
-                <Button size="sm"
-                variant="success"
-                style={{
-                  fontFamily: 'roboto', fontSize: '12px'
-                }} >
-                  Compartilhar Lobby
-                </Button>
-                <Link to="/pagamento">
-                        <Button
-                          size="sm"
-                          variant="success"
-                          style={{
-                            fontFamily: 'roboto', fontSize: '12px'
-                          }}>Detalhar Lobby
-                        </Button>
-                      </Link>
-              </CardActions>
+              </Card>
             </Col>
           </Row>
       </Card>
