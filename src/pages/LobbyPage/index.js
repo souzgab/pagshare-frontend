@@ -21,7 +21,8 @@ import Room from "../../../src/assets/images/iconBar/cil_room.svg"
 import moment from "moment"
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import { Grid } from '@material-ui/core';
+import LobbyInstance from '../../components/LobbyInstance'
 
 async function findByUser() {
   const URL = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
@@ -43,7 +44,11 @@ async function findByUser() {
   }
 }
 
-const LobbyPage = () => {
+function handleBoolean(status){
+  return status;
+}
+
+const LobbyPage = ({obj}) => {
 
   const hist = useHistory();
 
@@ -51,18 +56,22 @@ const LobbyPage = () => {
     localStorage.clear();
     hist.push("/login")
   }
+  const urls = {
+    urlDadosLobby: `https://paysharedev.herokuapp.com/v1/payshare/lobby/lobbyUser/${localStorage.getItem('id')}`,
+    urlDadosHistory: `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
+  }
 
   useEffect(() => {
     let totalTransactionLobby = 0.00;
     let totalTransactionWallet = 0.00;
     try {
-      const URL = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
+      
       //setando auth bearer
       const config = {
         headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
       };
       try {
-        axios.get(URL, config).then((result) => {
+        axios.get(urls.urlDadosHistory, config).then((result) => {
           console.log(result.data)
           if (result.status === 200) {
             // aqui mostra o total de transações
@@ -87,6 +96,18 @@ const LobbyPage = () => {
         }).catch((err) => {
           console.log(err)
         })
+
+        axios.get(urls.urlDadosLobby, config).then((result) => {
+          if(result.status === 200){
+            // console.log(result.data)
+            //tratamento para remover botão de criação de lobby se ele tiver lobby ativa
+            if(result.data.amount > result.data.amountTotal){
+              const modalLobby = document.getElementById('lobby');
+              modalLobby.style.height = '100%';
+              setUserLobby(result.data);
+            }
+          }
+        }).catch(e => console.log(e))
       } catch (e) {
         console.log(e)
       }
@@ -101,6 +122,7 @@ const LobbyPage = () => {
   const [historyTransaction, setHistoryTransaction] = useState(0)
 
   const [transactionWallets, setTransactionWallets] = useState([])
+  const [userLobby, setUserLobby] = useState([])
   const [transaction, setTransaction] = useState([])
 
   const Name = localStorage.getItem('name')
@@ -109,7 +131,6 @@ const LobbyPage = () => {
 
   async function loadDatas() {
     const data = await findByUser();
-    console.log("dataaaa", data)
     setDinheiro(data.userAmount.toFixed(2));
   }
 
@@ -260,15 +281,13 @@ const LobbyPage = () => {
                         <Card.Text style={{ fontSize: '12px' }}>
                           Cada amigo que fizer um pagamento ou adicionar dinheiro a carteira
                           você ganha desconto no proximo pagamento.
-                          <div className="text-center mt-4">
                             <Button
                               size="sm"
                               variant="success"
                               style={{
                                 fontFamily: 'roboto', fontSize: '12px'
                               }}>Compartilhar
-                         </Button>
-                          </div>
+                            </Button>
                         </Card.Text>
                       </Card.Body>
                     </Card>
@@ -276,11 +295,9 @@ const LobbyPage = () => {
                 </Col>
               </Row>
               <Row>
-                <Col className="mt-4" xs={12} style={{ backgroundColor: "transparent" }}>
-                  <Card className="" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', fontFamily: 'roboto', width: '95%' }}>
-                    <Card.Body className="text-center">
-                      <Modal />
-                    </Card.Body>
+                <Col className="mt-4" xs={12} style={{ backgroundColor: "", height: '50vh' }}>
+                  <Card className="" id='lobby' style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', fontFamily: 'roboto', width: '95%', height: '' }}>
+                    {userLobby.amount >= userLobby.amountTotal ? <LobbyInstance obj={userLobby}/> : <Modal/>}
                   </Card>
                 </Col>
               </Row>
@@ -334,7 +351,6 @@ const LobbyPage = () => {
                     ))}
                   </Card.Body>
                 </Card>
-
               </Card>
             </Col>
           </Row>
