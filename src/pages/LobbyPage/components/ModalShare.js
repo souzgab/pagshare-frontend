@@ -6,6 +6,8 @@ import Fade from '@material-ui/core/Fade';
 import Button from 'react-bootstrap/Button'
 import TextField from '@material-ui/core/TextField'
 import * as copy from 'copy-to-clipboard';
+import TinyURL from 'tinyurl';
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -36,9 +38,14 @@ export default function TransitionsModal(props) {
   async function handleSubmit(event) {
     event.preventDefault();
     setResult(true)
-    setUrlShare(props.idLobby)
-    const res = handleObj();
-    copy(`Message: ${res.message}, ID: ${props.obj.id}`)
+    // const res = handleObj();
+    // copy(`Message: ${res.message}, ID: ${props.obj.id}`)
+    TinyURL.shorten(`https://payshare-frontend.herokuapp.com/lobby/${props.obj.id}`, function(res, err) {
+      if (err)
+        console.log(err)
+        console.log(res);
+        setUrlShare(res);
+    });
   }
 
   const handleOpen = () => {
@@ -108,7 +115,7 @@ export default function TransitionsModal(props) {
                 label="Id Para acesso da Lobby"
                 id="lobbyshare"
                 disabled
-                value="Clique no botão abaixo para copiar o texto de compartilhamento"
+                value={urlShare}
                 InputProps={{ style: { color: '#fff' } }}
                 InputLabelProps={{
                   style: { shrink: true, color: '#fff' },
