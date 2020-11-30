@@ -63,8 +63,8 @@ export default function TransitionsModal(props) {
     if (navigator.share !== undefined) {
       navigator.share({
         title: 'Payshare, Compartilhe!',
-        text: 'www',
-        url: 'https://api.whatsapp.com/send?text=',
+        text: 'Venha fazer parte da comunidade de pagamentos compartilhados!',
+        url: 'https://payshare-frontend.herokuapp.com',
       })
       .then(() => console.log('Successful share'))
       .catch((error) => console.log('Error sharing', error));
