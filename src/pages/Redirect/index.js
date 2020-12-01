@@ -26,7 +26,9 @@ function Redirect(props) {
             axios.post(urlAddUser, data, config)
             .then((result) => {
                 if(result.status === 200){
-                    history.push("/pagamento");
+                    setTimeout(() => {
+                        history.push("/pagamento");
+                    }, 3000)
                 }
             })
           } catch (e) {
@@ -39,15 +41,15 @@ function Redirect(props) {
 
     return(
         <Container maxWidth="xg" style={{backgroundColor: '#2d2d2d', width: '100vw', height: '100vh'}}>
-            <Container  style={{backgroundColor: '#2d2d2d', display: 'flex', justifyContent: 'center', alignContent: 'center', marginTop: '5%'}}>
-                <Row>
-                    <Col>
-                        <Card>
-                            <Card.Body className="text-center">
+            <Container  style={{backgroundColor: '#2d2d2d', display: 'flex', justifyContent: 'center', alignContent: 'center', marginTop: '5%',height: '50%'}}>
+                <Row style={{width: '100%', height: '100%'}}>
+                    <Col style={{backgroundColor: "", border: 'none'}}>
+                        <Card style={{backgroundColor: "darkgrey", border: '10px', width: '100%', height: '30%'}}>
+                            <Card.Body className="text-center" style={{backgroundColor: "darkgrey", borderRadius: '15px', width: '100%', height: '100%'}}>
                             <Image src={logoSvg} />
-                            <Card.Title style={{ color: 'white' }}>PAYSHARE</Card.Title>
-                                <Card.Text style={{ color: '#1CDC6E', fontSize: '15px', fontFamily: 'Roboto' }}>
-                                    Você está sendo Redirecionado!
+                            <Card.Title style={{ color: 'white', fontFamily: 'Roboto' }}>PAYSHARE</Card.Title>
+                                <Card.Text style={{ color: 'white', fontSize: '15px', fontFamily: 'Roboto' }}>
+                                    Você está sendo redirecionado!
                                 </Card.Text>
                             </Card.Body>
                         </Card>

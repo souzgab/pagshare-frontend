@@ -37,15 +37,14 @@ export default function TransitionsModal(props) {
 
   const url = {
     urlLocal: `http://localhost:3000/join/${props.obj.id}`,
-    urlHrk: `https://payshare-frontend.herokuapp.com/join/${props.obj.id}`
+    urlDev: `https://payshare-frontend.herokuapp.com/join/${props.obj.id}`
   }
   async function handleSubmit(event) {
     event.preventDefault();
     setResult(true)
     const res = handleObj();
     
-    TinyURL.shorten(url.urlLocal, function(res, err) {
-      if (err)
+    TinyURL.shorten(url.urlDev, function(res, err) {
         copy(`Link para acesso: ${res}`)
         setUrlShare(res);
     });
