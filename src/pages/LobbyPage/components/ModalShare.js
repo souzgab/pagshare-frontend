@@ -42,12 +42,11 @@ export default function TransitionsModal(props) {
   async function handleSubmit(event) {
     event.preventDefault();
     setResult(true)
-    // const res = handleObj();
-    // copy(`Message: ${res.message}, ID: ${props.obj.id}`)
-    TinyURL.shorten(url.urlLocal, function(res, err) {
+    const res = handleObj();
+    
+    TinyURL.shorten(url.urlHrk, function(res, err) {
       if (err)
-        console.log(err)
-        console.log(res);
+        copy(`Link para acesso: ${res}`)
         setUrlShare(res);
     });
   }
@@ -75,7 +74,7 @@ export default function TransitionsModal(props) {
       navigator.share({
         title: 'Payshare, Compartilhe!',
         text: 'Venha fazer parte da comunidade de pagamentos compartilhados!',
-        url: 'https://payshare-frontend.herokuapp.com',
+        url: 'https://payshare-frontend.herokuapp.com/login',
       })
       .then(() => console.log('Successful share'))
       .catch((error) => console.log('Error sharing', error));
