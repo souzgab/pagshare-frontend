@@ -44,7 +44,7 @@ export default function TransitionsModal(props) {
     setResult(true)
     const res = handleObj();
     
-    TinyURL.shorten(url.urlHrk, function(res, err) {
+    TinyURL.shorten(url.urlLocal, function(res, err) {
       if (err)
         copy(`Link para acesso: ${res}`)
         setUrlShare(res);

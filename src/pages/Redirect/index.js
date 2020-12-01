@@ -8,22 +8,22 @@ import { useHistory } from 'react-router-dom';
 
 
 function Redirect(props) {
-    
+    const config = {
+        headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
+    };
+    let data = {}
     const [user, setUser] = useState("");
     const [lobby, setLobby] = useState("");
     const history = useHistory();
     useEffect(() => {
         try {
-          const config = {
-            headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
-          };
           
           localStorage.setItem('idlobby', props.computedMatch.params.idLobby)
           try {
             setUser(localStorage.getItem('id'))
             setLobby(localStorage.getItem('idlobby'))
             const urlAddUser = `https://paysharedev.herokuapp.com/v1/payshare/lobby/${localStorage.getItem('idlobby')}/${localStorage.getItem('id')}`;
-            axios.post(urlAddUser, config)
+            axios.post(urlAddUser, data, config)
             .then((result) => {
                 if(result.status === 200){
                     history.push("/pagamento");
