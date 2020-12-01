@@ -37,7 +37,7 @@ export default function TransitionsModal(props) {
 
   const url = {
     urlLocal: `http://localhost:3000/join/${props.obj.id}`,
-    urlHrk: `https://payshare-frontend.herokuapp.com/join/:${props.obj.id}`
+    urlHrk: `https://payshare-frontend.herokuapp.com/join/${props.obj.id}`
   }
   async function handleSubmit(event) {
     event.preventDefault();
