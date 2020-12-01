@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
@@ -8,9 +8,11 @@ import LobbyPage from './pages/LobbyPage/index'
 import Pagamento from './pages/Pagamento';
 import RoutesLobby from './components/Routes/Lobby/Lobby'; // Telas internas devem ser circuladas por este component
 import StoreProvider from './components/Storage/Provider';
+import Redirect from "./pages/Redirect";
 
 
 export function App(){
+    
     return (
         <React.Fragment>
             <Router>
@@ -23,6 +25,7 @@ export function App(){
                         {/* TODO: MUDAR AQUI PARA ROUTESLOBBY */}
                         <RoutesLobby path="/lobby" component={LobbyPage} />
                         <RoutesLobby path="/pagamento" component={Pagamento} />
+                        <RoutesLobby path="/join/:idLobby" component={Redirect} />
                     </Switch>
                 </StoreProvider>
             </Router>

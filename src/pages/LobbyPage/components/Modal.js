@@ -6,6 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -42,7 +43,7 @@ export default function TransitionsModal(props) {
       amount:'',
     };
   }
-
+  const history = useHistory();
   // ele vai pegar a ultimo evento dos inputs e seta para o formDate assim alterando o estado dele
   const onChange = (evento) => {
     const { value, name } = evento.target;
@@ -74,9 +75,10 @@ export default function TransitionsModal(props) {
     };
   
     try {
-      console.log(data)
       await axios.post(URL, data, config).then((result) => {
-        console.log(result)
+        if(result.status === 200){
+          history.push("/pagamento");
+        }
       }).catch((err) => {
         console.log(err)
       })

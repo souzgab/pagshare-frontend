@@ -35,12 +35,16 @@ export default function TransitionsModal(props) {
   const [result, setResult] = useState(false)
   const [disable, setDisable] = useState(false)
 
+  const url = {
+    urlLocal: `http://localhost:3000/join/${props.obj.id}`,
+    urlHrk: `https://payshare-frontend.herokuapp.com/join/:${props.obj.id}`
+  }
   async function handleSubmit(event) {
     event.preventDefault();
     setResult(true)
     // const res = handleObj();
     // copy(`Message: ${res.message}, ID: ${props.obj.id}`)
-    TinyURL.shorten(`https://payshare-frontend.herokuapp.com/lobby/${props.obj.id}`, function(res, err) {
+    TinyURL.shorten(url.urlLocal, function(res, err) {
       if (err)
         console.log(err)
         console.log(res);
