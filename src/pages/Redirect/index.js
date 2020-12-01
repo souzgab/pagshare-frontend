@@ -22,7 +22,7 @@ function Redirect(props) {
           try {
             setUser(localStorage.getItem('id'))
             setLobby(localStorage.getItem('idlobby'))
-            const urlAddUser = `https://paysharedev.herokuapp.com/v1/payshare/lobby/${lobby}/${user}`;
+            const urlAddUser = `https://paysharedev.herokuapp.com/v1/payshare/lobby/${localStorage.getItem('idlobby')}/${localStorage.getItem('id')}`;
             axios.post(urlAddUser, config)
             .then((result) => {
                 if(result.status === 200){
