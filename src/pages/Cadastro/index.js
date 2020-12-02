@@ -13,6 +13,8 @@ import NavigationBar from '../../components/NavigationBar';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import LeftSvg from "../../assets/SVG/Frame2.svg";
+import validate from '../../components/validateInfo';
+import useForm from '../../components/UseForm';
 import axios from 'axios';
 
 const theme = createMuiTheme({
@@ -76,64 +78,68 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Cadastro() {
+export function Cadastro({ submitForm }) {
+  const { handleChange, handleSubmit, formData, errors } = useForm(
+    submitForm,
+    validate
+  );
   const classes = useStyles();
-  const history = useHistory();
+  
 
-  //inicializa o formData com os valores default
-  const [formData, setFormData] = useState(initialState);
+  // //inicializa o formData com os valores default
+  // const [formData, setFormData] = useState(initialState);
 
-  var initialState = () => {
-    return {
-      name: '',
-      cpf: '',
-      email: '',
-      password: ''
-    };
-  }
+  // var initialState = () => {
+  //   return {
+  //     name: '',
+  //     cpf: '',
+  //     email: '',
+  //     password: ''
+  //   };
+  // }
 
-  // ele vai pegar a ultimo evento dos inputs e seta para o formDate assim alterando o estado dele
-  const onChange = (evento) => {
-    const { value, name } = evento.target;
-    console.log(value)
-    setFormData({
-      ...formData,
-      [name]: value
-    })
+  // // ele vai pegar a ultimo evento dos inputs e seta para o formDate assim alterando o estado dele
+  // const onChange = (evento) => {
+  //   const { value, name } = evento.target;
+  //   console.log(value)
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value
+  //   })
 
-    console.log("aqui caralho", JSON.stringify(formData))
-  }
+  //   console.log("aqui caralho", JSON.stringify(formData))
+  // }
 
-  //handleSubmit é responsável pela chamada do endpoint criação de lobby
-  async function handleSubmit(event) {
-    event.preventDefault();
+  // //handleSubmit é responsável pela chamada do endpoint criação de lobby
+  // async function handleSubmit(event) {
+  //   event.preventDefault();
 
-    const { name, cpf, email, password, confirmPassword } = formData
-    const URL = `https://paysharedev.herokuapp.com/v1/payshare/auth/signup`
-    const data = {
-      name,
-      cpf,
-      age:21,
-      email,
-      password
-    };
+  //   const { name, cpf, email, password, confirmPassword } = formData
+  //   const URL = `https://paysharedev.herokuapp.com/v1/payshare/auth/signup`
+  //   const data = {
+  //     name,
+  //     cpf,
+  //     age:21,
+  //     email,
+  //     password
+  //   };
 
-    if (password == confirmPassword) {
-      try {
-        console.log(data)
-        await axios.post(URL, data).then((result) => {
-          console.log(result)
-          return history.push('/login');
-        }).catch((err) => {
-          console.log(err)
-        })
-      } catch (e) {
-        console.log(e)
-      }
-    } else {
-      alert("Senha não correspondem")
-    }
-  }
+  //   if (password == confirmPassword) {
+  //     try {
+  //       console.log(data)
+  //       await axios.post(URL, data).then((result) => {
+  //         console.log(result)
+  //         return history.push('/login');
+  //       }).catch((err) => {
+  //         console.log(err)
+  //       })
+  //     } catch (e) {
+  //       console.log(e)
+  //     }
+  //   } else {
+  //     alert("Senha não correspondem")
+  //   }
+  // }
 
   return (
     <React.Fragment>
@@ -156,7 +162,7 @@ export function Cadastro() {
                     variant="outlined"
                     margin="normal"
                     color="#ffff"
-                    onChange={onChange}
+                    onChange={handleChange}
                     required
                     fullWidth
                     id="name"
@@ -164,17 +170,19 @@ export function Cadastro() {
                     name="name"
                     autoComplete="name"
                     autoFocus
+                    value={formData.name}
                     InputProps={{ style: { color: '#fff' } }}
                     InputLabelProps={{
                       style: { color: '#fff' },
                     }}
                   />
+                   {errors.name && <p>{errors.name}</p>}
                   <TextField
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    onChange={onChange}
+                    onChange={handleChange}
                     id="cpf"
                     label="CPF"
                     name="cpf"
@@ -190,55 +198,60 @@ export function Cadastro() {
                     margin="normal"
                     required
                     fullWidth
-                    onChange={onChange}
+                    onChange={handleChange}
                     name="email"
                     label="Email"
                     type="text"
                     id="email"
                     autoComplete="email"
+                    value={formData.email}
                     InputProps={{ style: { color: '#fff' } }}
                     InputLabelProps={{
                       style: { color: '#fff' },
                     }}
                   />
+                  {errors.email && <p>{errors.email}</p>}
                   <TextField
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    onChange={onChange}
+                    onChange={handleChange}
                     name="password"
                     label="Senha"
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    value={formData.password}
                     InputProps={{ style: { color: '#fff' } }}
                     InputLabelProps={{
                       style: { color: '#fff' },
                     }}
                   />
+                  {errors.password && <p>{errors.password}</p>}
                   <TextField
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    onChange={onChange}
+                    onChange={handleChange}
                     name="confirmPassword"
                     label="Confirmar Senha"
                     type="password"
                     id="confirmPassword"
                     autoComplete="confirm-password"
+                    value={formData.confirmPassword}
                     InputProps={{ style: { color: '#fff' } }}
                     InputLabelProps={{
                       style: { color: '#fff' },
                     }}
                   />
-
+                   {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
-                    onChange={onChange}
+                    onChange={handleChange}
                     className={classes.submit}
                     color="primary"
                     style={{
