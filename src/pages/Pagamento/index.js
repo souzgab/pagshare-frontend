@@ -105,8 +105,6 @@ const PagamentoPage = () => {
 
   const [routePayment, setRoutePayment] = useState("");
 
-  const [canPay, setCanPay] = useState(true);
-
   const amount = parseFloat(userAmountLobby)
 
   const url = {
@@ -137,10 +135,8 @@ const PagamentoPage = () => {
     try{
       axios.post(urlPath(), data, config).then((response) => {
         if(response.status === 200 && urlPath() === url.urlWallet){
-          setCanPay(true);
           hist.push('/lobby')
         }else if(response.status === 200 && urlPath() === url.urlMercadoPago){
-          setCanPay(true);
           window.open(response.data.body.initPoint, '_blank');
         }
         localStorage.removeItem('idLobby');
@@ -157,10 +153,10 @@ const PagamentoPage = () => {
   const onChange = (evento) => {
     const { value, name } = evento.target;
     if(value > 0){
-      setCanPay(false);
+      // setCanPay(false);
       setRoutePayment(value);
     }else{
-      setCanPay(true)
+      // setCanPay(true)
     }
   }
 
@@ -303,7 +299,7 @@ const PagamentoPage = () => {
                       <Col xs={6} className="text-right" style={{ fontSize: '15px' }}>
                         <div className="mt-5" style={{ backgroundColor: 'transparent' }}>
                           <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '15%' }}>Valor recebido:</label>
-                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '5%', fontSize: '20px' }}>R$ {lobbyAmountTotal}</label>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '5%', fontSize: '20px' }}>R$ {lobbyAmountTotal ? lobbyAmountTotal.toFixed(2) : '0.00'}</label>
                         </div>
                         <div className="mt-6" style={{ backgroundColor: 'transparent' }}>
                           <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '15%', fontSize: '12px' }}>Descrição: {lobbyDescription}</label>
@@ -348,9 +344,9 @@ const PagamentoPage = () => {
                     <form onSubmit={handleSubmit} onChange={onChange} defaultValue="0">
                       <Row style={{ backgroundColor: '' }}>
                         <Col xs={12} className="mb-5">
-                          <Form.Group controlId="exampleForm.ControlSelect1" style={{ backgroundColor: "" }}>
+                          <Form.Group hidden={userAmountLobby === 0 ? true : false} controlId="exampleForm.ControlSelect1" style={{ backgroundColor: "" }}>
                             <Form.Label className="text-white mt-5" style={{ fontSize: '15px' }}>Forma de pagamento</Form.Label>
-                            <Form.Control name="select" as="select" style={{ border: 'solid 1px #1CDC6E', backgroundColor: "transparent", color: 'white' }}>
+                            <Form.Control disabled={userAmountLobby === 0 ? true : false} name="select" as="select" style={{ border: 'solid 1px #1CDC6E', backgroundColor: "transparent", color: 'white' }}>
                               <option value="0">Selecione uma opção</option>
                               <option value="1">Mercado</option>
                               <option value="2">Wallet</option>
@@ -363,13 +359,18 @@ const PagamentoPage = () => {
                           <Button
                             type="submit"
                             variant="success"
-                            disabled={canPay}
+                            hidden={userAmountLobby === 0 ? true : false}
                             style={{
                               fontFamily: 'Roboto', fontSize: '20px', backgroundColor: '#1CDC6E', color: '#ffff',
                               height: '100%',
                               width: '100%',
                             }}>Pagar
                          </Button>
+                            <span style={{
+                              fontFamily: 'Roboto', fontSize: '20px', color: '#ffff',
+                              height: '100%',
+                              width: '100%',
+                            }} hidden={userAmountLobby === 0 ? false : true}>Obrigado, pagamento ja efetuado!</span>
                         </Col>
                       </Row>
                     </form>
