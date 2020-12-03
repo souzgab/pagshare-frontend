@@ -120,7 +120,7 @@ const LobbyBar = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Drawer 
+      <Drawer
         variant='permanent'
         className={
           clsx(classes.drawer, {
@@ -139,21 +139,23 @@ const LobbyBar = () => {
             <img src={logoSvg} onClick={handleOpenClose} />
           </div>
           <div className="text-white text-center">
-            <ListItem className="ml-2 mb-3" button style={{ marginTop: '60px' }}>
-              <ListItemIcon><img src={dash} /></ListItemIcon>
-              <ListItemText primary='ÍNICIO' />
-            </ListItem>
+            <Link to="/" className="text-white">
+              <ListItem className="ml-2 mb-3" button style={{ marginTop: '60px' }}>
+                <ListItemIcon><img src={dash} /></ListItemIcon>
+                <ListItemText primary='ÍNICIO' />
+              </ListItem>
+            </Link>
             <Link to="/lobby" className="text-white">
-            <ListItem className="ml-2 mb-3" button>
-              <ListItemIcon><img src={wallet} /></ListItemIcon>
-              <ListItemText primary='MINHA CARTEIRA' />
-            </ListItem>
+              <ListItem className="ml-2 mb-3" button>
+                <ListItemIcon><img src={wallet} /></ListItemIcon>
+                <ListItemText primary='MINHA CARTEIRA' />
+              </ListItem>
             </Link>
             <Link to="/pagamento" className="text-white">
-            <ListItem className="ml-2 mb-3" button>
-              <ListItemIcon><img src={Room} /></ListItemIcon>
-              <ListItemText primary='SALA DA LOBBY' /> 
-            </ListItem>
+              <ListItem className="ml-2 mb-3" button>
+                <ListItemIcon><img src={Room} /></ListItemIcon>
+                <ListItemText primary='SALA DA LOBBY' />
+              </ListItem>
             </Link>
             <ListItem className="ml-2 mb-3" button>
               <ListItemIcon><img src={Card} /></ListItemIcon>

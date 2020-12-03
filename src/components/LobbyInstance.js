@@ -33,8 +33,6 @@ const useStyles = makeStyles((theme) => ({
     image: {
       backgroundImage: sortImage,
       backgroundRepeat: 'no-repeat',
-      backgroundColor:
-        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
     },
     dividerFullWidth: {
@@ -52,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   let users = [];
 
   function sortImage(){
-    return 'url(https://images.unsplash.com/photo-1592151450086-0eb3e435c48e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80)';
+    return 'url(https://images.pexels.com/photos/3326714/pexels-photo-3326714.jpeg?cs=srgb&dl=pexels-daria-shevtsova-3326714.jpg&fm=jpg)';
   }
   
 const LobbyInstance = (props) => {
@@ -76,15 +74,11 @@ const LobbyInstance = (props) => {
               height="100%"
               width="100%"
               className={classes.image}
-              title="Payshare"
               style={{
                 backgroundColor: '',
                 backgroundSize: 'center',
                 backgroundAttachment: 'scroll',
-                borderBottomLeftRadius: '10px',
-                borderTopLeftRadius: '10px',
                 margin: '1%',
-                filter: 'grayscale(100%)'
               }}
             />
             </Col>

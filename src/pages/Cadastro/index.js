@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 import NavigationBar from '../../components/NavigationBar';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import LeftSvg from "../../assets/SVG/Frame2.svg";
+import LeftSvg from "../../assets/SVG/Cadastro.svg";
 import axios from 'axios';
 
 const theme = createMuiTheme({
