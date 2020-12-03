@@ -137,10 +137,10 @@ const PagamentoPage = () => {
     try{
       axios.post(urlPath(), data, config).then((response) => {
         if(response.status === 200 && urlPath() === url.urlWallet){
-          setCanPay(false);
+          setCanPay(true);
           hist.push('/lobby')
         }else if(response.status === 200 && urlPath() === url.urlMercadoPago){
-          setCanPay(false);
+          setCanPay(true);
           window.open(response.data.body.initPoint, '_blank');
         }
         localStorage.removeItem('idLobby');
@@ -156,7 +156,12 @@ const PagamentoPage = () => {
 
   const onChange = (evento) => {
     const { value, name } = evento.target;
-    setRoutePayment(value)
+    if(value > 0){
+      setCanPay(false);
+      setRoutePayment(value);
+    }else{
+      setCanPay(true)
+    }
   }
 
   useEffect(() => {
