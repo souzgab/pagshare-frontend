@@ -75,7 +75,7 @@ export default function TransitionsModal(props) {
         text: 'Venha fazer parte da comunidade de pagamentos compartilhados!',
         url: 'https://payshare-frontend.herokuapp.com/login',
       })
-      .then(() => console.log('Successful share'))
+      .then(() => {})
       .catch((error) => console.log('Error sharing', error));
     }
   }

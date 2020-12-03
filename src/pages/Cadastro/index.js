@@ -95,13 +95,10 @@ export function Cadastro() {
   // ele vai pegar a ultimo evento dos inputs e seta para o formDate assim alterando o estado dele
   const onChange = (evento) => {
     const { value, name } = evento.target;
-    console.log(value)
     setFormData({
       ...formData,
       [name]: value
     })
-
-    console.log("aqui caralho", JSON.stringify(formData))
   }
 
   //handleSubmit é responsável pela chamada do endpoint criação de lobby
@@ -120,9 +117,7 @@ export function Cadastro() {
 
     if (password == confirmPassword) {
       try {
-        console.log(data)
         await axios.post(URL, data).then((result) => {
-          console.log(result)
           return history.push('/login');
         }).catch((err) => {
           console.log(err)

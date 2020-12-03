@@ -58,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
 const LobbyInstance = (props) => {
     const classes = useStyles();
     const dados = props.obj
-    console.log(dados)
     dados.userPfList.map((usuario) => users.push(usuario.name))
    return (
         <Card style={{

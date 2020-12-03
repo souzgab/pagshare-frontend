@@ -47,7 +47,6 @@ export default function TransitionsModal(props) {
   // ele vai pegar a ultimo evento dos inputs e seta para o formDate assim alterando o estado dele
   const onChange = (evento) => {
     const { value, name } = evento.target;
-    console.log(value)
     setFormData({
       ...formData,
       [name]: value

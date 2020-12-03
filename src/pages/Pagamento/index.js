@@ -17,7 +17,7 @@ import moment from "moment"
 import Form from 'react-bootstrap/Form'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router-dom'
-
+import Link from '@material-ui/core/Link';
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     //   backgroundImage: `url(${FundoSVG})`,
@@ -103,46 +103,61 @@ const PagamentoPage = () => {
 
   const [userAmountLobby, setUserAmountLobby] = useState();
 
+  const [routePayment, setRoutePayment] = useState("");
+
+  const [canPay, setCanPay] = useState(true);
+
+  const amount = parseFloat(userAmountLobby)
+
+  const url = {
+    urlMercadoPago: `https://paysharedev.herokuapp.com/v1/payshare/transaction/${localStorage.getItem('id')}/${amount}`,
+    urlWallet: `https://paysharedev.herokuapp.com/v1/payshare/transaction/wallet-lobby/${localStorage.getItem('id')}/${amount}`
+  }
+
+  const urlPath = () => {
+    switch (routePayment) {
+      case "1":
+        return url.urlMercadoPago;
+      case "2":
+        return url.urlWallet;
+      default:
+        break;
+    }
+  }
   //handleSubmit é responsável pela chamada do endpoint criação de lobby
   async function handleSubmit(event) {
     event.preventDefault();
-
-    const amount = parseFloat(userAmountLobby)
-    const URL = `https://paysharedev.herokuapp.com/v1/payshare/transaction/wallet/${localStorage.getItem('id')}/${amount}`
 
     var data = {}
     //setando auth bearer
     const config = {
       headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
     };
-
-    /*try {
-      if ( === 1 ||  === "1") {
-        alert("cai aqui primeiro")
-        await axios.post(URL, data, config).then((result) => {
-          if (result.status == 200) {
-            window.open(result.data.initPoint)
-          }
-        }).catch((err) => {
-          console.log(err)
-        })
-      } else {
-        alert("cai aqui segundo")
-        await axios.post(URL, data, config).then((result) => {
-          if (result.status == 200) {
-            alert("pagamento efetuado com sucesso")
-            hist.push('/pagamento')
-          }
-        }).catch((err) => {
-          console.log(err)
-        })
-      }
-
-    } catch (e) {
+    
+    try{
+      axios.post(urlPath(), data, config).then((response) => {
+        if(response.status === 200 && urlPath() === url.urlWallet){
+          setCanPay(false);
+          hist.push('/lobby')
+        }else if(response.status === 200 && urlPath() === url.urlMercadoPago){
+          setCanPay(false);
+          window.open(response.data.body.initPoint, '_blank');
+        }
+        localStorage.removeItem('idLobby');
+      }).catch(e => {
+        if(new String(e).indexOf("401")){
+          return alert(" Saldo Insuficiente ")
+        }
+      })
+    }catch(e){
       console.log(e)
-    }*/
+    }
   }
 
+  const onChange = (evento) => {
+    const { value, name } = evento.target;
+    setRoutePayment(value)
+  }
 
   useEffect(() => {
     try {
@@ -155,7 +170,6 @@ const PagamentoPage = () => {
 
       axios.get(urlDadosLobby, config).then((result) => {
         if (result.status === 200) {
-          console.log(result.data)
           setLobbyAmount(result.data.amount)
           setAmountTotal(result.data.amountTotal)
           setLobbyDescription(result.data.orderDescription)
@@ -168,8 +182,6 @@ const PagamentoPage = () => {
       throw new Error();
     }
   }, []);
-
-  console.log(userPfList);
 
   const classes = useStyles();
 
@@ -328,15 +340,15 @@ const PagamentoPage = () => {
                     </Card.Body>
                   </Card>
                   <Container>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} onChange={onChange} defaultValue="0">
                       <Row style={{ backgroundColor: '' }}>
                         <Col xs={12} className="mb-5">
                           <Form.Group controlId="exampleForm.ControlSelect1" style={{ backgroundColor: "" }}>
                             <Form.Label className="text-white mt-5" style={{ fontSize: '15px' }}>Forma de pagamento</Form.Label>
                             <Form.Control name="select" as="select" style={{ border: 'solid 1px #1CDC6E', backgroundColor: "transparent", color: 'white' }}>
-                              <option value="select">Selecione uma opção</option>
-                              <option value="Mercado">Mercado</option>
-                              <option value="Wallet">Wallet</option>
+                              <option value="0">Selecione uma opção</option>
+                              <option value="1">Mercado</option>
+                              <option value="2">Wallet</option>
                             </Form.Control>
                           </Form.Group>
                         </Col>
@@ -346,6 +358,7 @@ const PagamentoPage = () => {
                           <Button
                             type="submit"
                             variant="success"
+                            disabled={canPay}
                             style={{
                               fontFamily: 'Roboto', fontSize: '20px', backgroundColor: '#1CDC6E', color: '#ffff',
                               height: '100%',

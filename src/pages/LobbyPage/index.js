@@ -72,7 +72,6 @@ const LobbyPage = ({obj}) => {
       };
       try {
         axios.get(urls.urlDadosHistory, config).then((result) => {
-          console.log(result.data)
           if (result.status === 200) {
             // aqui mostra o total de transações
             setTransactionLength(result.data.transactionWallets.length + result.data.transactions.length)
@@ -99,7 +98,6 @@ const LobbyPage = ({obj}) => {
 
         axios.get(urls.urlDadosLobby, config).then((result) => {
           if(result.status === 200){
-            // console.log(result.data)
             //tratamento para remover botão de criação de lobby se ele tiver lobby ativa
             if(result.data.amount > result.data.amountTotal){
               const modalLobby = document.getElementById('lobby');
