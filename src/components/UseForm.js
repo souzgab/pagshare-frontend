@@ -54,7 +54,8 @@ const UseForm = (callback, validate) => {
         } else {
             alert("Senha não correspondem")
         }
-        
+        setErrors(validate(formData));
+        setIsSubmitting(true);
     }
 
     useEffect(
