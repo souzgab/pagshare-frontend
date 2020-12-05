@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import FundoSVG from "../../assets/SVG/fundo.svg";
-import Carousel from 'react-bootstrap/Carousel'
 import iphone from "../../assets/SVG/IphoneApp.svg";
 import google from "../../assets/SVG/flat-ui_google.svg";
 import apple from "../../assets/SVG/bx_bxl-apple.svg";
@@ -16,6 +15,8 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PublicIcon from '@material-ui/icons/Public';
+import CardTime from "../../components/CardTime"
+
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -139,12 +140,25 @@ export function Home() {
               </Row>
             </Col>
           </Row>
-          <Row>
-            <Col xs={12}>
-              
+          <h4 class="bottom-line mt-2 text-white" style={{ fontSize: '35px' }}>EQUIPE</h4>
+          <hr style={{ width: '200px' }}></hr>
+          <Row xs={12} style={{ justifyContent: 'center' }}>
+            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
+              <CardTime titulo='Lucas Monteiro' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>"A mente que se abre a uma ideia jamais voltará à seu tamanho original" - Eistein</CardTime>
+            </Col>
+            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
+              <CardTime titulo='Vinicius Alves' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>colocar aqui sua frase</CardTime>
+            </Col>
+            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
+              <CardTime titulo='Talita Modesto' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>colocar aqui sua frase</CardTime>
+            </Col>
+            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
+              <CardTime titulo='Fernanda ' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>colocar aqui sua frase</CardTime>
+            </Col>
+            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
+              <CardTime titulo='Gabriel Souza' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>colocar aqui sua frase</CardTime>
             </Col>
           </Row>
-
         </Container>
       </Container>
     </React.Fragment>
