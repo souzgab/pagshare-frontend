@@ -165,10 +165,12 @@ const LobbyBar = () => {
               <ListItemIcon><img src={history} /></ListItemIcon>
               <ListItemText primary='HISTÓRICO DE PAG' />
             </ListItem>
+            <Link to="/profile" className="text-white">
             <ListItem className="ml-2" button>
               <ListItemIcon><img src={settings} /></ListItemIcon>
               <ListItemText primary='CONFIGURAÇÕES' />
             </ListItem>
+            </Link>
           </div>
         </List>
       </Drawer>

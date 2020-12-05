@@ -21,6 +21,8 @@ import Room from "../../../src/assets/images/iconBar/cil_room.svg"
 import moment from "moment"
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Grid } from '@material-ui/core';
 import LobbyInstance from '../../components/LobbyInstance'
 
@@ -56,6 +58,11 @@ const LobbyPage = ({obj}) => {
     localStorage.clear();
     hist.push("/login")
   }
+
+  function Profile(){
+    hist.push("/profile")
+  }
+
   const urls = {
     urlDadosLobby: `https://paysharedev.herokuapp.com/v1/payshare/lobby/lobbyUser/${localStorage.getItem('id')}`,
     urlDadosHistory: `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
@@ -189,8 +196,8 @@ const LobbyPage = ({obj}) => {
                     Bem vindo(a) {Name}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#">Minha conta</Dropdown.Item>
-                    <Dropdown.Item onClick={logout} >Sair</Dropdown.Item>
+                    <Dropdown.Item onClick={Profile}><AccountCircleIcon/> Minha conta</Dropdown.Item>
+                    <Dropdown.Item onClick={logout} ><ExitToAppIcon/> Exit</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 <Card.Text style={{ color: '#1CDC6E', fontSize: '15px', fontFamily: 'Roboto' }}>

@@ -6,13 +6,15 @@ import Cadastro from "./pages/Cadastro";
 import RecuperarSenha from "./pages/RecuperarSenha";
 import LobbyPage from './pages/LobbyPage/index'
 import Pagamento from './pages/Pagamento';
+import Profile from './pages/Minha conta'
 import RoutesLobby from './components/Routes/Lobby/Lobby'; // Telas internas devem ser circuladas por este component
 import StoreProvider from './components/Storage/Provider';
+import moment from "moment"
 import Redirect from "./pages/Redirect";
 
 
 export function App(){
-    
+    moment.locale('pt-BR')
     return (
         <React.Fragment>
             <Router>
@@ -26,6 +28,7 @@ export function App(){
                         <RoutesLobby path="/lobby" component={LobbyPage} />
                         <RoutesLobby path="/pagamento" component={Pagamento} />
                         <RoutesLobby path="/join/:idLobby" component={Redirect} />
+                        <RoutesLobby path="/profile" component={Profile}/>
                     </Switch>
                 </StoreProvider>
             </Router>
