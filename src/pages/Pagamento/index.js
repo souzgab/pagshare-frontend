@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
 const PagamentoPage = () => {
   const urlDadosLobby = `https://paysharedev.herokuapp.com/v1/payshare/lobby/lobbyUser/${localStorage.getItem('id')}`;
   const urlDadosUser = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
+  const URLDELETE = `https://paysharedev.herokuapp.com/v1/payshare/lobby/${idLobby}`
   const config = {
     headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
   };
@@ -104,6 +105,8 @@ const PagamentoPage = () => {
   const [userAmountLobby, setUserAmountLobby] = useState();
 
   const [routePayment, setRoutePayment] = useState("");
+
+  const [idLobby, setLobbyId] = useState();
 
   const amount = parseFloat(userAmountLobby)
 
@@ -131,33 +134,57 @@ const PagamentoPage = () => {
     const config = {
       headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
     };
-    
-    try{
+
+    try {
       axios.post(urlPath(), data, config).then((response) => {
-        if(response.status === 200 && urlPath() === url.urlWallet){
+        if (response.status === 200 && urlPath() === url.urlWallet) {
           hist.push('/lobby')
-        }else if(response.status === 200 && urlPath() === url.urlMercadoPago){
+        } else if (response.status === 200 && urlPath() === url.urlMercadoPago) {
           window.open(response.data.body.initPoint, '_blank');
         }
         localStorage.removeItem('idLobby');
       }).catch(e => {
-        if(new String(e).indexOf("401")){
+        if (new String(e).indexOf("401")) {
           return alert(" Saldo Insuficiente ")
         }
       })
-    }catch(e){
+    } catch (e) {
       console.log(e)
     }
   }
 
   const onChange = (evento) => {
     const { value, name } = evento.target;
-    if(value > 0){
+    if (value > 0) {
       // setCanPay(false);
       setRoutePayment(value);
-    }else{
+    } else {
       // setCanPay(true)
     }
+  }
+
+  function deleteLobby() {
+   var data = {}
+    //setando auth bearer
+    const config = {
+      headers: { 
+        Authorization: localStorage.getItem('token').replace(/['"]+/g, '') ,
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Methods': 'DELETE'
+      }
+    };
+
+    axios.delete(URLDELETE, data, config).then((result) => {
+      if (result.status === 200) {
+        alert("Lobby encerrada com sucesso, aproveite até mais!")
+        hist.push('/lobby')
+      } else {
+        alert("Não é possível encerrar a lobby neste momento tente novamente!")
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+
   }
 
   useEffect(() => {
@@ -177,6 +204,7 @@ const PagamentoPage = () => {
           setLobbyCreatedAt(result.data.creationDate)
           setUserPfList(result.data.userPfList);
           setTransactionLobby(result.data.transactions)
+          setLobbyId(result.data.id)
         }
       });
     } catch (Error) {
@@ -288,12 +316,13 @@ const PagamentoPage = () => {
                       <Col xs={6}>
                         <AttachFileIcon style={{ fontSize: '15px', color: '#ffff', marginTop: '10%' }} />
                         <Button
+                          onClick={deleteLobby}
                           variant="success"
                           style={{
                             border: 'none',
                             fontFamily: 'roboto', fontSize: '15px', backgroundColor: 'transparent', color: '#1CDC6E',
                             marginTop: '10%'
-                          }}>Compartilhar
+                          }}> Finalizar lobby
                          </Button>
                       </Col>
                       <Col xs={6} className="text-right" style={{ fontSize: '15px' }}>
@@ -366,11 +395,11 @@ const PagamentoPage = () => {
                               width: '100%',
                             }}>Pagar
                          </Button>
-                            <span style={{
-                              fontFamily: 'Roboto', fontSize: '20px', color: '#ffff',
-                              height: '100%',
-                              width: '100%',
-                            }} hidden={userAmountLobby === 0 ? false : true}>Obrigado, pagamento ja efetuado!</span>
+                          <span style={{
+                            fontFamily: 'Roboto', fontSize: '20px', color: '#ffff',
+                            height: '100%',
+                            width: '100%',
+                          }} hidden={userAmountLobby === 0 ? false : true}>Obrigado, pagamento ja efetuado!</span>
                         </Col>
                       </Row>
                     </form>
