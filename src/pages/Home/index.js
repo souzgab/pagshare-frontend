@@ -16,7 +16,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PublicIcon from '@material-ui/icons/Public';
 import CardTime from "../../components/CardTime"
-
+import VerticalMenu from '../../components/VerticalMenu'
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -37,12 +37,23 @@ const useStyles = makeStyles((theme) => ({
 export function Home() {
   const classes = useStyles();
 
+  const objMenu = {
+    inicio: "#inicio",
+    visao: "#visao",
+    time: "#time"
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
-      <NavigationBar title="Payshare" link="Login" to="/login" />
-      <Container maxWidth="xg" component="main" style={{ height: "100vh", width: "100vw" }} className={classes.heroContent}>
-        <Container style={{ backgroundColor: "transparent", height: "100vh", width: "100vw", fontFamily: "Roboto" }}>
+      <NavigationBar title="Payshare" link="Login" to="/login" />   
+      <Container maxWidth="xg" component="main" style={{ height: "100vh", width: "100vw" }} className={classes.heroContent}>  
+      <div style={{display: 'flex', flexDirection:"row-reverse", alignContent: 'flex-end', justifyContent: 'end', position: 'fixed', top: '35%', width: '90%'}}>
+        <div>
+          <VerticalMenu obj={objMenu} style={{zIndex: 9999}}/>
+        </div>
+      </div>
+        <Container id="inicio" style={{ backgroundColor: "transparent", height: "100vh", width: "100vw", fontFamily: "Roboto" }}>
           <Row style={{ backgroundColor: "transparent" }}>
             <Col xs={4} style={{ backgroundColor: "transparent" }}>
               <img className={classes.margin}
@@ -77,7 +88,7 @@ export function Home() {
             </Col>
           </Row>
         </Container>
-        <Container>
+        <Container id="visao">
           <Row>
             <Col xs={12} style={{ backgroundColor: "", height: "80vh" }}>
               <Row>
@@ -140,23 +151,23 @@ export function Home() {
               </Row>
             </Col>
           </Row>
-          <h4 class="bottom-line mt-2 text-white" style={{ fontSize: '35px' }}>EQUIPE</h4>
+          <h4 id="time"class="bottom-line mt-2 text-white" style={{ fontSize: '35px' }}>EQUIPE</h4>
           <hr style={{ width: '200px' }}></hr>
           <Row xs={12} style={{ justifyContent: 'center' }}>
+            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
+              <CardTime titulo='Fernanda Queiroz' img='https://avatars2.githubusercontent.com/u/53790904?s=400&u=45fe53550e0f04a88f6c10320bcbed57daffae82&v=4' link='fernandaqueirozbc'>colocar aqui sua frase</CardTime>
+            </Col>
+            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
+              <CardTime titulo='Gabriel Souza' img='https://avatars2.githubusercontent.com/u/54115219?v=4' link='souzgab'>Developer at Safra Bank, enjoy a good beer and a nice meat.</CardTime>
+            </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
               <CardTime titulo='Lucas Monteiro' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>"A mente que se abre a uma ideia jamais voltará à seu tamanho original" - Eistein</CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Vinicius Alves' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>colocar aqui sua frase</CardTime>
+              <CardTime titulo='Talita Modesto' img='https://avatars3.githubusercontent.com/u/47605213?s=400&v=4' link='ThataMI'>colocar aqui sua frase</CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Talita Modesto' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>colocar aqui sua frase</CardTime>
-            </Col>
-            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Fernanda ' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>colocar aqui sua frase</CardTime>
-            </Col>
-            <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Gabriel Souza' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>colocar aqui sua frase</CardTime>
+              <CardTime titulo='Vinicius Alves' img='https://avatars0.githubusercontent.com/u/53584452?s=400&u=a485f18dedc3e477fd2078c08682198c195adb89&v=4' link='rodriguesvinicius'>colocar aqui sua frase</CardTime>
             </Col>
           </Row>
         </Container>

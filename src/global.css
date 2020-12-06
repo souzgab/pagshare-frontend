@@ -29,6 +29,7 @@
 
 html, body, #root{
     height: 100vh;
+    scroll-behavior: smooth;
 }
 
 #root{
@@ -46,6 +47,26 @@ body, input, button, textarea{
     width: 90vw;
     max-width: 700px;
 }
+body {
+    color: white;
+}
+
+a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: none;
+    color: #04BF58;
+  }
+  
+  a:active {
+    text-decoration: none;
+  }
 
 @media(min-width: 700px){
     :root{
