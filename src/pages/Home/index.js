@@ -160,7 +160,7 @@ export function Home() {
               <CardTime titulo='Fernanda Queiroz' img='https://avatars2.githubusercontent.com/u/53790904?s=400&u=45fe53550e0f04a88f6c10320bcbed57daffae82&v=4' link='fernandaqueirozbc'>O segredo do fracasso é começar </CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Gabriel Souza' img='https://avatars2.githubusercontent.com/u/54115219?v=4' link='souzgab'>Developer at Safra Bank, enjoy a good beer and a nice meat.</CardTime>
+              <CardTime titulo='Gabriel Souza' img='https://avatars2.githubusercontent.com/u/54115219?v=4' link='souzgab'>Design é função, não forma.</CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
               <CardTime titulo='Lucas Monteiro' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>"A mente que se abre a uma ideia jamais voltará à seu tamanho original" - Eistein</CardTime>
