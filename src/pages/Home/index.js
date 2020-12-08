@@ -169,7 +169,7 @@ export function Home() {
               <CardTime titulo='Thalita Modesto' img='https://avatars3.githubusercontent.com/u/47605213?s=400&v=4' link='ThataMI'>Às vezes, a vida vai te acertar um tijolo na cabeça. Não perca a fé.</CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Vinicius Alves' img='https://avatars0.githubusercontent.com/u/53584452?s=400&u=a485f18dedc3e477fd2078c08682198c195adb89&v=4' link='rodriguesvinicius'>Inovação destingue um líder de um seguidor!</CardTime>
+              <CardTime titulo='Vinicius Alves' img='https://avatars0.githubusercontent.com/u/53584452?s=400&u=a485f18dedc3e477fd2078c08682198c195adb89&v=4' link='rodriguesvinicius'>Inovação destingue um líder de um LINGUIÇEIRO!</CardTime>
             </Col>
           </Row>
         </Container>
