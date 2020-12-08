@@ -157,7 +157,7 @@ export function Home() {
           <hr style={{ width: '200px' }}></hr>
           <Row xs={12} style={{ justifyContent: 'center' }}>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Fernanda Queiroz' img='https://avatars2.githubusercontent.com/u/53790904?s=400&u=45fe53550e0f04a88f6c10320bcbed57daffae82&v=4' link='fernandaqueirozbc'>colocar aqui sua frase</CardTime>
+              <CardTime titulo='Fernanda Queiroz' img='https://avatars2.githubusercontent.com/u/53790904?s=400&u=45fe53550e0f04a88f6c10320bcbed57daffae82&v=4' link='fernandaqueirozbc'>O segredo do fracasso é começar </CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
               <CardTime titulo='Gabriel Souza' img='https://avatars2.githubusercontent.com/u/54115219?v=4' link='souzgab'>Developer at Safra Bank, enjoy a good beer and a nice meat.</CardTime>
@@ -166,10 +166,10 @@ export function Home() {
               <CardTime titulo='Lucas Monteiro' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>"A mente que se abre a uma ideia jamais voltará à seu tamanho original" - Eistein</CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Thalita Modesto' img='https://avatars3.githubusercontent.com/u/47605213?s=400&v=4' link='ThataMI'>colocar aqui sua frase</CardTime>
+              <CardTime titulo='Thalita Modesto' img='https://avatars3.githubusercontent.com/u/47605213?s=400&v=4' link='ThataMI'>Às vezes, a vida vai te acertar um tijolo na cabeça. Não perca a fé.</CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Vinicius Alves' img='https://avatars0.githubusercontent.com/u/53584452?s=400&u=a485f18dedc3e477fd2078c08682198c195adb89&v=4' link='rodriguesvinicius'>colocar aqui sua frase</CardTime>
+              <CardTime titulo='Vinicius Alves' img='https://avatars0.githubusercontent.com/u/53584452?s=400&u=a485f18dedc3e477fd2078c08682198c195adb89&v=4' link='rodriguesvinicius'>Inovação destingue um líder de um seguidor!</CardTime>
             </Col>
           </Row>
         </Container>

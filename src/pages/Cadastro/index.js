@@ -13,6 +13,7 @@ import NavigationBar from '../../components/NavigationBar';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import LeftSvg from "../../assets/SVG/Frame2.svg";
+import Frame2 from "../../assets/SVG/fotoCadastro.svg"
 import validate from '../../components/validateInfo';
 import useForm from '../../components/UseForm';
 import axios from 'axios';
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: `url(${LeftSvg})`,
+    backgroundImage: `url(${Frame2})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.mode === 'light'
