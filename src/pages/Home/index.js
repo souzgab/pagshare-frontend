@@ -88,7 +88,9 @@ export function Home() {
             </Col>
           </Row>
         </Container>
-        <Container id="visao">
+        <Container id="visao" style={{ marginTop: "30px" }}>
+          <h4 class="bottom-line mt-2 text-white" style={{ fontSize: '35px' }}>VISÃO</h4>
+          <hr style={{ width: '200px' }}></hr>
           <Row>
             <Col xs={12} style={{ backgroundColor: "", height: "80vh" }}>
               <Row>

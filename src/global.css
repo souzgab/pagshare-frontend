@@ -27,7 +27,7 @@
     box-sizing: border-box;
 }
 
-html, body, #root{
+html, body{
     height: 100vh;
     scroll-behavior: smooth;
 }
@@ -43,10 +43,10 @@ input, button, textarea{
     color: var(--color-text-base);
 }
 
-.container {
+/* .container {
     width: 90vw;
     max-width: 700px;
-}
+} */
 
 a:link {
     text-decoration: none;
