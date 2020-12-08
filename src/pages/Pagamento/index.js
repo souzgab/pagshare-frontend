@@ -166,7 +166,7 @@ const PagamentoPage = () => {
   function deleteLobby() {
     var data = {}
 
-    const URLDELETE = `https://paysharedev.herokuapp.com/v1/payshare/lobby/deleteLobby${idLobby}`
+    const URLDELETE = `https://paysharedev.herokuapp.com/v1/payshare/lobby/deleteLobby/${idLobby}`
 
 
     //setando auth bearer
