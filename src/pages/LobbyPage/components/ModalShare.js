@@ -37,7 +37,7 @@ export default function TransitionsModal(props) {
 
   const url = {
     urlLocal: `http://localhost:3000/join/${props.obj.id}`,
-    urlDev: `https://payshare-frontend.herokuapp.com/join/${props.obj.id}`
+    urlDev: `https://payshare-dev.herokuapp.com/join/${props.obj.id}`
   }
   async function handleSubmit(event) {
     event.preventDefault();
@@ -73,7 +73,7 @@ export default function TransitionsModal(props) {
       navigator.share({
         title: 'Payshare, Compartilhe!',
         text: 'Venha fazer parte da comunidade de pagamentos compartilhados!',
-        url: 'https://payshare-frontend.herokuapp.com/login',
+        url: 'https://payshare-dev.herokuapp.com/login',
       })
       .then(() => {})
       .catch((error) => console.log('Error sharing', error));
