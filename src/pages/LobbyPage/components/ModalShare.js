@@ -114,7 +114,7 @@ export default function TransitionsModal(props) {
                 required
                 fullWidth
                 name="lobbyshare"
-                label="Id Para acesso da Lobby"
+                label="Clique em Copiar para gerar um link!"
                 id="lobbyshare"
                 disabled
                 value={urlShare}

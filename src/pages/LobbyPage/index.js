@@ -162,7 +162,7 @@ const LobbyPage = ({obj}) => {
       <CssBaseline />
       <LobbyBar />
       <Container maxWidth="xg" style={{ backgroundColor: "#202020", height: '120vh', width: '100vw'}}>
-        <Row style={{ marginTop: '6%' }}>
+        <Row>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
             <Card className=" mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
               <Card.Body style={{ height: '' }}>
