@@ -14,7 +14,6 @@ import Redirect from "./pages/Redirect";
 
 
 export function App(){
-    moment.locale('pt-BR')
     return (
         <React.Fragment>
             <Router>

@@ -79,6 +79,7 @@ const LobbyInstance = (props) => {
                 backgroundSize: 'center',
                 backgroundAttachment: 'scroll',
                 margin: '1%',
+                borderRadius: '10px',
               }}
             />
             </Col>

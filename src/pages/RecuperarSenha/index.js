@@ -80,8 +80,8 @@ export function RecuperarSenha() {
   return (
     <React.Fragment>
     <CssBaseline />
-        <NavigationBar title="Pasyshare" link="Cadastre-se" to="/cadastro"/>
-          <Container maxWidth="xg" component="main" style={{backgroundColor: "darkgray", height: "100vh", width: "100vw"}} className={classes.heroContent}>
+        <NavigationBar title="Payshare" link="Cadastre-se" to="/cadastro"/>
+          <Container maxWidth="" component="main" style={{height: "100vh", width: "100vw"}} className={classes.heroContent}>
           <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: '#202020' }}>
@@ -142,7 +142,7 @@ export function RecuperarSenha() {
           </Grid>
         </Container>
   </React.Fragment>
-  );
+  )
 }
 
 export default RecuperarSenha;

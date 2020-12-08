@@ -82,7 +82,7 @@ export default function VerticalTabs(props) {
       >
         <Tab className={classes.tab} label="Inicio" href={props.obj.inicio} {...a11yProps(0)} />
         <Tab className={classes.tab} label="Visão" href={props.obj.visao} {...a11yProps(1)} />
-        <Tab className={classes.tab} label="Time" href={props.obj.time} {...a11yProps(2)} />
+        <Tab className={classes.tab} label="Equipe" href={props.obj.time} {...a11yProps(2)} />
       </Tabs>
     </div>
   );

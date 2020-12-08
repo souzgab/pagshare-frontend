@@ -145,7 +145,7 @@ export function Cadastro({ submitForm }) {
     <React.Fragment>
       <CssBaseline />
       <NavigationBar title="Payshare" link="Inicio" to="/" />
-      <Container maxWidth="xg" component="main" style={{ backgroundColor: "darkgray", height: "100vh", width: "100vw" }} className={classes.heroContent}>
+      <Container maxWidth="xg" component="main" style={{ height: "100vh", width: "100vw" }} className={classes.heroContent}>
         <Grid container component="main" className={classes.root}>
           <Grid item xs={false} sm={4} md={7} className={classes.image} />
           <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: '#202020' }}>
@@ -282,7 +282,7 @@ export function Cadastro({ submitForm }) {
         </Grid>
       </Container>
     </React.Fragment>
-  );
+  )
 }
 
 export default Cadastro;

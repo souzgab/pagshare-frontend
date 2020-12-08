@@ -15,8 +15,8 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PublicIcon from '@material-ui/icons/Public';
-import CardTime from "../../components/CardTime"
-import VerticalMenu from '../../components/VerticalMenu'
+import CardTime from "../../components/CardTime";
+import VerticalMenu from '../../components/VerticalMenu';
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -88,7 +88,9 @@ export function Home() {
             </Col>
           </Row>
         </Container>
-        <Container id="visao">
+        <Container id="visao" style={{ marginTop: "30px" }}>
+          <h4 class="bottom-line mt-2 text-white" style={{ fontSize: '35px' }}>VISÃO</h4>
+          <hr style={{ width: '200px' }}></hr>
           <Row>
             <Col xs={12} style={{ backgroundColor: "", height: "80vh" }}>
               <Row>
@@ -164,7 +166,7 @@ export function Home() {
               <CardTime titulo='Lucas Monteiro' img='https://avatars3.githubusercontent.com/u/53584705?s=460&u=8dcb0d0e0dc8c2656808d178b4c4eaa9c991be9f&v=4t' link='lucasmonteirobandtec'>"A mente que se abre a uma ideia jamais voltará à seu tamanho original" - Eistein</CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
-              <CardTime titulo='Talita Modesto' img='https://avatars3.githubusercontent.com/u/47605213?s=400&v=4' link='ThataMI'>colocar aqui sua frase</CardTime>
+              <CardTime titulo='Thalita Modesto' img='https://avatars3.githubusercontent.com/u/47605213?s=400&v=4' link='ThataMI'>colocar aqui sua frase</CardTime>
             </Col>
             <Col lg={4} md={6} sm={12} style={{ marginTop: '25px' }} >
               <CardTime titulo='Vinicius Alves' img='https://avatars0.githubusercontent.com/u/53584452?s=400&u=a485f18dedc3e477fd2078c08682198c195adb89&v=4' link='rodriguesvinicius'>colocar aqui sua frase</CardTime>
@@ -173,7 +175,7 @@ export function Home() {
         </Container>
       </Container>
     </React.Fragment>
-  );
+  )
 }
 
 export default Home;
