@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 const PagamentoPage = () => {
   const urlDadosLobby = `https://paysharedev.herokuapp.com/v1/payshare/lobby/lobbyUser/${localStorage.getItem('id')}`;
   const urlDadosUser = `https://paysharedev.herokuapp.com/v1/payshare/user/${localStorage.getItem('id')}`
-  const URLDELETE = `https://paysharedev.herokuapp.com/v1/payshare/lobby/${idLobby}`
+  const URLDELETE = `https://paysharedev.herokuapp.com/v1/payshare/lobby/lobbyDelete/${idLobby}`
   const config = {
     headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
   };
@@ -164,17 +164,15 @@ const PagamentoPage = () => {
   }
 
   function deleteLobby() {
-   var data = {}
+
     //setando auth bearer
     const config = {
       headers: { 
         Authorization: localStorage.getItem('token').replace(/['"]+/g, '') ,
-        'Access-Control-Allow-Headers': '*',
-        'Access-Control-Allow-Methods': 'DELETE'
       }
     };
 
-    axios.delete(URLDELETE, data, config).then((result) => {
+    axios.delete(URLDELETE,config).then((result) => {
       if (result.status === 200) {
         alert("Lobby encerrada com sucesso, aproveite até mais!")
         hist.push('/lobby')
