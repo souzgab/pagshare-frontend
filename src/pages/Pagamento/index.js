@@ -15,6 +15,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import moment from "moment"
 import Form from 'react-bootstrap/Form'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
@@ -145,12 +146,21 @@ const PagamentoPage = () => {
         localStorage.removeItem('idLobby');
       }).catch(e => {
         if (new String(e).indexOf("401")) {
-          return alert(" Saldo Insuficiente ")
+          return alert(" Saldo Insuficiente")
         }
       })
     } catch (e) {
       console.log(e)
     }
+  }
+
+  function logout() {
+    localStorage.clear();
+    hist.push("/login")
+  }
+
+  function Profile() {
+    hist.push("/profile")
   }
 
   const onChange = (evento) => {
@@ -180,11 +190,12 @@ const PagamentoPage = () => {
       if (result.status === 200) {
         alert("Lobby encerrada com sucesso, aproveite até mais!")
         hist.push('/lobby')
-      } else {
+      } else if (result.status === 400) {
         alert("Não é possível encerrar a lobby neste momento tente novamente!")
       }
     }).catch((err) => {
       console.log(err)
+      alert("Não é possível encerrar a lobby neste momento tente novamente!")
     })
 
   }
@@ -234,18 +245,7 @@ const PagamentoPage = () => {
             </Card>
           </Col>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
-            <Card className=" mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
-              <Card.Body style={{ height: '' }}>
-                <Card.Text className="text-right" style={{ color: '#1CDC6E', fontFamily: 'Roboto' }}>
-                  <Button
-                    variant="success"
-                    style={{
-                      fontFamily: 'roboto', fontSize: '18px',
-                    }}>Suporte
-                  </Button>
-                </Card.Text>
-              </Card.Body>
-            </Card>
+           
           </Col>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
             <Card className="text-right mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
@@ -257,8 +257,8 @@ const PagamentoPage = () => {
                     Bem vindo(a) {Name}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#">Minha conta</Dropdown.Item>
-                    <Dropdown.Item href="/login">Sair</Dropdown.Item>
+                    <Dropdown.Item onClick={Profile}>Minha conta</Dropdown.Item>
+                    <Dropdown.Item onClick={logout}>Sair</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 <Card.Text style={{ color: '#1CDC6E', fontSize: '15px', fontFamily: 'Roboto' }}>
@@ -316,7 +316,6 @@ const PagamentoPage = () => {
 
                     <Row style={{ backgroundColor: '' }}>
                       <Col xs={6}>
-                        <AttachFileIcon style={{ fontSize: '15px', color: '#ffff', marginTop: '10%' }} />
                         <Button
                           onClick={deleteLobby}
                           variant="success"
@@ -324,7 +323,7 @@ const PagamentoPage = () => {
                             border: 'none',
                             fontFamily: 'roboto', fontSize: '15px', backgroundColor: 'transparent', color: '#1CDC6E',
                             marginTop: '10%'
-                          }}> Finalizar lobby
+                          }}><HighlightOffIcon style={{ fontSize: '15px', color: '#ffff'}} /> Finalizar lobby
                          </Button>
                       </Col>
                       <Col xs={6} className="text-right" style={{ fontSize: '15px' }}>
@@ -378,9 +377,9 @@ const PagamentoPage = () => {
                           <Form.Group hidden={userAmountLobby === 0 ? true : false} controlId="exampleForm.ControlSelect1" style={{ backgroundColor: "" }}>
                             <Form.Label className="text-white mt-5" style={{ fontSize: '15px' }}>Forma de pagamento</Form.Label>
                             <Form.Control disabled={userAmountLobby === 0 ? true : false} name="select" as="select" style={{ border: 'solid 1px #1CDC6E', backgroundColor: "transparent", color: 'white' }}>
-                              <option value="0">Selecione uma opção</option>
-                              <option value="1">Mercado</option>
-                              <option value="2">Wallet</option>
+                              <option style={{color:'black'}} value="0">Selecione uma opção</option>
+                              <option style={{color:'black'}} value="1">Mercado Pago</option>
+                              <option style={{color:'black'}} value="2">Wallet</option>
                             </Form.Control>
                           </Form.Group>
                         </Col>

@@ -98,7 +98,7 @@ export default function TransitionsModal(props) {
   return (
     <div>
       {/* TODO: COLOCAR AQUI O COMPONENTE DO LOBBY PAGE QUE PUXA O MODAL */}
-      <Button onClick={handleOpen} style={{ backgroundColor: 'transparent', color: '#1CDC6E', fontSize: '14px', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>
+      <Button onClick={handleOpen} style={{ backgroundColor: 'transparent', marginTop:'20%', color: '#1CDC6E', fontSize: '14px', fontFamily: 'roboto', border: '2px dashed #1CDC6E', boxSizing: 'border-box' }}>
         Você não possuí nenhuma lobby ativa clique para criar
       </Button>
 

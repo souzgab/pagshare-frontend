@@ -27,7 +27,7 @@ const Profile = () => {
 
     useEffect(() => {
         try {
-          
+
             const config = {
                 headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
             };
@@ -48,6 +48,12 @@ const Profile = () => {
     }, []);
 
     const hist = useHistory();
+
+
+    function Profile() {
+        hist.push("/profile")
+    }
+
     function logout() {
         localStorage.clear();
         hist.push("/login")
@@ -70,18 +76,7 @@ const Profile = () => {
                         </Card>
                     </Col>
                     <Col xs={4} style={{ backgroundColor: "transparent" }}>
-                        <Card className=" mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
-                            <Card.Body style={{ height: '' }}>
-                                <Card.Text className="text-right" style={{ color: '#1CDC6E', fontFamily: 'Roboto' }}>
-                                    <Button
-                                        variant="success"
-                                        style={{
-                                            fontFamily: 'roboto', fontSize: '18px',
-                                        }}>Suporte
-                                    </Button>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+
                     </Col>
                     <Col xs={4} style={{ backgroundColor: "transparent" }}>
                         <Card className="text-right mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
@@ -93,7 +88,7 @@ const Profile = () => {
                                         Bem vindo(a) {Name}
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item href="#">Minha conta</Dropdown.Item>
+                                        <Dropdown.Item onClick={Profile}>Minha conta</Dropdown.Item>
                                         <Dropdown.Item onClick={logout} >Sair</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -128,13 +123,13 @@ const Profile = () => {
 
                                                 <Form.Group controlId="formGridAddress1">
                                                     <Form.Label>Endereço</Form.Label>
-                                                    <Form.Control style={{ fontFamily: "Roboto" }} value={endereco}/>
+                                                    <Form.Control style={{ fontFamily: "Roboto" }} value={endereco} />
                                                 </Form.Group>
 
                                                 <Form.Row>
                                                     <Form.Group as={Col} controlId="formGridCity">
                                                         <Form.Label>Cidade</Form.Label>
-                                                        <Form.Control style={{ fontFamily: "Roboto" }} value={cidade}/>
+                                                        <Form.Control style={{ fontFamily: "Roboto" }} value={cidade} />
                                                     </Form.Group>
 
                                                     <Form.Group as={Col} controlId="formGridState">

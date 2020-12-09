@@ -46,11 +46,11 @@ async function findByUser() {
   }
 }
 
-function handleBoolean(status){
+function handleBoolean(status) {
   return status;
 }
 
-const LobbyPage = ({obj}) => {
+const LobbyPage = ({ obj }) => {
 
   const hist = useHistory();
 
@@ -59,7 +59,7 @@ const LobbyPage = ({obj}) => {
     hist.push("/login")
   }
 
-  function Profile(){
+  function Profile() {
     hist.push("/profile")
   }
 
@@ -72,7 +72,7 @@ const LobbyPage = ({obj}) => {
     let totalTransactionLobby = 0.00;
     let totalTransactionWallet = 0.00;
     try {
-      
+
       //setando auth bearer
       const config = {
         headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
@@ -97,6 +97,7 @@ const LobbyPage = ({obj}) => {
 
             setTransactionWallets(result.data.transactionWallets)
             setTransaction(result.data.transactions)
+            setLobbyHistory(result.data.lobbyUserList)
 
           }
         }).catch((err) => {
@@ -104,9 +105,9 @@ const LobbyPage = ({obj}) => {
         })
 
         axios.get(urls.urlDadosLobby, config).then((result) => {
-          if(result.status === 200){
+          if (result.status === 200) {
             //tratamento para remover botão de criação de lobby se ele tiver lobby ativa
-            if(result.data.amount > result.data.amountTotal){
+            if (result.data.amount > result.data.amountTotal) {
               const modalLobby = document.getElementById('lobby');
               modalLobby.style.height = '100%';
               setUserLobby(result.data);
@@ -129,6 +130,8 @@ const LobbyPage = ({obj}) => {
   const [transactionWallets, setTransactionWallets] = useState([])
   const [userLobby, setUserLobby] = useState([])
   const [transaction, setTransaction] = useState([])
+
+  const [lobbyHistory, setLobbyHistory] = useState([])
 
   const Name = localStorage.getItem('name')
 
@@ -161,7 +164,7 @@ const LobbyPage = ({obj}) => {
     <React.Fragment >
       <CssBaseline />
       <LobbyBar />
-      <Container maxWidth="xg" style={{ backgroundColor: "#202020", height: '120vh', width: '100vw'}}>
+      <Container maxWidth="xg" style={{ backgroundColor: "#202020", height: '120vh', width: '100vw' }}>
         <Row>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
             <Card className=" mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
@@ -173,18 +176,7 @@ const LobbyPage = ({obj}) => {
             </Card>
           </Col>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
-            <Card className=" mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
-              <Card.Body style={{ height: '' }}>
-                <Card.Text className="text-right" style={{ color: '#1CDC6E', fontFamily: 'Roboto' }}>
-                  <Button
-                    variant="success"
-                    style={{
-                      fontFamily: 'roboto', fontSize: '18px',
-                    }}>Suporte
-                  </Button>
-                </Card.Text>
-              </Card.Body>
-            </Card>
+          
           </Col>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
             <Card className="text-right mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>
@@ -196,8 +188,8 @@ const LobbyPage = ({obj}) => {
                     Bem vindo(a) {Name}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={Profile}><AccountCircleIcon/> Minha conta</Dropdown.Item>
-                    <Dropdown.Item onClick={logout} ><ExitToAppIcon/> Exit</Dropdown.Item>
+                    <Dropdown.Item onClick={Profile}><AccountCircleIcon /> Minha conta</Dropdown.Item>
+                    <Dropdown.Item onClick={logout} ><ExitToAppIcon /> Exit</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 <Card.Text style={{ color: '#1CDC6E', fontSize: '15px', fontFamily: 'Roboto' }}>
@@ -287,11 +279,11 @@ const LobbyPage = ({obj}) => {
                           Cada amigo que fizer um pagamento ou adicionar dinheiro a carteira
                           você ganha desconto no proximo pagamento.
                             <Button
-                              size="sm"
-                              variant="success"
-                              style={{
-                                fontFamily: 'roboto', fontSize: '12px'
-                              }}>Compartilhar
+                            size="sm"
+                            variant="success"
+                            style={{
+                              fontFamily: 'roboto', fontSize: '12px'
+                            }}>Compartilhar
                             </Button>
                         </Card.Text>
                       </Card.Body>
@@ -300,12 +292,46 @@ const LobbyPage = ({obj}) => {
                 </Col>
               </Row>
               <Row>
-                <Col className="mt-4" xs={12} style={{ backgroundColor: "", height: '50vh' }}>
-                  <Card className="" id='lobby' style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', fontFamily: 'roboto', width: '95%', height: '', textAlign: 'center' }}>
-                    {userLobby.amount >= userLobby.amountTotal ? <LobbyInstance obj={userLobby}/> : <Modal/>}
+                <Col className="mt-4" xs={12} style={{ backgroundColor: "", height: '40vh' }}>
+                  <Card className="mb-4" id='lobby' style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', fontFamily: 'roboto', width: '95%', height: '100%', textAlign: 'center' }}>
+                    {userLobby.amount >= userLobby.amountTotal ? <LobbyInstance obj={userLobby} /> : <Modal />}
                   </Card>
                 </Col>
               </Row>
+              <Row>
+                <Col className="mt-4 mb-5" xs={12} style={{ backgroundColor: "" }}>
+                  <Card className="shadow p mt-1" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', height: '50vh', width: '95%' }}>
+                    <Card.Title className="text-white ml-4">
+                      <h4 className="text-left">Histórico de lobby</h4>
+                    </Card.Title>
+                    <Card className="shadow p mt-1" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', height: '40vh', maxHeight: '40vh', overflow: 'auto', margin: '10px' }}>
+                      <Card.Title className="text-white ml-4">
+                        <h5 className="text-left">Lobby</h5>
+                      </Card.Title>
+                      <Card.Body>
+                        {lobbyHistory.map(lobbyHistory => (
+                          <Card className="text-white shadow p mt-2" style={{ backgroundColor: '#2D2D2D', fontSize: '15px', margin: '10px', borderRadius: '10px' }}>
+                            <Card.Body>
+                              <Row>
+                                <Col xs={6}>
+                                  <div className="" key={lobbyHistory.creationDate}>{moment(lobbyHistory.creationDate).format('ll')}</div>
+                                </Col>
+                                <Col xs={6}>
+                                  <div className="text-right" key={lobbyHistory.amount.toFixed(2)}><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} /> R$ {lobbyHistory.amount.toFixed(2)}</div>
+                                </Col>
+                              </Row>
+                              <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={lobbyHistory.lobbyDescription}>Descrição da lobby: {lobbyHistory.lobbyDescription}</div>
+                              <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={lobbyHistory.orderDescription}>Ordem de serviço: {lobbyHistory.orderDescription}</div>
+                            </Card.Body>
+                          </Card>
+                        ))}
+                      </Card.Body>
+                    </Card>
+                  </Card>
+                </Col>
+              </Row>
+
+
             </Col>
             <Col xs={4} style={{ backgroundColor: "" }}>
               <Card className="shadow p mt-1" style={{ backgroundColor: '#2D2D2D', borderRadius: '10px', height: '80vh' }}>
