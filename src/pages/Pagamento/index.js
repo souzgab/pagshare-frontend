@@ -11,13 +11,11 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import axios from 'axios';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import moment from "moment"
 import Form from 'react-bootstrap/Form'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { useHistory } from 'react-router-dom'
-import Link from '@material-ui/core/Link';
 import ModalShare from '../LobbyPage/components/ModalShare';
 import Wallet from '../LobbyPage/components/Wallet';
 
@@ -209,7 +207,6 @@ const PagamentoPage = () => {
       axios.get(urlDadosUser, config).then((result) => {
         if (result.status === 200) {
           setUserAmountLobby(result.data.userAmountLobby)
-          setUserAmount(result.data.userAmount.toFixed(2))
         }
       })
 
