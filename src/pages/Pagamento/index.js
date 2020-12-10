@@ -209,7 +209,7 @@ const PagamentoPage = () => {
       axios.get(urlDadosUser, config).then((result) => {
         if (result.status === 200) {
           setUserAmountLobby(result.data.userAmountLobby)
-          setUserAmountLobby(result.data.userAmount.toFixed(2))
+          setUserAmount(result.data.userAmount.toFixed(2))
         }
       })
 
@@ -309,7 +309,7 @@ const PagamentoPage = () => {
                               </Col>
                               <Col xs={4} style={{ backgroundColor: '' }}>
                                 <label className="mt-4 mr-5" style={{ color: 'white', fontSize: '15px' }}>Valor a pagar:</label>
-                                {user.userAmountLobby === 0.00 ? <label className="mt-4" style={{ color: '#1CDC6E', fontSize: '15px' }}>Pago</label> : <label className="mt-4" style={{ color: '#F7D147', fontSize: '15px' }}>R$ {user.userAmountLobby.toFixed(2)}</label>}
+                                {user.userAmountLobby === 0.00 ? <label className="mt-4" style={{ color: '#1CDC6E', fontSize: '15px' }}>Pago</label> : <label className="mt-4" style={{ color: '#F7D147', fontSize: '15px' }}>R$ {user.userAmountLobby.toFixed(3)}</label>}
                               </Col>
                               <Col xs={12}><hr style={{ width: '100%' }} /></Col>
                             </Row>
@@ -338,7 +338,7 @@ const PagamentoPage = () => {
                       <Col xs={6} className="text-right" style={{ fontSize: '15px' }}>
                         <div className="mt-5" style={{ backgroundColor: 'transparent' }}>
                           <label className="mt-4" htmlFor="transaction" style={{ color: 'white', marginLeft: '15%' }}>Valor recebido:</label>
-                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '5%', fontSize: '20px' }}>R$ {lobbyAmountTotal ? lobbyAmountTotal.toFixed(2) : '0.00'}</label>
+                          <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '5%', fontSize: '20px' }}>R$ {lobbyAmountTotal ? lobbyAmountTotal.toFixed(3) : '0.00'}</label>
                         </div>
                         <div className="mt-6" style={{ backgroundColor: 'transparent' }}>
                           <label className="mt-4" htmlFor="transaction" style={{ color: '#1CDC6E', marginLeft: '15%', fontSize: '12px' }}>Descrição: {lobbyDescription}</label>
@@ -369,7 +369,7 @@ const PagamentoPage = () => {
                                 <div className="" key={transaction.createdAt}>{moment(transaction.createdAt).format('ll')}</div>
                               </Col>
                               <Col xs={6}>
-                                <div className="text-right" key={transaction.amount.toFixed(2)}><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} /> R$ {transaction.amount.toFixed(2)}</div>
+                                <div className="text-right" key={transaction.amount.toFixed(3)}><ArrowForwardIcon style={{ fontSize: 'large', color: '#1CDC6E' }} /> R$ {transaction.amount.toFixed(3)}</div>
                               </Col>
                             </Row>
                             <div className="text-left mt-2" style={{ color: '#1CDC6E' }} key={transaction.description}>{transaction.description}</div>
