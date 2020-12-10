@@ -16,9 +16,10 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import moment from "moment"
 import Form from 'react-bootstrap/Form'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
+import ModalShare from '../LobbyPage/components/ModalShare';
+
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     //   backgroundImage: `url(${FundoSVG})`,
@@ -111,6 +112,7 @@ const PagamentoPage = () => {
 
   const amount = parseFloat(userAmountLobby)
 
+  const [dadosLobby, setDadosLobby] = useState({});
   const url = {
     urlMercadoPago: `https://paysharedev.herokuapp.com/v1/payshare/transaction/${localStorage.getItem('id')}/${amount}`,
     urlWallet: `https://paysharedev.herokuapp.com/v1/payshare/transaction/wallet-lobby/${localStorage.getItem('id')}/${amount}`
@@ -206,6 +208,7 @@ const PagamentoPage = () => {
       axios.get(urlDadosUser, config).then((result) => {
         if (result.status === 200) {
           setUserAmountLobby(result.data.userAmountLobby)
+          console.log(result.data)
         }
       })
 
@@ -218,6 +221,7 @@ const PagamentoPage = () => {
           setUserPfList(result.data.userPfList);
           setTransactionLobby(result.data.transactions)
           setLobbyId(result.data.id)
+          setDadosLobby(result.data)
         }
       });
     } catch (Error) {
@@ -314,17 +318,20 @@ const PagamentoPage = () => {
                       </Card.Body>
                     </Card>
 
-                    <Row style={{ backgroundColor: '' }}>
-                      <Col xs={6}>
+                    <Row style={{ backgroundColor: '',  width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                      <Col xs={6} style={{
+                        backgroundColor: '', display: 'flex', flexDirection: 'row', justifyContent: 'space-around',
+                        height: '100%', padding: '5px', width: '10%', alignItems: 'center'
+                      }}>
                         <Button
                           onClick={deleteLobby}
                           variant="success"
                           style={{
                             border: 'none',
                             fontFamily: 'roboto', fontSize: '15px', backgroundColor: 'transparent', color: '#1CDC6E',
-                            marginTop: '10%'
                           }}><HighlightOffIcon style={{ fontSize: '15px', color: '#ffff'}} /> Finalizar lobby
                          </Button>
+                         <ModalShare texto="Compartilhar Lobby" idLobby={dadosLobby.id} obj={dadosLobby}/>
                       </Col>
                       <Col xs={6} className="text-right" style={{ fontSize: '15px' }}>
                         <div className="mt-5" style={{ backgroundColor: 'transparent' }}>
@@ -400,7 +407,7 @@ const PagamentoPage = () => {
                             fontFamily: 'Roboto', fontSize: '20px', color: '#ffff',
                             height: '100%',
                             width: '100%',
-                          }} hidden={userAmountLobby === 0 ? false : true}>Obrigado, pagamento ja efetuado!</span>
+                          }} hidden={userAmountLobby === 0 ? false : true}>Obrigado, pagamento já efetuado!</span>
                         </Col>
                       </Row>
                     </form>
