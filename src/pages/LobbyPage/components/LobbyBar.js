@@ -154,7 +154,7 @@ const LobbyBar = () => {
             <Link to="/pagamento" className="text-white">
               <ListItem className="ml-2 mb-3" button>
                 <ListItemIcon><img src={Room} /></ListItemIcon>
-                <ListItemText primary='SALA DA LOBBY' />
+                <ListItemText primary='SALA DE PAGAMENTO' />
               </ListItem>
             </Link>
             <ListItem className="ml-2 mb-3" button>
@@ -163,7 +163,7 @@ const LobbyBar = () => {
             </ListItem>
             <ListItem className="ml-2 mb-3" button>
               <ListItemIcon><img src={history} /></ListItemIcon>
-              <ListItemText primary='HISTÓRICO DE PAG' />
+              <ListItemText primary='HISTÓRICOS' />
             </ListItem>
             <Link to="/profile" className="text-white">
             <ListItem className="ml-2" button>

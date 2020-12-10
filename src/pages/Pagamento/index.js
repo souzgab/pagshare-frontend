@@ -19,6 +19,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { useHistory } from 'react-router-dom'
 import Link from '@material-ui/core/Link';
 import ModalShare from '../LobbyPage/components/ModalShare';
+import Wallet from '../LobbyPage/components/Wallet';
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -208,7 +209,7 @@ const PagamentoPage = () => {
       axios.get(urlDadosUser, config).then((result) => {
         if (result.status === 200) {
           setUserAmountLobby(result.data.userAmountLobby)
-          console.log(result.data)
+          setUserAmountLobby(result.data.userAmount.toFixed(2))
         }
       })
 
@@ -296,7 +297,6 @@ const PagamentoPage = () => {
 
                     <Card className="mt-5" style={{ backgroundColor: 'transparent', border: 'none', maxHeight: '50vh', overflow: 'auto', overflowX: 'hidden' }}>
                       <Card.Body>
-                        {/* Aqui repete usuário */}
                         <div>
                           {userPfList.map(user => (
                             <Row className="mb-2" style={{ backgroundColor: '' }}>
@@ -320,18 +320,20 @@ const PagamentoPage = () => {
 
                     <Row style={{ backgroundColor: '',  width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
                       <Col xs={6} style={{
-                        backgroundColor: '', display: 'flex', flexDirection: 'row', justifyContent: 'space-around',
-                        height: '100%', padding: '5px', width: '10%', alignItems: 'center'
+                        backgroundColor: '', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                        height: '100%', padding: '5px', width: '10%', alignItems: 'flex-start'
                       }}>
-                        <Button
-                          onClick={deleteLobby}
-                          variant="success"
-                          style={{
-                            border: 'none',
-                            fontFamily: 'roboto', fontSize: '15px', backgroundColor: 'transparent', color: '#1CDC6E',
-                          }}><HighlightOffIcon style={{ fontSize: '15px', color: '#ffff'}} /> Finalizar lobby
-                         </Button>
-                         <ModalShare texto="Compartilhar Lobby" idLobby={dadosLobby.id} obj={dadosLobby}/>
+                        <div style={{ backgroundColor: '',  width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                          <Button
+                            onClick={deleteLobby}
+                            variant="success"
+                            style={{
+                              border: 'none',
+                              fontFamily: 'roboto', fontSize: '15px', backgroundColor: 'transparent', color: '#1CDC6E', alignItems: 'center', justifyContent: 'center'
+                            }}><HighlightOffIcon style={{ fontSize: '15px', color: '#ffff'}} /> Finalizar lobby
+                          </Button>
+                          <ModalShare texto="Compartilhar Lobby" idLobby={dadosLobby.id} obj={dadosLobby}/>
+                        </div>
                       </Col>
                       <Col xs={6} className="text-right" style={{ fontSize: '15px' }}>
                         <div className="mt-5" style={{ backgroundColor: 'transparent' }}>
@@ -382,6 +384,7 @@ const PagamentoPage = () => {
                       <Row style={{ backgroundColor: '' }}>
                         <Col xs={12} className="mb-5">
                           <Form.Group hidden={userAmountLobby === 0 ? true : false} controlId="exampleForm.ControlSelect1" style={{ backgroundColor: "" }}>
+                          <h4 style={{ color: '#1CDC6E', fontSize: '12px' }}>Sua Wallet: <Wallet/></h4>
                             <Form.Label className="text-white mt-5" style={{ fontSize: '15px' }}>Forma de pagamento</Form.Label>
                             <Form.Control disabled={userAmountLobby === 0 ? true : false} name="select" as="select" style={{ border: 'solid 1px #1CDC6E', backgroundColor: "transparent", color: 'white' }}>
                               <option style={{color:'black'}} value="0">Selecione uma opção</option>
