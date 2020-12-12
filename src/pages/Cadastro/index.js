@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from 'react-router-dom';
+import CpfCnpj from "@react-br-forms/cpf-cnpj-mask";
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Container from '@material-ui/core/Container';
@@ -85,7 +86,8 @@ export function Cadastro({ submitForm }) {
     validate
   );
   const classes = useStyles();
-  
+  const [cpfCnpj, setCpfCnpj] = useState("");
+  const [mask, setMask] = useState("");
 
   // //inicializa o formData com os valores default
   // const [formData, setFormData] = useState(initialState);
@@ -160,6 +162,8 @@ export function Cadastro({ submitForm }) {
               <form className={classes.form} Validate onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme} >
                   <TextField
+                    error={formData.name === ""}
+                    helperText={formData.name === "" ? 'Campo Obrigatorio' : ''}
                     variant="outlined"
                     margin="normal"
                     color="#ffff"
@@ -167,6 +171,7 @@ export function Cadastro({ submitForm }) {
                     required
                     fullWidth
                     id="name"
+                    type="text"
                     label="Nome Completo"
                     name="name"
                     autoComplete="name"
@@ -177,32 +182,55 @@ export function Cadastro({ submitForm }) {
                       style: { color: '#fff' },
                     }}
                   />
-                   {errors.name && <p>{errors.name}</p>}
+                  {/* <CpfCnpj
+                    className="customizedInput"
+                    placeholder="Digite um CPF ou CNPJ"
+                    type="tel"
+                    value={cpfCnpj}
+                    onChange={(event, type) => {
+                      setCpfCnpj(ev.target.value);
+                      setMask(type === "CPF");
+                    }}
+                  /> */}
                   <TextField
+                    error={formData.cpf.length < 11}
+                    helperText={formData.cpf.length < 11 ? 'CPF  inválido' : ''}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
                     onChange={handleChange}
+                    placeholder="000.000.000-00"
                     id="cpf"
                     label="CPF"
                     name="cpf"
+                    type="tel"
+                    size="11"
+                    type="cpf"
+                    min="11"
                     autoComplete="cpf"
                     autoFocus
-                    InputProps={{ style: { color: '#fff' } }}
+                    InputProps={{
+                      style: {
+                        color: '#fff', size: '11'
+                      }
+                    }}
                     InputLabelProps={{
                       style: { color: '#fff' },
                     }}
                   />
                   <TextField
+                    error={formData.email === ""}
+                    helperText={formData.email === "" ? 'Campo Obrigatorio' : ''}
                     variant="outlined"
                     margin="normal"
+                    // patter="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
                     required
                     fullWidth
                     onChange={handleChange}
                     name="email"
                     label="Email"
-                    type="text"
+                    type="email"
                     id="email"
                     autoComplete="email"
                     value={formData.email}
@@ -211,8 +239,10 @@ export function Cadastro({ submitForm }) {
                       style: { color: '#fff' },
                     }}
                   />
-                  {errors.email && <p>{errors.email}</p>}
+
                   <TextField
+                   error={formData.password.length < 6}
+                   helperText={formData.password.length < 6 ? 'A senha precisa ter 6 caracteres ou mais' : ''}
                     variant="outlined"
                     margin="normal"
                     required
@@ -229,8 +259,10 @@ export function Cadastro({ submitForm }) {
                       style: { color: '#fff' },
                     }}
                   />
-                  {errors.password && <p>{errors.password}</p>}
+
                   <TextField
+                    error={formData.password !== formData.confirmPassword}
+                    helperText={formData.password !==  formData.confirmPassword ? 'As senhas não coincidem' : ''}
                     variant="outlined"
                     margin="normal"
                     required
@@ -247,7 +279,7 @@ export function Cadastro({ submitForm }) {
                       style: { color: '#fff' },
                     }}
                   />
-                   {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+
                   <Button
                     type="submit"
                     fullWidth

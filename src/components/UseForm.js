@@ -10,7 +10,7 @@ const UseForm = (callback, validate) => {
         password: '',
         confirmPassword: ''
     });
-    
+
     const history = useHistory();
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,35 +39,36 @@ const UseForm = (callback, validate) => {
             password
         };
 
-        if (password == confirmPassword) {
-            try {
-                console.log(data)
-                await axios.post(URL, data).then((result) => {
-                    console.log(result)
-                    return history.push('/login');
-                }).catch((err) => {
-                    console.log(err)
-                })
-            } catch (e) {
-                console.log(e)
-            }
-        } else {
-            alert("Senha não correspondem")
+        if (password == confirmPassword || password > 6 || cpf == 11) {
+                    try {
+                        console.log(data)
+                        await axios.post(URL, data).then((result) => {
+                            console.log(result)
+                            return history.push('/login');
+                        }).catch((err) => {
+                            console.log(err)
+                        })
+                    } catch (e) {
+                        console.log(e)
+                    }
+                } else {
+                    alert("Erro ao cadastrar")
+                }
+        
+
         }
-        setErrors(validate(formData));
-        setIsSubmitting(true);
-    }
+    
 
     useEffect(
         () => {
-          if (Object.keys(errors).length === 0 && isSubmitting) {
-            callback();
-          }
+            if (Object.keys(errors).length === 0 && isSubmitting) {
+                callback();
+            }
         },
         [errors]
-      );
-    
-      return { handleChange, handleSubmit, formData, errors };
+    );
+
+    return { handleChange, handleSubmit, formData, errors };
 };
 
 export default UseForm;
