@@ -39,7 +39,7 @@ const UseForm = (callback, validate) => {
             password
         };
 
-        if (password == confirmPassword || password > 6 ) {
+        if (password == confirmPassword && password > 6  && cpf.length == 11) {
                     try {
                         console.log(data)
                         await axios.post(URL, data).then((result) => {
