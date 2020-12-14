@@ -5,19 +5,16 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { useHistory } from 'react-router-dom';
-import CpfCnpj from "@react-br-forms/cpf-cnpj-mask";
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Container from '@material-ui/core/Container';
 import NavigationBar from '../../components/NavigationBar';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import LeftSvg from "../../assets/SVG/Frame2.svg";
 import Frame2 from "../../assets/SVG/fotoCadastro.svg"
 import validate from '../../components/validateInfo';
 import useForm from '../../components/UseForm';
-import axios from 'axios';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -86,64 +83,10 @@ export function Cadastro({ submitForm }) {
     validate
   );
   const classes = useStyles();
-  const [cpfCnpj, setCpfCnpj] = useState("");
-  const [mask, setMask] = useState("");
+  
+    
 
-  // //inicializa o formData com os valores default
-  // const [formData, setFormData] = useState(initialState);
-
-  // var initialState = () => {
-  //   return {
-  //     name: '',
-  //     cpf: '',
-  //     email: '',
-  //     password: ''
-  //   };
-  // }
-
-  // // ele vai pegar a ultimo evento dos inputs e seta para o formDate assim alterando o estado dele
-  // const onChange = (evento) => {
-  //   const { value, name } = evento.target;
-  //   console.log(value)
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value
-  //   })
-
-  //   console.log("aqui caralho", JSON.stringify(formData))
-  // }
-
-  // //handleSubmit é responsável pela chamada do endpoint criação de lobby
-  // async function handleSubmit(event) {
-  //   event.preventDefault();
-
-  //   const { name, cpf, email, password, confirmPassword } = formData
-  //   const URL = `https://paysharedev.herokuapp.com/v1/payshare/auth/signup`
-  //   const data = {
-  //     name,
-  //     cpf,
-  //     age:21,
-  //     email,
-  //     password
-  //   };
-
-  //   if (password == confirmPassword) {
-  //     try {
-  //       console.log(data)
-  //       await axios.post(URL, data).then((result) => {
-  //         console.log(result)
-  //         return history.push('/login');
-  //       }).catch((err) => {
-  //         console.log(err)
-  //       })
-  //     } catch (e) {
-  //       console.log(e)
-  //     }
-  //   } else {
-  //     alert("Senha não correspondem")
-  //   }
-  // }
-
+  
   return (
     <React.Fragment>
       <CssBaseline />
@@ -162,8 +105,8 @@ export function Cadastro({ submitForm }) {
               <form className={classes.form} Validate onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme} >
                   <TextField
-                    error={formData.name === ""}
-                    helperText={formData.name === "" ? 'Campo Obrigatorio' : ''}
+                    // error={formData.name === ""}
+                    // helperText={formData.name === "" ? 'Campo Obrigatorio' : ''}
                     variant="outlined"
                     margin="normal"
                     color="#ffff"
@@ -182,19 +125,10 @@ export function Cadastro({ submitForm }) {
                       style: { color: '#fff' },
                     }}
                   />
-                  {/* <CpfCnpj
-                    className="customizedInput"
-                    placeholder="Digite um CPF ou CNPJ"
-                    type="tel"
-                    value={cpfCnpj}
-                    onChange={(event, type) => {
-                      setCpfCnpj(ev.target.value);
-                      setMask(type === "CPF");
-                    }}
-                  /> */}
+                 
                   <TextField
-                    error={formData.cpf.length < 11}
-                    helperText={formData.cpf.length < 11 ? 'CPF  inválido' : ''}
+                    // error={formData.cpf.length < 11}
+                    // helperText={formData.cpf.length < 11 ? 'CPF  inválido' : ''}
                     variant="outlined"
                     margin="normal"
                     required
@@ -220,11 +154,10 @@ export function Cadastro({ submitForm }) {
                     }}
                   />
                   <TextField
-                    error={formData.email === ""}
-                    helperText={formData.email === "" ? 'Campo Obrigatorio' : ''}
+                    // error={formData.email === ""}
+                    // helperText={formData.email === "" ? 'Campo Obrigatorio' : ''}
                     variant="outlined"
                     margin="normal"
-                    // patter="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
                     required
                     fullWidth
                     onChange={handleChange}
@@ -241,8 +174,8 @@ export function Cadastro({ submitForm }) {
                   />
 
                   <TextField
-                   error={formData.password.length < 6}
-                   helperText={formData.password.length < 6 ? 'A senha precisa ter 6 caracteres ou mais' : ''}
+                  //  error={formData.password.length < 6}
+                  //  helperText={formData.password.length < 6 ? 'A senha precisa ter 6 caracteres ou mais' : ''}
                     variant="outlined"
                     margin="normal"
                     required
