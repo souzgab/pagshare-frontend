@@ -18,7 +18,12 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { useHistory } from 'react-router-dom'
 import ModalShare from '../LobbyPage/components/ModalShare';
 import Wallet from '../LobbyPage/components/Wallet';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     //   backgroundImage: `url(${FundoSVG})`,
@@ -88,6 +93,19 @@ const PagamentoPage = () => {
   const config = {
     headers: { Authorization: localStorage.getItem('token').replace(/['"]+/g, '') }
   };
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const hist = useHistory();
   // esta pegando  a lista de usuarios que tem na lobby
@@ -142,7 +160,12 @@ const PagamentoPage = () => {
     try {
       axios.post(urlPath(), data, config).then((response) => {
         if (response.status === 200 && urlPath() === url.urlWallet) {
-          hist.push('/lobby')
+          handleClick();
+          setTimeout(
+            () => {
+            return hist.push('/lobby')
+            }, 3000
+          )
         } else if (response.status === 200 && urlPath() === url.urlMercadoPago) {
           window.open(response.data.body.initPoint, '_blank');
         }
@@ -239,6 +262,11 @@ const PagamentoPage = () => {
       <CssBaseline />
       <LobbyBar />
       <Container maxWidth="xg" style={{ backgroundColor: "#202020", height: '120vh', width: '100vw' }}>
+        <Snackbar message="Sucesso!" open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success" style={{ fontSize: '14px'}}>
+            Pagamento Efetuado com Wallet!
+          </Alert>
+        </Snackbar>
         <Row className="mb-5" style={{ marginTop: '1%' }}>
           <Col xs={4} style={{ backgroundColor: "transparent" }}>
             <Card className=" mb-5" style={{ backgroundColor: 'transparent', borderRadius: '10px', border: 'none' }}>

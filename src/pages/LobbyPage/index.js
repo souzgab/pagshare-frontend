@@ -278,13 +278,6 @@ const LobbyPage = ({ obj }) => {
                         <Card.Text style={{ fontSize: '12px' }}>
                           Cada amigo que fizer um pagamento ou adicionar dinheiro a carteira
                           você ganha desconto no proximo pagamento.
-                            <Button
-                            size="sm"
-                            variant="success"
-                            style={{
-                              fontFamily: 'roboto', fontSize: '12px'
-                            }}>Compartilhar
-                            </Button>
                         </Card.Text>
                       </Card.Body>
                     </Card>
